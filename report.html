@@ -58,7 +58,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"/>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-        onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+        onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <style>
 :root{
@@ -1002,10 +1002,10 @@ footer{border-top:1px solid var(--border);padding:3rem 2rem;background:#ffffff;f
   <table class="kreg">
     <thead><tr><th>K</th><th>Fact / Empirical Metric</th><th>Audited Value</th><th>Primary Source</th><th>Status</th></tr></thead>
     <tbody>
-      <tr><td>K1</td><td>Lehman Brothers liabilities at bankruptcy filing</td><td>$613B</td><td>U.S. Bankruptcy Court, SDNY (2008)</td><td>Actual</td></tr>
-      <tr><td>K2</td><td>SVB total assets at FDIC closure</td><td>$209B</td><td>FDIC press release, Mar 10 2023</td><td>Actual</td></tr>
+      <tr><td>K1</td><td>Lehman Brothers liabilities at bankruptcy filing</td><td>&#36;613B</td><td>U.S. Bankruptcy Court, SDNY (2008)</td><td>Actual</td></tr>
+      <tr><td>K2</td><td>SVB total assets at FDIC closure</td><td>&#36;209B</td><td>FDIC press release, Mar 10 2023</td><td>Actual</td></tr>
       <tr><td>K3</td><td>Colonial Pipeline system length</td><td>5,500 mi</td><td>PHMSA Annual Report 2021</td><td>Actual</td></tr>
-      <tr><td>K4</td><td>Fedwire daily interbank fund transfers</td><td>$4.2T</td><td>Federal Reserve Board Annual Report (2023)</td><td>Actual</td></tr>
+      <tr><td>K4</td><td>Fedwire daily interbank fund transfers</td><td>&#36;4.2T</td><td>Federal Reserve Board Annual Report (2023)</td><td>Actual</td></tr>
       <tr><td>K5</td><td>Greifswald hub capacity prior to disruption</td><td>140 MCM/d</td><td>ENTSOG Transparency Platform</td><td>Actual</td></tr>
       <tr><td>K6</td><td>DebtRank convergence bound</td><td>T &le; N steps</td><td>Battiston et al. (2012), Sci. Rep.</td><td>Derived</td></tr>
       <tr><td>K7</td><td>Eisenberg-Noe clearing existence and uniqueness</td><td>Tarski lattice</td><td>Eisenberg &amp; Noe (2001), Mgmt. Sci.</td><td>Derived</td></tr>
@@ -1014,18 +1014,18 @@ footer{border-top:1px solid var(--border);padding:3rem 2rem;background:#ffffff;f
       <tr><td>K10</td><td>Submodular sensor optimization greedy bound</td><td>$(1 - 1/e)$</td><td>Nemhauser et al. (1978); Krause et al. (2008)</td><td>Derived</td></tr>
       <tr><td>K11</td><td>Empirical directed-to-symmetric Cheeger bottleneck ratio $h(\vec{G})/h(G_\text{sym})$ on e-MID; upper bound on DebtRank equity loss multiplier</td><td>~4.2&times;</td><td>e-MID empirical calibration / Battiston et al. (2012)</td><td>Calibrated</td></tr>
       <tr><td>K12</td><td>Directed Perron-Laplacian spectral gap $\lambda_2$ on empirical interbank dealer core</td><td>0.014</td><td>Soram&auml;ki et al. (2007); e-MID empirical calibration</td><td>Calibrated</td></tr>
-      <tr><td>K13</td><td>TARP legislative emergency authorization</td><td>$700B</td><td>Emergency Economic Stabilization Act, Oct 2008</td><td>Actual</td></tr>
-      <tr><td>K14</td><td>Colonial Pipeline consumer fuel price spike</td><td>+$0.10/gal</td><td>EIA Weekly Petroleum Status Report, May 2021</td><td>Actual</td></tr>
+      <tr><td>K13</td><td>TARP legislative emergency authorization</td><td>&#36;700B</td><td>Emergency Economic Stabilization Act, Oct 2008</td><td>Actual</td></tr>
+      <tr><td>K14</td><td>Colonial Pipeline consumer fuel price spike</td><td>+&#36;0.10/gal</td><td>EIA Weekly Petroleum Status Report, May 2021</td><td>Actual</td></tr>
       <tr><td>K15</td><td>European gas grid topological percolation bound</td><td>$p_c \approx 0.23$</td><td>Zio &amp; Sansavini (2011)</td><td>Estimate</td></tr>
-      <tr><td>K16</td><td>SVB 24-hour run deposit outflow rate</td><td>$42B</td><td>California DFPI seizure order, Mar 2023</td><td>Actual</td></tr>
+      <tr><td>K16</td><td>SVB 24-hour run deposit outflow rate</td><td>&#36;42B</td><td>California DFPI seizure order, Mar 2023</td><td>Actual</td></tr>
       <tr><td>K17</td><td>SVB share of uninsured deposits</td><td>93.8%</td><td>FDIC Quarterly Banking Profile, Q4 2022</td><td>Actual</td></tr>
       <tr><td>K18</td><td>U.S. pipeline incident count (2023). Audited three-tier PHMSA convention: Serious (~40/yr); Significant (~284/yr); All reported = 623</td><td>623 (all) / 284 (sig)</td><td>PHMSA Incident Flagged Files (data.transportation.gov)</td><td>Audited</td></tr>
-      <tr><td>K19</td><td>LTCM notional positions at 1998 rescue</td><td>$125B</td><td>Federal Reserve Bank of New York (1998)</td><td>Actual</td></tr>
+      <tr><td>K19</td><td>LTCM notional positions at 1998 rescue</td><td>&#36;125B</td><td>Federal Reserve Bank of New York (1998)</td><td>Actual</td></tr>
       <tr><td>K20</td><td>Nord Stream transmission loss capacity</td><td>~110 MCM/d</td><td>Bundesnetzagentur monitoring data</td><td>Actual</td></tr>
-      <tr><td>K21</td><td>Colonial Pipeline ransomware extortion paid</td><td>$4.4M</td><td>DOJ press release, Jun 2021</td><td>Actual</td></tr>
+      <tr><td>K21</td><td>Colonial Pipeline ransomware extortion paid</td><td>&#36;4.4M</td><td>DOJ press release, Jun 2021</td><td>Actual</td></tr>
       <tr><td>K22</td><td>Basel III Common Equity Tier 1 minimum</td><td>4.5%</td><td>Basel Committee on Banking Supervision (2010)</td><td>Actual</td></tr>
       <tr><td>K23</td><td>Interdependent multi-layer graph framework ($G_\text{phys} \otimes G_\text{obs}$)</td><td>Product Digraph</td><td>Buldyrev et al. (2010); Poledna et al. (2015); Lofrano (2026)</td><td>Derived</td></tr>
-      <tr><td>K24</td><td>Reserve Primary Fund Lehman commercial paper</td><td>$785M</td><td>SEC filing (2008)</td><td>Actual</td></tr>
+      <tr><td>K24</td><td>Reserve Primary Fund Lehman commercial paper</td><td>&#36;785M</td><td>SEC filing (2008)</td><td>Actual</td></tr>
       <tr><td>K25</td><td>Total unimodularity of incidence matrices</td><td>$\det \mathbf{B}_I \in \{0, \pm 1\}$</td><td>van Lint &amp; Wilson (2001), Theorem 7.1</td><td>Derived</td></tr>
     </tbody>
   </table>
@@ -1232,21 +1232,21 @@ def test_debtrank_single_burn_termination():
         </tr>
         <tr>
           <td><strong>C2 &middot; Lov&aacute;sz Local Lemma</strong></td>
-          <td>Does the combinatorial dependency threshold \(\xi_t = e \cdot p_t \cdot (d_t + 1)\) anticipate crisis cascades ahead of naive volatility?<br/><span style="color:var(--text3);font-size:.78rem">16 G-SIBs CDS &amp; Equity Residuals (2006&ndash;2024, 464 rolling windows)</span></td>
+          <td>Does the combinatorial dependency threshold $\xi_t = e \cdot p_t \cdot (d_t + 1)$ anticipate crisis cascades ahead of naive volatility?<br/><span style="color:var(--text3);font-size:.78rem">16 G-SIBs CDS &amp; Equity Residuals (2006&ndash;2024, 464 rolling windows)</span></td>
           <td><strong>Naive 60-day Rolling Equity Volatility</strong> (AUC: <code>0.8963</code>)<br/>CoVaR Proxy (AUC: <code>0.2935</code>)</td>
           <td>
             <strong>LLL ROC-AUC: <code>0.8584</code></strong><br/>
             &Delta;AUC vs Volatility = <code>-0.0379</code><br/>
-            <strong>Lehman 2008 Lead: <code>45 trading days</code></strong> ahead (\(\xi_t \ge 1.0\))<br/>
-            <strong>SVB/CS 2023 Lead: <code>28 trading days</code></strong> ahead (\(\xi_t \ge 1.0\))
+            <strong>Lehman 2008 Lead: <code>45 trading days</code></strong> ahead ($\xi_t \ge 1.0$)<br/>
+            <strong>SVB/CS 2023 Lead: <code>28 trading days</code></strong> ahead ($\xi_t \ge 1.0$)
           </td>
           <td>AUC<sub>LLL</sub> &le; AUC<sub>vol</sub> or &Delta;AUC &le; 0</td>
           <td><span class="status-tag kill">KILL HYPOTHESIS</span><br/><strong style="font-size:.78rem;color:var(--text2)">Retained as Causal Diagnostic</strong></td>
         </tr>
         <tr>
           <td><strong>C3 &middot; Directed Chung Spectrum</strong></td>
-          <td>Does Chung's directed Laplacian \(\mathcal{L}\) prevent capital containment misallocations vs symmetric Fiedler?<br/><span style="color:var(--text3);font-size:.78rem">e-MID Interbank Calibration (50 network topologies, asymmetry \(\alpha \in [0.047, 0.855]\))</span></td>
-          <td><strong>Symmetric Normalized Fiedler Laplacian</strong> \(L_{\text{sym}} = I - D^{-1/2} A_{\text{sym}} D^{-1/2}\)</td>
+          <td>Does Chung's directed Laplacian $\mathcal{L}$ prevent capital containment misallocations vs symmetric Fiedler?<br/><span style="color:var(--text3);font-size:.78rem">e-MID Interbank Calibration (50 network topologies, asymmetry $\alpha \in [0.047, 0.855]$)</span></td>
+          <td><strong>Symmetric Normalized Fiedler Laplacian</strong> $L_{\text{sym}} = I - D^{-1/2} A_{\text{sym}} D^{-1/2}$</td>
           <td>
             <strong>Low Asymmetry Error: <code>0.57%</code></strong><br/>
             <strong>High Asymmetry Error: <code>1.48%</code></strong><br/>
@@ -1258,7 +1258,7 @@ def test_debtrank_single_burn_termination():
         </tr>
         <tr>
           <td><strong>C4 &middot; Interdependent Observability</strong></td>
-          <td>Does the product graph tensor \(G_{\text{phys}} \otimes G_{\text{obs}}\) optimize sensor placement under concealed attacks?<br/><span style="color:var(--text3);font-size:.78rem">Taormina et al. (2018) BATADAL C-Town Benchmark (388 nodes, 529 pipes, 7 cyber-attacks)</span></td>
+          <td>Does the product graph tensor $G_{\text{phys}} \otimes G_{\text{obs}}$ optimize sensor placement under concealed attacks?<br/><span style="color:var(--text3);font-size:.78rem">Taormina et al. (2018) BATADAL C-Town Benchmark (388 nodes, 529 pipes, 7 cyber-attacks)</span></td>
           <td><strong>Krause et al. (2008) Physical Max-Coverage</strong><br/>Budget B=5: S = <code>0.242</code><br/>Budget B=10: S = <code>0.624</code><br/>Budget B=15: S = <code>0.888</code></td>
           <td>
             <strong>Budget B=5: S = <code>0.632</code></strong> (&Delta;S = <code>+0.390</code>, TTD: -15.3h)<br/>
@@ -1280,7 +1280,7 @@ def test_debtrank_single_burn_termination():
 
     <div class="result-card">
       <div class="result-stat">&Delta;AUC = -0.0015 &middot; 95% Bootstrap CI: [-0.0093, +0.0054] &middot; Likelihood Ratio p = 1.000</div>
-      <p style="margin-bottom:0;color:var(--text2);font-size:.88rem">The physical baseline (Lam et al., 2016) achieved an out-of-sample ROC-AUC of <code>0.7853</code>. Adding operator-level DebtRank (\(\beta = +0.0799\)) and topological betweenness centrality (\(\beta = -0.2482\)) degraded out-of-sample performance to <code>0.7838</code>. A degree-preserving shuffled null network achieved <code>0.7773</code>.</p>
+      <p style="margin-bottom:0;color:var(--text2);font-size:.88rem">The physical baseline (Lam et al., 2016) achieved an out-of-sample ROC-AUC of <code>0.7853</code>. Adding operator-level DebtRank ($\beta = +0.0799$) and topological betweenness centrality ($\beta = -0.2482$) degraded out-of-sample performance to <code>0.7838</code>. A degree-preserving shuffled null network achieved <code>0.7773</code>.</p>
     </div>
 
     <table class="kreg">
@@ -1317,22 +1317,22 @@ def test_debtrank_single_burn_termination():
 
     <div class="alert-note alert">
       <strong>Physical Boundary Demarcation (Why DebtRank Fails in Pipelines):</strong>
-      Fluid pipeline incidents are governed strictly by localized conservation of momentum, Navier-Stokes hydraulics, metallurgy (ASME B31.4 hoop stress \(\sigma_h = \frac{P \cdot D}{2t}\)), and cathodic coating degradation. Unlike interbank networks, where a bank's distress reduces counterparties' equity without physical barrier, pipeline shutdown propagates upstream pressure transients governed by water-hammer acoustics (\(c \approx 1000\text{ m/s}\)) and automatic SCADA relief valves. Inter-operator contractual topology does not create out-of-sample physical rupture risk. DebtRank as a predictive tool for physical pipeline failure is <strong>conclusively falsified</strong>.
+      Fluid pipeline incidents are governed strictly by localized conservation of momentum, Navier-Stokes hydraulics, metallurgy (ASME B31.4 hoop stress $\sigma_h = \frac{P \cdot D}{2t}$), and cathodic coating degradation. Unlike interbank networks, where a bank's distress reduces counterparties' equity without physical barrier, pipeline shutdown propagates upstream pressure transients governed by water-hammer acoustics ($c \approx 1000\text{ m/s}$) and automatic SCADA relief valves. Inter-operator contractual topology does not create out-of-sample physical rupture risk. DebtRank as a predictive tool for physical pipeline failure is <strong>conclusively falsified</strong>.
     </div>
   </div>
 
   <div style="margin-top:2.5rem">
     <h3>§17.2 &middot; C2: Lov&aacute;sz Local Lemma Macroprudential Audit (G-SIB Panel 2006&ndash;2024)</h3>
-    <p>We tested whether the Erd&odblac;s-Lov&aacute;sz Local Lemma (LLL) asymmetric criterion \(\xi_t = e \cdot p_t \cdot (d_t + 1) \ge 1.0\) serves as a superior operational early-warning indicator compared to naive market volatility. We evaluated 18 years of daily CDS spread changes and orthogonalized equity returns across 16 Global Systemically Important Banks (G-SIBs) using rolling 120-day Graphical Lasso dependency graphs (464 out-of-sample evaluation windows).</p>
+    <p>We tested whether the Erd&odblac;s-Lov&aacute;sz Local Lemma (LLL) asymmetric criterion $\xi_t = e \cdot p_t \cdot (d_t + 1) \ge 1.0$ serves as a superior operational early-warning indicator compared to naive market volatility. We evaluated 18 years of daily CDS spread changes and orthogonalized equity returns across 16 Global Systemically Important Banks (G-SIBs) using rolling 120-day Graphical Lasso dependency graphs (464 out-of-sample evaluation windows).</p>
 
     <div class="result-card">
       <div class="result-stat">LLL ROC-AUC: 0.8584 vs 60d Rolling Volatility: 0.8963 (&Delta;AUC = -0.0379)</div>
-      <p style="margin-bottom:0;color:var(--text2);font-size:.88rem">While LLL failed to beat rolling volatility on raw ROC-AUC, its combinatorial threshold \(\xi_t \ge 1.0\) provided actionable early warning <strong>45 trading days ahead of Lehman Brothers' bankruptcy</strong> (July 11, 2008) and <strong>28 trading days ahead of the Silicon Valley Bank / Credit Suisse panic</strong> (January 30, 2023).</p>
+      <p style="margin-bottom:0;color:var(--text2);font-size:.88rem">While LLL failed to beat rolling volatility on raw ROC-AUC, its combinatorial threshold $\xi_t \ge 1.0$ provided actionable early warning <strong>45 trading days ahead of Lehman Brothers' bankruptcy</strong> (July 11, 2008) and <strong>28 trading days ahead of the Silicon Valley Bank / Credit Suisse panic</strong> (January 30, 2023).</p>
     </div>
 
     <table class="kreg">
       <thead>
-        <tr><th>Historical Crisis Event</th><th>Official Crisis Date</th><th>First LLL Breach (\(\xi_t \ge 1.0\))</th><th>Lead Time</th><th>Max Graph Degree \(d_t\)</th><th>System State at Signal</th></tr>
+        <tr><th>Historical Crisis Event</th><th>Official Crisis Date</th><th>First LLL Breach ($\xi_t \ge 1.0$)</th><th>Lead Time</th><th>Max Graph Degree $d_t$</th><th>System State at Signal</th></tr>
       </thead>
       <tbody>
         <tr>
@@ -1340,7 +1340,7 @@ def test_debtrank_single_burn_termination():
           <td>September 15, 2008</td>
           <td>July 11, 2008</td>
           <td><code>45 trading days</code> (~9 weeks)</td>
-          <td>\(d = 7\)</td>
+          <td>$d = 7$</td>
           <td>Subprime contagion clustering across US broker-dealers</td>
         </tr>
         <tr>
@@ -1348,7 +1348,7 @@ def test_debtrank_single_burn_termination():
           <td>May 10, 2010</td>
           <td>April 08, 2010</td>
           <td><code>22 trading days</code> (~4.5 weeks)</td>
-          <td>\(d = 6\)</td>
+          <td>$d = 6$</td>
           <td>Greek/peripheral debt exposure cross-holdings</td>
         </tr>
         <tr>
@@ -1356,7 +1356,7 @@ def test_debtrank_single_burn_termination():
           <td>March 16, 2020</td>
           <td>February 24, 2020</td>
           <td><code>15 trading days</code> (~3 weeks)</td>
-          <td>\(d = 9\)</td>
+          <td>$d = 9$</td>
           <td>Global cross-asset liquidation &amp; margin spiral</td>
         </tr>
         <tr>
@@ -1364,7 +1364,7 @@ def test_debtrank_single_burn_termination():
           <td>March 10, 2023</td>
           <td>January 30, 2023</td>
           <td><code>28 trading days</code> (~5.5 weeks)</td>
-          <td>\(d = 5\)</td>
+          <td>$d = 5$</td>
           <td>Duration mismatch &amp; AT1 bond contagion</td>
         </tr>
       </tbody>
@@ -1372,13 +1372,13 @@ def test_debtrank_single_burn_termination():
 
     <div class="alert-note alert">
       <strong>Macroprudential Verdict:</strong>
-      Because \(\text{AUC}_{\text{LLL}} (0.8584) \le \text{AUC}_{\text{vol}} (0.8963)\), the operational hypothesis that LLL replaces rolling volatility is <strong>killed</strong>. However, LLL provides what univariate volatility cannot: a <em>combinatorial certificate of structural co-dependence</em>. High volatility can reflect idiosyncratic earnings announcements or exogenous macroeconomic news; an LLL breach proves that the inter-institution dependency graph degree \(d_t\) has crossed the mathematical threshold where a zero-default stationary state can no longer be guaranteed by local independence.
+      Because $\text{AUC}_{\text{LLL}} (0.8584) \le \text{AUC}_{\text{vol}} (0.8963)$, the operational hypothesis that LLL replaces rolling volatility is <strong>killed</strong>. However, LLL provides what univariate volatility cannot: a <em>combinatorial certificate of structural co-dependence</em>. High volatility can reflect idiosyncratic earnings announcements or exogenous macroeconomic news; an LLL breach proves that the inter-institution dependency graph degree $d_t$ has crossed the mathematical threshold where a zero-default stationary state can no longer be guaranteed by local independence.
     </div>
   </div>
 
   <div style="margin-top:2.5rem">
     <h3>§17.3 &middot; C3: Chung Directed Spectrum vs. Symmetric Fiedler Supervisory Audit</h3>
-    <p>We evaluated whether applying Fan Chung's (2005) directed graph Laplacian \(\mathcal{L} = I - \frac{1}{2}(\Phi^{1/2} P \Phi^{-1/2} + \Phi^{-1/2} P^T \Phi^{1/2})\) produces meaningful capital containment differences compared to standard symmetric Fiedler partitioning (\(L_{\text{sym}}\)). We simulated 50 interbank networks calibrated to empirical Italian e-MID interbank parameters across varying degrees of directional lending asymmetry \(\alpha = \|W - W^T\|_F / \|W + W^T\|_F \in [0.047, 0.855]\).</p>
+    <p>We evaluated whether applying Fan Chung's (2005) directed graph Laplacian $\mathcal{L} = I - \frac{1}{2}(\Phi^{1/2} P \Phi^{-1/2} + \Phi^{-1/2} P^T \Phi^{1/2})$ produces meaningful capital containment differences compared to standard symmetric Fiedler partitioning ($L_{\text{sym}}$). We simulated 50 interbank networks calibrated to empirical Italian e-MID interbank parameters across varying degrees of directional lending asymmetry $\alpha = \|W - W^T\|_F / \|W + W^T\|_F \in [0.047, 0.855]$.</p>
 
     <div class="result-card">
       <div class="result-stat">High-Asymmetry Error: 1.48% &middot; Low-Asymmetry Error: 0.57% &middot; Sensitivity Slope: +0.0224 (p = 0.00485)</div>
@@ -1387,31 +1387,31 @@ def test_debtrank_single_burn_termination():
 
     <table class="kreg">
       <thead>
-        <tr><th>Network Asymmetry Regime</th><th>Asymmetry Range (\(\alpha\))</th><th>Mean Containment Error</th><th>Peak Error Observed</th><th>Cheeger Bottleneck Ratio</th><th>Supervisory Implication</th></tr>
+        <tr><th>Network Asymmetry Regime</th><th>Asymmetry Range ($\alpha$)</th><th>Mean Containment Error</th><th>Peak Error Observed</th><th>Cheeger Bottleneck Ratio</th><th>Supervisory Implication</th></tr>
       </thead>
       <tbody>
         <tr>
           <td><strong>Low Asymmetry (Normal Liquidity)</strong></td>
-          <td>\(\alpha \in [0.00, 0.30]\)</td>
+          <td>$\alpha \in [0.00, 0.30]$</td>
           <td><code>0.57%</code></td>
           <td>1.82%</td>
-          <td>\(h_{\text{dir}} / h_{\text{sym}} \approx 0.99\)</td>
+          <td>$h_{\text{dir}} / h_{\text{sym}} \approx 0.99$</td>
           <td>Symmetric Fiedler is computationally sufficient</td>
         </tr>
         <tr>
           <td><strong>Moderate Asymmetry (Post-Shock)</strong></td>
-          <td>\(\alpha \in [0.30, 0.60]\)</td>
+          <td>$\alpha \in [0.30, 0.60]$</td>
           <td><code>0.98%</code></td>
           <td>3.45%</td>
-          <td>\(h_{\text{dir}} / h_{\text{sym}} \approx 0.96\)</td>
+          <td>$h_{\text{dir}} / h_{\text{sym}} \approx 0.96$</td>
           <td>Minor boundary misallocations (&lt;1 bank)</td>
         </tr>
         <tr>
           <td><strong>High Asymmetry (Liquidity Hoarding)</strong></td>
-          <td>\(\alpha \in [0.60, 0.86]\)</td>
+          <td>$\alpha \in [0.60, 0.86]$</td>
           <td><code>1.48%</code></td>
           <td><strong>6.76%</strong></td>
-          <td>\(h_{\text{dir}} / h_{\text{sym}} \approx 0.88\)</td>
+          <td>$h_{\text{dir}} / h_{\text{sym}} \approx 0.88$</td>
           <td>Directed spectrum necessary to prevent misallocation</td>
         </tr>
       </tbody>
@@ -1419,22 +1419,22 @@ def test_debtrank_single_burn_termination():
 
     <div class="alert-note alert">
       <strong>Supervisory Verdict &amp; Regime Boundary:</strong>
-      The general supervisory hypothesis is <strong>killed</strong> for baseline macroprudential surveillance: bank regulators do not need the Perron eigenvector stationary distribution \(\Phi\) under orderly interbank markets. However, the statistically significant positive slope (\(\beta = +0.0224, p = 0.00485\)) and peak divergence of \(6.76\%\) validate Chung's directed Cheeger bounds as an <em>acute crisis instrument</em>, specifically activated when interbank money markets freeze into one-way directional hoarding (\(\alpha > 0.65\)).
+      The general supervisory hypothesis is <strong>killed</strong> for baseline macroprudential surveillance: bank regulators do not need the Perron eigenvector stationary distribution $\Phi$ under orderly interbank markets. However, the statistically significant positive slope ($\beta = +0.0224, p = 0.00485$) and peak divergence of 6.76% validate Chung's directed Cheeger bounds as an <em>acute crisis instrument</em>, specifically activated when interbank money markets freeze into one-way directional hoarding ($\alpha > 0.65$).
     </div>
   </div>
 
   <div style="margin-top:2.5rem">
     <h3>§17.4 &middot; C4: BATADAL Interdependent Observability Layer Audit</h3>
-    <p>We evaluated the interdependent product graph tensor \(G_{\text{phys}} \otimes G_{\text{obs}}\) against the literature baseline of physical maximum-coverage sensor placement (Krause et al., 2008) using the <strong>Taormina et al. (2018) BATADAL C-Town benchmark</strong> (388 junction nodes, 529 pipes, 7 concealed cyber-physical PLC attacks). Performance was measured using the official BATADAL S-score (\(S = \frac{1}{2} S_{\text{acc}} + \frac{1}{2} S_{\text{ttd}}\)).</p>
+    <p>We evaluated the interdependent product graph tensor $G_{\text{phys}} \otimes G_{\text{obs}}$ against the literature baseline of physical maximum-coverage sensor placement (Krause et al., 2008) using the <strong>Taormina et al. (2018) BATADAL C-Town benchmark</strong> (388 junction nodes, 529 pipes, 7 concealed cyber-physical PLC attacks). Performance was measured using the official BATADAL S-score ($S = \frac{1}{2} S_{\text{acc}} + \frac{1}{2} S_{\text{ttd}}$).</p>
 
     <div class="result-card">
       <div class="result-stat">Budget B=5: &Delta;S = +0.390 (+161% gain) &middot; Budget B=10: &Delta;S = +0.169 (+27% gain) &middot; TTD Reduced: -15.3h</div>
-      <p style="margin-bottom:0;color:var(--text2);font-size:.88rem">Under constrained municipal budgets (\(B \le 10\)), the interdependent observability formulation achieved dramatic improvements in attack detection speed and true positive rate. Under abundant sensor budgets (\(B \ge 15\)), physical coverage alone saturates detection, causing &Delta;S to invert.</p>
+      <p style="margin-bottom:0;color:var(--text2);font-size:.88rem">Under constrained municipal budgets ($B \le 10$), the interdependent observability formulation achieved dramatic improvements in attack detection speed and true positive rate. Under abundant sensor budgets ($B \ge 15$), physical coverage alone saturates detection, causing &Delta;S to invert.</p>
     </div>
 
     <table class="kreg">
       <thead>
-        <tr><th>Sensor Budget (\(B\))</th><th>Krause Physical Max-Coverage \(S\)</th><th>Proposed Interdependent \(S\)</th><th>&Delta;S Score</th><th>Detection Rate (Phys vs Inter)</th><th>Mean Detection Time (TTD)</th><th>TTD Reduction</th></tr>
+        <tr><th>Sensor Budget ($B$)</th><th>Krause Physical Max-Coverage $S$</th><th>Proposed Interdependent $S$</th><th>&Delta;S Score</th><th>Detection Rate (Phys vs Inter)</th><th>Mean Detection Time (TTD)</th><th>TTD Reduction</th></tr>
       </thead>
       <tbody>
         <tr>
@@ -1478,7 +1478,7 @@ def test_debtrank_single_burn_termination():
 
     <div class="alert-note alert">
       <strong>Engineering Verdict &amp; Budget Boundary:</strong>
-      The universal claim that interdependent tensorization dominates physical coverage across all sensor allocations is <strong>killed</strong>. However, the method is <strong>decisively validated in the realistic scarce-budget regime (\(B \le 10\))</strong>, where real-world water utilities operate under strict capital expenditure constraints. When sensors are sparse, cross-layer cyber-physical correlation captures stealth PLC tampering 15 hours before physical pressure sensors detect downstream hydraulic depletion.
+      The universal claim that interdependent tensorization dominates physical coverage across all sensor allocations is <strong>killed</strong>. However, the method is <strong>decisively validated in the realistic scarce-budget regime ($B \le 10$)</strong>, where real-world water utilities operate under strict capital expenditure constraints. When sensors are sparse, cross-layer cyber-physical correlation captures stealth PLC tampering 15 hours before physical pressure sensors detect downstream hydraulic depletion.
     </div>
   </div>
 
