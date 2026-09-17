@@ -188,34 +188,42 @@ em{font-family:var(--serif);font-style:italic}
 /* ── Simulators ── */
 .sim-box{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:1.6rem;
   margin:2rem 0;box-shadow:0 1px 3px rgba(0,0,0,.03)}
-.sim-header{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;padding-bottom:.8rem;
+.sim-header{display:flex;align-items:center;gap:.65rem;margin-bottom:1.15rem;padding-bottom:.75rem;
   border-bottom:1px solid var(--border-light)}
-.sim-header .dot{width:9px;height:9px;border-radius:50%;background:var(--green);
-  animation:pulse 2s infinite}
-@keyframes pulse{0%{opacity:1}50%{opacity:.3}100%{opacity:1}}
+.sim-header .dot{width:10px;height:10px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 .sim-header h3{margin:0;font-family:var(--mono);font-size:.88rem;text-transform:uppercase;
   letter-spacing:.5px;color:var(--text)}
-.trigger-legend{display:flex;flex-wrap:wrap;gap:1.2rem;margin-bottom:1.2rem;font-size:.78rem;
-  font-family:var(--mono);color:var(--text2);background:var(--bg-alt);padding:.7rem 1rem;border-radius:5px}
-.tl{display:inline-flex;align-items:center;gap:.4rem}
-.swatch{width:12px;height:12px;border-radius:3px}
-.status-bar{background:var(--bg-code);border:1px solid var(--border);border-radius:5px;
-  padding:.75rem 1rem;margin-bottom:1rem;font-family:var(--mono);font-size:.78rem;color:var(--text2);
-  display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center}
-.status-bar b{color:var(--text)}
-.sim-canvas-wrap{position:relative;background:#ffffff;border:1px solid var(--border);border-radius:6px;
-  overflow:hidden}
-.sim-controls{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem;align-items:center}
-.btn{padding:.42rem .95rem;background:#ffffff;border:1px solid var(--border);border-radius:5px;
-  font-family:var(--mono);font-size:.78rem;cursor:pointer;color:var(--text);transition:all .15s}
-.btn:hover{background:var(--bg-alt);border-color:var(--text2)}
-.btn-primary{background:var(--blue);border-color:var(--blue);color:#ffffff}
-.btn-primary:hover{background:var(--cyan);border-color:var(--cyan)}
-.event-log{background:var(--bg-code);border:1px solid var(--border);border-radius:5px;
-  padding:.75rem 1rem;margin-top:1rem;max-height:160px;overflow-y:auto;font-family:var(--mono);
-  font-size:.75rem;line-height:1.6;color:var(--text2)}
-.event-log .entry{margin-bottom:.3rem}
-.event-log .entry b{color:var(--text)}
+
+.trigger-legend{display:flex;flex-wrap:wrap;gap:.85rem;margin:1.15rem 0;font-size:.8rem;
+  font-family:var(--mono);background:var(--bg-alt);padding:.75rem 1rem;border-radius:6px;border:1px solid var(--border-light)}
+.trigger-legend .tl{display:flex;align-items:center;gap:.4rem}
+.trigger-legend .tl .swatch{width:12px;height:12px;border-radius:3px}
+
+.sim-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.1rem;
+  margin-bottom:1.35rem;background:var(--bg-alt);padding:1.2rem;border-radius:8px;border:1px solid var(--border-light)}
+.ctrl label{display:block;font-size:.8rem;font-family:var(--mono);color:var(--text2);margin-bottom:.35rem}
+.ctrl input[type=range]{width:100%;accent-color:var(--blue)}
+.ctrl .val{font-weight:700;color:var(--blue)}
+
+.sim-btns{display:flex;gap:.65rem;margin-bottom:1.15rem;flex-wrap:wrap}
+.btn{border:none;padding:.5rem 1.15rem;border-radius:6px;font-weight:700;font-family:var(--mono);
+  cursor:pointer;transition:all .15s;font-size:.82rem}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-danger{background:var(--red);color:#fff}
+.btn-success{background:var(--green);color:#fff}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-gold{background:var(--gold);color:#fff}
+.btn:hover{opacity:.88;transform:translateY(-1px)}
+
+svg.sim-canvas{width:100%;height:490px;background:#f6f8fa;border-radius:8px;border:1px solid var(--border);display:block}
+
+/* ── Event Banners & Logs ── */
+.event-banner{background:rgba(9,105,218,.06);border:1px solid var(--blue);border-radius:6px;padding:.85rem 1.15rem;margin:.85rem 0;font-size:.88rem;line-height:1.55}
+.event-banner b{color:var(--blue)}
+
+.sim-log{font-family:var(--mono);font-size:.8rem;color:var(--text);max-height:160px;overflow-y:auto;
+  background:var(--bg-code);border:1px solid var(--border);padding:.85rem 1rem;border-radius:6px;margin-top:.85rem;line-height:1.6}
 
 /* ── Latency Timeline Chart ── */
 .latency-chart-wrap{margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--border-light)}
@@ -808,7 +816,7 @@ footer{border-top:1px solid var(--border);padding:3rem 2rem;background:#ffffff;f
       <b>Active Event Context:</b> Ready. Select trigger and click any bank node to propagate shock.
     </div>
 
-    <svg id="fin-svg" class="sim-canvas"></svg>
+    <svg id="fin-svg" class="sim-canvas" height="490"></svg>
     <div class="sim-log" id="fin-log">System initialized. Awaiting user trigger.</div>
   </div>
 </section>
@@ -881,7 +889,7 @@ footer{border-top:1px solid var(--border);padding:3rem 2rem;background:#ffffff;f
       <b>Active Event Context:</b> Ready. Select trigger and click any pipeline component to initiate failure wave.
     </div>
 
-    <svg id="pipe-svg" class="sim-canvas"></svg>
+    <svg id="pipe-svg" class="sim-canvas" height="490"></svg>
     <div class="sim-log" id="pipe-log">SCADA telemetry stream active. All pressures nominal.</div>
   </div>
 </section>
@@ -931,7 +939,7 @@ footer{border-top:1px solid var(--border);padding:3rem 2rem;background:#ffffff;f
       <span style="color:var(--text2)">&middot; Network Shortfall:</span> <strong id="cust-tel-loss" style="color:var(--red)">0.0%</strong>
     </div>
 
-    <svg id="cust-svg" class="sim-canvas"></svg>
+    <svg id="cust-svg" class="sim-canvas" height="490"></svg>
     <div class="sim-log" id="cust-log">Ready. Generate a network to begin.</div>
   </div>
 </section>
@@ -1355,7 +1363,8 @@ function buildGenericNetwork(svgId,nodes,links){
   const svg=d3.select('#'+svgId);
   svg.selectAll('*').remove();
   const rect=document.getElementById(svgId).getBoundingClientRect();
-  const W=rect.width||780, H=rect.height||490;
+  const W=(rect.width && rect.width > 200) ? rect.width : 780;
+  const H=(rect.height && rect.height >= 300) ? rect.height : 490;
 
   const linkG=svg.append('g');
   const nodeG=svg.append('g');
