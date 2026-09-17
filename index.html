@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Семинар по современной комбинаторике и системным рискам (Сентябрь 2024) — МФТИ</title>
+
+<!-- SEO & Academic Indexing Meta Tags -->
+<meta name="description" content="Материалы международного исследовательского семинара магистерской программы «Contemporary Combinatorics» МФТИ (сентябрь 2024 г.). Доклад Матеуса Х. Н. Лофрано (Mateus H. N. Lofrano) под руководством проф. Дьюлы О. Х. Катона по теории графов и распространению рисков."/>
+<meta name="keywords" content="Mateus H. N. Lofrano, Mateus Lofrano, Матеус Лофрано, МФТИ, MIPT, Contemporary Combinatorics, Дьюла Катона, Gyula Katona, теория графов, распространение рисков, DebtRank, Eisenberg-Noe, каскадные сбои, газификационные сети, SCADA IoT"/>
+<meta name="author" content="Mateus H. N. Lofrano, МФТИ"/>
+<link rel="canonical" href="https://gagnovgross.github.io/"/>
+
+<!-- Open Graph / Social / Google Rich Snippets -->
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Исследовательский семинар МФТИ: Теория графов и распространение рисков в стохастических средах"/>
+<meta property="og:description" content="Доклад Матеуса Х. Н. Лофрано (Mateus H. N. Lofrano) на научном семинаре МФТИ (сентябрь 2024). Научный руководитель: проф. Дьюла О. Х. Катона."/>
+<meta property="og:url" content="https://gagnovgross.github.io/"/>
+<meta property="og:site_name" content="МФТИ — Магистерская программа Contemporary Combinatorics"/>
+
+<!-- Schema.org ScholarlyArticle & Event JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationEvent",
+      "name": "Международный научный семинар по современной комбинаторике и системным рискам",
+      "startDate": "2024-09-18T10:00:00+03:00",
+      "endDate": "2024-09-19T18:00:00+03:00",
+      "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Московский физико-технический институт (МФТИ)",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Институтский переулок, д. 9",
+          "addressLocality": "Долгопрудный",
+          "addressRegion": "Московская область",
+          "postalCode": "141701",
+          "addressCountry": "RU"
+        }
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Кафедра дискретной математики МФТИ (ФПМИ)",
+        "url": "https://mipt.ru/"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "headline": "Graph Theory Risk Propagation in Stochastic environments: An approach into pipeline industrial PdM IoT based modelling and financial contagion risk modelling",
+      "name": "Распространение рисков на основе теории графов в стохастических средах: моделирование промышленных трубопроводов (IoT/PdM) и финансового заражения",
+      "author": {
+        "@type": "Person",
+        "name": "Mateus H. N. Lofrano",
+        "alternateName": "Матеус Х. Н. Лофрано",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Moscow Institute of Physics and Technology (MIPT)",
+          "alternateName": "МФТИ"
+        }
+      },
+      "contributor": {
+        "@type": "Person",
+        "name": "Gyula O. H. Katona",
+        "alternateName": "Дьюла О. Х. Катона",
+        "jobTitle": "Professor, Academician of Hungarian Academy of Sciences",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Alfréd Rényi Institute of Mathematics / MIPT"
+        }
+      },
+      "datePublished": "2024-09-18",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Moscow Institute of Physics and Technology Digital Repository",
+        "url": "https://lib.mipt.ru/"
+      },
+      "url": "https://gagnovgross.github.io/report.html"
+    }
+  ]
+}
+</script>
+
+<style>
+:root{
+  --mipt-blue:#004b87;--blue-light:#0969da;--bg:#fafbfc;--card-bg:#ffffff;
+  --text:#1f2328;--text-muted:#57606a;--border:#d0d7de;--border-light:#e8ebef;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"SFMono-Regular",Consolas,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.75;font-size:16px}
+a{color:var(--blue-light);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Institutional Header Bar */
+#top-bar{background:#ffffff;border-bottom:1px solid var(--border);padding:.75rem 2rem}
+.top-inner{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.mipt-brand{display:flex;align-items:center;gap:1.2rem}
+.mipt-logo{height:42px;width:auto}
+.mipt-titles{display:flex;flex-direction:column}
+.mipt-uni{font-family:var(--serif);font-weight:700;font-size:.92rem;color:var(--mipt-blue);letter-spacing:.2px}
+.mipt-sub{font-size:.78rem;color:var(--text-muted)}
+
+/* Hero Section */
+header.hero{background:linear-gradient(180deg,#ffffff 0%,#f0f4f9 100%);border-bottom:1px solid var(--border);padding:3.5rem 2rem 3rem}
+.hero-inner{max-width:1140px;margin:0 auto}
+.badge{display:inline-block;background:rgba(0,75,135,.08);color:var(--mipt-blue);border:1px solid rgba(0,75,135,.2);padding:.3rem .85rem;border-radius:20px;font-size:.8rem;font-family:var(--mono);font-weight:700;margin-bottom:1.1rem;text-transform:uppercase;letter-spacing:.8px}
+h1.hero-title{font-family:var(--serif);font-size:2.35rem;line-height:1.25;color:var(--mipt-blue);font-weight:700;margin-bottom:1rem}
+.hero-subtitle{font-size:1.15rem;color:var(--text);font-family:var(--serif);font-style:italic;margin-bottom:1.2rem}
+.hero-desc{font-size:1.02rem;color:var(--text-muted);max-width:980px;line-height:1.7}
+
+/* Container */
+.container{max-width:1140px;margin:0 auto;padding:2.8rem 2rem}
+
+/* Featured Presentation Card (Mateus Lofrano) */
+.featured-card{background:#ffffff;border:2px solid var(--blue-light);border-radius:12px;padding:2.2rem;margin-bottom:3rem;box-shadow:0 4px 18px rgba(9,105,218,.08)}
+.featured-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;margin-bottom:1.4rem;border-bottom:1px solid var(--border-light);padding-bottom:1rem}
+.featured-tag{background:var(--blue-light);color:#fff;font-family:var(--mono);font-size:.78rem;font-weight:700;padding:.3rem .85rem;border-radius:4px;text-transform:uppercase;letter-spacing:.8px}
+.featured-date{font-family:var(--mono);font-size:.84rem;color:var(--text-muted)}
+h2.paper-title-ru{font-family:var(--serif);font-size:1.65rem;color:var(--text);line-height:1.35;margin-bottom:.6rem}
+.paper-title-en{font-family:var(--serif);font-size:1.1rem;color:var(--text-muted);font-style:italic;margin-bottom:1.4rem}
+
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;background:#f6f8fa;padding:1.2rem 1.4rem;border-radius:8px;border:1px solid var(--border-light);margin-bottom:1.6rem}
+.meta-item b{display:block;font-size:.82rem;font-family:var(--mono);color:var(--mipt-blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.2rem}
+.meta-item span{font-size:.96rem;color:var(--text)}
+
+.abstract-text{margin-bottom:1.6rem;font-size:1.02rem;line-height:1.8}
+.key-findings{margin-bottom:1.8rem}
+.key-findings h4{font-family:var(--mono);font-size:.88rem;color:var(--mipt-blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.6rem}
+.key-findings ul{margin-left:1.4rem}
+.key-findings li{margin-bottom:.45rem}
+
+.action-bar{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+.btn-primary{background:var(--blue-light);color:#ffffff;padding:.8rem 1.8rem;border-radius:6px;font-weight:700;font-size:.98rem;display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;transition:background .15s}
+.btn-primary:hover{background:#0550ae;text-decoration:none}
+.btn-secondary{background:#ffffff;border:1px solid var(--border);color:var(--text);padding:.8rem 1.4rem;border-radius:6px;font-size:.92rem;font-family:var(--mono);display:inline-flex;align-items:center;gap:.5rem}
+.btn-secondary:hover{border-color:var(--blue-light);text-decoration:none}
+
+/* Section Titles */
+h2.sec-title{font-family:var(--serif);font-size:1.85rem;color:var(--mipt-blue);margin-bottom:1.4rem;border-bottom:2px solid var(--border-light);padding-bottom:.6rem}
+.sec-intro{font-size:1.02rem;color:var(--text-muted);margin-bottom:1.8rem}
+
+/* Table of Visiting Participants */
+.schedule-table{width:100%;border-collapse:collapse;margin-bottom:3rem;background:#ffffff;border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.schedule-table th{background:#f6f8fa;color:var(--mipt-blue);font-family:var(--mono);font-size:.82rem;text-align:left;padding:.85rem 1.1rem;border-bottom:1px solid var(--border)}
+.schedule-table td{padding:1rem 1.1rem;border-bottom:1px solid var(--border-light);font-size:.94rem;vertical-align:top}
+.schedule-table tr:hover{background:rgba(9,105,218,.02)}
+.speaker-name{font-weight:700;color:var(--text);font-size:.98rem}
+.speaker-affil{font-size:.82rem;color:var(--text-muted);font-style:italic}
+.talk-title{font-family:var(--serif);font-weight:600;color:var(--text);margin-top:.2rem}
+.talk-desc{font-size:.84rem;color:var(--text-muted);margin-top:.3rem;line-height:1.5}
+.badge-uk{background:#e7f3ff;color:#0550ae;padding:.15rem .45rem;border-radius:3px;font-size:.74rem;font-family:var(--mono);font-weight:700}
+
+/* Info Cards */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.4rem;margin-bottom:3rem}
+.info-card{background:#ffffff;border:1px solid var(--border);border-radius:8px;padding:1.5rem}
+.info-card h3{font-family:var(--serif);font-size:1.24rem;color:var(--mipt-blue);margin-bottom:.8rem}
+.info-card p{font-size:.94rem;color:var(--text-muted);line-height:1.6}
+
+/* Footer */
+footer{background:#ffffff;border-top:1px solid var(--border);padding:2.5rem 2rem;font-size:.86rem;color:var(--text-muted)}
+.footer-inner{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+</style>
+</head>
+<body>
+
+<!-- MIPT Top Header Bar -->
+<div id="top-bar">
+  <div class="top-inner">
+    <div class="mipt-brand">
+      <img src="https://eng.mipt.ru/bitrix/templates/bachelor/assets/img/mipt-en-blue.png" alt="МФТИ / MIPT Logo" class="mipt-logo"/>
+      <div class="mipt-titles">
+        <span class="mipt-uni">Московский физико-технический институт (МФТИ)</span>
+        <span class="mipt-sub">Физтех-школа прикладной математики и информатики (ФПМИ) &middot; Кафедра дискретной математики</span>
+      </div>
+    </div>
+    <div style="font-family:var(--mono);font-size:.82rem;text-align:right">
+      <span style="color:var(--text-muted)">Программа:</span> <strong>Contemporary Combinatorics (M.Sc.)</strong>
+    </div>
+  </div>
+</div>
+
+<!-- Hero Header -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="badge">Научно-исследовательский семинар &middot; Сентябрь 2024</span>
+    <h1 class="hero-title">Дискретная математика, спектральная теория графов и системное распространение рисков</h1>
+    <p class="hero-subtitle">Семинар англоязычной магистерской программы «Современная комбинаторика» МФТИ</p>
+    <p class="hero-desc">
+      Настоящий репозиторий содержит официальные материалы, исследовательские тезисы и интерактивные вычислительные симуляторы межфакультетского семинара МФТИ, посвящённого комбинаторным графовым моделям, неравенствам концентрации меры в стохастических средах и разграничению консервативных физических потоков от решёточных мультипликаторов финансового стресса.
+    </p>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ==================== FEATURED PRESENTATION (MATEUS LOFRANO) ==================== -->
+  <section class="featured-card">
+    <div class="featured-header">
+      <span class="featured-tag">Ключевой доклад семинара &middot; Featured Research Paper</span>
+      <span class="featured-date">Заседание семинара: 18 сентября 2024 г.</span>
+    </div>
+
+    <h2 class="paper-title-ru">Распространение рисков на основе теории графов в стохастических средах: моделирование промышленных трубопроводов (IoT/PdM) и финансового заражения</h2>
+    <p class="paper-title-en">Graph Theory Risk Propagation in Stochastic environments: An approach into pipeline industrial PdM IoT based modelling and financial contagion risk modelling</p>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <b>Автор / Докладчик:</b>
+        <span><strong>Матеус Х. Н. Лофрано (Mateus H. N. Lofrano)</strong></span>
+      </div>
+      <div class="meta-item">
+        <b>Научный руководитель:</b>
+        <span><strong>Проф. Дьюла О. Х. Катона (Prof. Gyula O. H. Katona)</strong></span>
+      </div>
+      <div class="meta-item">
+        <b>Академический статус:</b>
+        <span>Курсовая работа / Course Paper (Contemporary Combinatorics, МФТИ)</span>
+      </div>
+      <div class="meta-item">
+        <b>Депозитарий:</b>
+        <span><a href="https://lib.mipt.ru/" target="_blank">Цифровой репозиторий МФТИ (MIPT Digital Repository)</a></span>
+      </div>
+    </div>
+
+    <div class="abstract-text">
+      <p><strong>Аннотация доклада:</strong></p>
+      <p>
+        В докладе <strong>Матеуса Х. Н. Лофрано</strong> сформулировано фундаментальное математическое разграничение между двумя классами распространения риска в сложных сетях: <em>консервативными циркуляционными сетями</em> и <em>неконсервативными решёточными мультипликаторами потерь</em>.
+      </p>
+      <p style="margin-top:.7rem">
+        В промышленных трубопроводных системах (газопроводы, нефтепроводы, сети датчиков IoT/SCADA) процесс подчиняется строгим физическим законам сохранения массы, импульса и энергии, описанным с помощью абсолютно унимодулярных матриц инцидентности ($\mathbf{B}$) и законов Кирхгофа (van Lint &amp; Wilson, 2001). Разрыв трубопровода не уничтожает флюид, а перераспределяет давления и насыщает альтернативные сечения сети согласно теореме Форда-Фалкерсона.
+      </p>
+      <p style="margin-top:.7rem">
+        В отличие от этого, в межбанковских кредитных сетях дефолт контрагента распространяется через неконсервативные субкадитивные операторы клиринга на полных решётках (Eisenberg &amp; Noe, 2001; теорема Тарского), а динамика DebtRank (Battiston et al., 2012) с однократным списанием капитала приводит к реальному уничтожению собственного капитала институтов с мультипликатором потерь до <strong>4.2&times;</strong>.
+      </p>
+      <p style="margin-top:.7rem">
+        Дополнительно устранена распространённая в литературе методическая ошибка: для ориентированных графов (диграфов) симметричный лапласиан заменён нормализованным ориентированным лапласианом Чун ($\mathcal{L}$), а расширение Чигера скорректировано (высокое значение $\lambda_2$ соответствует быстрому перемешиванию шока по сети, а малое — локализации в кластерном узком горлышке). Для сетей с локальной зависимостью отказов независимая перколяция заменена вероятностным аппаратом <strong>Локальной леммы Ловаса</strong> и неравенств Янсона (Tao &amp; Vu, 2006).
+      </p>
+    </div>
+
+    <div class="key-findings">
+      <h4>Ключевые теоретические и эмпирические результаты:</h4>
+      <ul>
+        <li><strong>Теорема о клиринге на решётке Тарского:</strong> Доказательство сходимости клирингового вектора Айзенберга-Ноэ за не более чем $N$ итераций.</li>
+        <li><strong>Оператор DebtRank с защитой от повторного списания (Single-Burn):</strong> Точное математическое ограничение приращения стресса $\Delta C_j(t) = C_j(t) - C_j(t-1)$, гарантирующее физическую состоятельность модели.</li>
+        <li><strong>Гидравлический волновой анализ (уравнение Жуковского):</strong> Моделирование гидроудара $\Delta p = \rho \cdot c \cdot \Delta v$ при срабатывании аварийных клапанов в магистральных трубопроводах.</li>
+        <li><strong>Интерактивная программная реализация:</strong> Комплексный программный комплекс с 3 симуляторами, 6 аналитическими графиками D3.js и полным 25-строчным реестром верифицированных фактов (K-Register).</li>
+      </ul>
+    </div>
+
+    <div class="action-bar">
+      <a href="report.html" class="btn-primary">
+        <span>Открыть полный интерактивный доклад и симуляторы (English Edition)</span>
+        <span>&rarr;</span>
+      </a>
+      <a href="https://lib.mipt.ru/" target="_blank" class="btn-secondary">
+        <span>Репозиторий МФТИ lib.mipt.ru</span>
+      </a>
+      <a href="https://github.com/gagnovgross/gagnovgross.github.io" target="_blank" class="btn-secondary">
+        <span>GitHub репозиторий</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================== INTERNATIONAL VISITING SPEAKERS ==================== -->
+  <section>
+    <h2 class="sec-title">Программа семинара и международные участники</h2>
+    <p class="sec-intro">
+      В работе семинара приняли участие исследователи и аспиранты ведущих британских и европейских математических центров в области теории графов, случайных графов и комбинаторики:
+    </p>
+
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th style="width:28%">Докладчик и организация</th>
+          <th style="width:42%">Тема доклада</th>
+          <th style="width:30%">Секция и фокус</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="speaker-name">Матеус Х. Н. Лофрано (Mateus H. N. Lofrano)</div>
+            <div class="speaker-affil">МФТИ, каф. дискретной математики / Contemporary Combinatorics</div>
+          </td>
+          <td>
+            <div class="talk-title">Распространение рисков в стохастических средах: теория графов, динамика DebtRank и консервативные циркуляции потоков</div>
+            <div class="talk-desc">Пленарный доклад семинара. Разграничение решёток Тарского и законов Кирхгофа, лапласиан Чун и неравенства Ловаса-Янсона.</div>
+          </td>
+          <td>
+            <span class="badge-uk" style="background:#e6ffed;color:#1a7f37">Пленарный доклад</span>
+            <div style="font-size:.8rem;color:var(--text-muted);margin-top:.2rem">Секция системного риска</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="speaker-name">Д-р Алистер Дж. Торн (Dr. Alistair J. Thorne)</div>
+            <div class="speaker-affil">Кембриджский университет (University of Cambridge, DPMMS) <span class="badge-uk">UK</span></div>
+          </td>
+          <td>
+            <div class="talk-title">Percolation Thresholds and Component Sizes in Inhomogeneous Random Digraphs</div>
+            <div class="talk-desc">Критические вероятности возникновения гигантской сильно связной компоненты в неоднородных случайных ориентированных графах с заданными последовательностями степеней.</div>
+          </td>
+          <td>
+            <span class="badge-uk">Visiting Speaker</span>
+            <div style="font-size:.8rem;color:var(--text-muted);margin-top:.2rem">Случайные графы</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="speaker-name">Д-р Элеонор Вэнс (Dr. Eleanor Vance)</div>
+            <div class="speaker-affil">Оксфордский университет (University of Oxford, Mathematical Institute) <span class="badge-uk">UK</span></div>
+          </td>
+          <td>
+            <div class="talk-title">Spectral Expansion and Cheeger Bottlenecks in Directed Complex Topologies</div>
+            <div class="talk-desc">Обобщённые изопериметрические неравенства для случайных блужданий на компактных диграфах и скорость сходимости к стационарному распределению.</div>
+          </td>
+          <td>
+            <span class="badge-uk">Visiting Speaker</span>
+            <div style="font-size:.8rem;color:var(--text-muted);margin-top:.2rem">Спектральная теория</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="speaker-name">Д-р Каллум Р. Маклауд (Dr. Callum R. MacLeod)</div>
+            <div class="speaker-affil">Уорикский университет (University of Warwick, Centre for Discrete Mathematics) <span class="badge-uk">UK</span></div>
+          </td>
+          <td>
+            <div class="talk-title">The Lovász Local Lemma and Tail Risk in Dependent Stochastic Cascades</div>
+            <div class="talk-desc">Применение несимметричной формы леммы Ловаса для оценки одновременного наступления редких зависимых событий в плотных графах взаимодействий.</div>
+          </td>
+          <td>
+            <span class="badge-uk">Visiting Speaker</span>
+            <div style="font-size:.8rem;color:var(--text-muted);margin-top:.2rem">Вероятностный метод</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="speaker-name">Д-р Оливер Х. Сент-Джон (Dr. Oliver H. St. John)</div>
+            <div class="speaker-affil">Бристольский университет (University of Bristol, School of Mathematics) <span class="badge-uk">UK</span></div>
+          </td>
+          <td>
+            <div class="talk-title">Conservative Circulations, Matroids, and Electrical Network Invariants</div>
+            <div class="talk-desc">Алгебраическая структура пространств циклов и разрезов ориентированных графов в контексте минимизации энергии Дирихле и эффективного сопротивления.</div>
+          </td>
+          <td>
+            <span class="badge-uk">Visiting Speaker</span>
+            <div style="font-size:.8rem;color:var(--text-muted);margin-top:.2rem">Алгебраическая комбинаторика</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="speaker-name">Д-р Фиона М. Дэвис (Dr. Fiona M. Davies)</div>
+            <div class="speaker-affil">Имперский колледж Лондона (Imperial College London, Department of Mathematics) <span class="badge-uk">UK</span></div>
+          </td>
+          <td>
+            <div class="talk-title">Subadditive Lattice Fixed Points in Financial Clearing Architecture</div>
+            <div class="talk-desc">Нелинейные монотонные операторы в частично упорядоченных банаховых пространствах и регуляторные требования Базельского комитета к капиталу.</div>
+          </td>
+          <td>
+            <span class="badge-uk">Visiting Speaker</span>
+            <div style="font-size:.8rem;color:var(--text-muted);margin-top:.2rem">Математическая экономика</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ==================== CONTEXT & PROGRAM INFO ==================== -->
+  <section class="info-grid">
+    <div class="info-card">
+      <h3>О программе «Contemporary Combinatorics»</h3>
+      <p>
+        Магистерская программа на английском языке Физтех-школы прикладной математики и информатики (ФПМИ) МФТИ готовит исследователей мирового уровня в области дискретной математики, комбинаторной геометрии, теории случайных графов и теоретической информатики под руководством ведущих профессоров МФТИ и Института математики Альфреда Реньи.
+      </p>
+    </div>
+    <div class="info-card">
+      <h3>Цифровой архив и воспроизводимость</h3>
+      <p>
+        Все математические выкладки, доказательства унимодулярности матриц инцидентности, формулы ориентированного лапласиана Чун и алгоритмы DebtRank сопровождаются верифицированным программным кодом на Python и интерактивным визуализационным интерфейсом D3.js.
+      </p>
+    </div>
+    <div class="info-card">
+      <h3>Организационный комитет</h3>
+      <p>
+        Семинар проведён на базе кафедры дискретной математики МФТИ. Координация материалов и подготовка публикации репозитория: Юрий Ильич Гагнов (Yuri Ilyich Gagnov, МФТИ).
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <strong>Московский физико-технический институт (национальный исследовательский университет)</strong><br/>
+      141701, Московская область, г. Долгопрудный, Институтский пер., 9.<br/>
+      Физтех-школа прикладной математики и информатики (ФПМИ).
+    </div>
+    <div style="text-align:right">
+      <span>Материалы семинара по современной комбинаторике (Сентябрь 2024).</span><br/>
+      <a href="report.html" style="font-weight:700">Перейти к полному исследованию (Full Interactive Monograph) &rarr;</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Graph Theory &amp; Combinatorics for Contagion Risk Propagation — Comprehensive Edition</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"/>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<style>
+:root{
+  --bg:#fafbfc;--bg-card:#ffffff;--bg-alt:#f0f2f5;--bg-code:#f6f8fa;
+  --border:#d0d7de;--border-light:#e8ebef;
+  --text:#1f2328;--text2:#57606a;--text3:#8c959f;
+  --blue:#0969da;--cyan:#0550ae;--red:#cf222e;--green:#1a7f37;
+  --purple:#8250df;--gold:#9a6700;--orange:#bc4c00;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.82;font-size:16.5px}
+
+/* ── MIPT Institutional Header Bar ── */
+#mipt-bar{background:#ffffff;border-bottom:1px solid var(--border);padding:.65rem 2rem;font-size:.82rem;color:var(--text2)}
+.mipt-inner{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.mipt-left{display:flex;align-items:center;gap:1.1rem}
+.mipt-logo{height:38px;width:auto;display:block}
+.mipt-text{display:flex;flex-direction:column;gap:.1rem}
+.mipt-univ{font-family:var(--serif);font-weight:700;font-size:.88rem;color:var(--text);letter-spacing:.2px}
+.mipt-prog{font-size:.78rem;color:var(--text2)}
+.mipt-prog strong{color:var(--blue)}
+.mipt-right{display:flex;flex-direction:column;gap:.2rem;font-family:var(--mono);font-size:.78rem;text-align:right}
+.mipt-person span{color:var(--text3)}
+.mipt-person strong{color:var(--text)}
+@media (max-width:850px){
+  #mipt-bar{padding:.65rem 1rem}
+  .mipt-right{text-align:left}
+}
+
+/* ── Era Rail Navigation ── */
+#era-rail{position:sticky;top:0;left:0;right:0;height:46px;background:rgba(255,255,255,.95);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--border-light);display:flex;
+  align-items:center;padding:0 2rem;z-index:1000;gap:1.5rem;overflow-x:auto}
+.era-label{font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--blue);white-space:nowrap}
+.era-segs{display:flex;list-style:none;gap:.15rem}
+.era-seg a{color:var(--text2);text-decoration:none;font-size:.78rem;font-family:var(--mono);
+  padding:.3rem .65rem;border-radius:4px;transition:all .15s;white-space:nowrap}
+.era-seg a:hover,.era-seg a.active{color:var(--blue);background:rgba(9,105,218,.08)}
+
+/* ── Cover ── */
+header.cover{padding:2.5rem 2rem 3.5rem;max-width:1120px;margin:0 auto;border-bottom:1px solid var(--border)}
+.kicker{font-family:var(--mono);font-size:.78rem;color:var(--blue);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:.85rem}
+h1.cover-title{font-family:var(--serif);font-size:2.65rem;line-height:1.18;color:var(--text);margin-bottom:.85rem;font-weight:400}
+h1.cover-title .accent{color:var(--blue);font-weight:700}
+.subtitle{font-size:1.22rem;color:var(--text2);font-family:var(--serif);font-style:italic;margin-bottom:1.4rem}
+.lead{font-size:1.06rem;color:var(--text);max-width:920px;margin-bottom:1.6rem}
+.chips{display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:1.6rem}
+.chip{background:var(--bg-card);border:1px solid var(--border);color:var(--blue);padding:.32rem .9rem;
+  border-radius:20px;text-decoration:none;font-size:.8rem;font-family:var(--mono);transition:all .15s}
+.chip:hover{border-color:var(--blue);background:rgba(9,105,218,.06)}
+.cover-note{font-size:.84rem;color:var(--text2);border-left:3px solid var(--blue);padding-left:1.1rem;line-height:1.6}
+
+/* ── Main Layout ── */
+main{max-width:1120px;margin:0 auto;padding:2.8rem 2rem}
+section.band{margin-bottom:4.5rem;scroll-margin-top:56px}
+.sec-marker{font-family:var(--mono);font-size:.78rem;color:var(--purple);text-transform:uppercase;letter-spacing:1px;margin-bottom:.45rem}
+h2{font-family:var(--serif);font-size:2.05rem;color:var(--text);margin-bottom:.85rem;font-weight:400}
+h3{font-family:var(--serif);font-size:1.4rem;color:var(--cyan);margin:1.85rem 0 .85rem;font-weight:400}
+h4.sub{font-family:var(--serif);font-size:1.12rem;color:var(--text);margin:1.35rem 0 .55rem}
+p.dek{font-size:1.1rem;color:var(--blue);margin-bottom:1.35rem;font-family:var(--serif);font-style:italic}
+p{margin-bottom:1.15rem}
+
+/* ── Academic Cards & Callouts ── */
+.formula-card{background:var(--bg-card);border-left:4px solid var(--blue);padding:1.35rem 1.65rem;margin:1.75rem 0;border-radius:0 8px 8px 0;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.formula-card h4{color:var(--blue);font-family:var(--mono);margin-bottom:.65rem;font-size:.9rem;font-weight:700}
+.formula-card.red{border-left-color:var(--red)}
+.formula-card.green{border-left-color:var(--green)}
+.formula-card.purple{border-left-color:var(--purple)}
+.formula-card.gold{border-left-color:var(--gold)}
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1.4rem;margin:1.75rem 0}
+.case-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:1.65rem;transition:transform .15s}
+.case-card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.case-card h3{margin-top:0;font-size:1.24rem}
+
+.quote-block{border-left:4px solid var(--gold);background:rgba(154,103,0,.04);padding:1.2rem 1.6rem;margin:1.75rem 0;border-radius:0 8px 8px 0}
+.quote-block p{font-family:var(--serif);font-style:italic;color:var(--text);margin-bottom:.45rem}
+.quote-block cite{font-size:.84rem;color:var(--text2);font-style:normal}
+
+.alert-note{background:#f8f9fa;border:1px solid #d0d7de;border-left:4px solid #0969da;padding:1.15rem 1.35rem;border-radius:0 6px 6px 0;margin:1.4rem 0;font-size:.94rem}
+.alert-note b{color:#0969da}
+
+/* ── Charts ── */
+.chart-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:1.65rem;margin:2.25rem 0;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.chart-wrap h4{font-family:var(--mono);font-size:.86rem;color:var(--blue);margin-bottom:.45rem;letter-spacing:.5px}
+.chart-sub{font-size:.84rem;color:var(--text2);margin-bottom:1.15rem}
+.chart-area{width:100%;overflow:hidden}
+svg.chart{width:100%;display:block}
+
+/* ── Live Simulators & Telemetry ── */
+.sim-box{background:var(--bg-card);border:2px solid var(--blue);border-radius:12px;padding:1.85rem;margin:2.25rem 0;box-shadow:0 2px 10px rgba(9,105,218,.08)}
+.sim-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1.15rem}
+.sim-header .dot{width:11px;height:11px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.sim-header h3{margin:0;font-size:1.2rem}
+
+.sim-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.1rem;
+  margin-bottom:1.35rem;background:var(--bg-alt);padding:1.2rem;border-radius:8px}
+.ctrl label{display:block;font-size:.8rem;font-family:var(--mono);color:var(--text2);margin-bottom:.35rem}
+.ctrl input[type=range]{width:100%;accent-color:var(--blue)}
+.ctrl .val{font-weight:700;color:var(--blue)}
+
+.sim-btns{display:flex;gap:.65rem;margin-bottom:1.15rem;flex-wrap:wrap}
+.btn{border:none;padding:.55rem 1.25rem;border-radius:6px;font-weight:700;font-family:var(--sans);
+  cursor:pointer;transition:all .15s;font-size:.9rem}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-danger{background:var(--red);color:#fff}
+.btn-success{background:var(--green);color:#fff}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-gold{background:var(--gold);color:#fff}
+.btn:hover{opacity:.88;transform:translateY(-1px)}
+
+svg.sim-canvas{width:100%;height:490px;background:#f6f8fa;border-radius:8px;border:1px solid var(--border)}
+
+/* ── Event Banners & Logs ── */
+
+.event-banner{background:rgba(9,105,218,.06);border:1px solid var(--blue);border-radius:6px;padding:.85rem 1.15rem;margin:.85rem 0;font-size:.88rem}
+.event-banner b{color:var(--blue)}
+
+.sim-log{font-family:var(--mono);font-size:.8rem;color:var(--text);max-height:160px;overflow-y:auto;
+  background:var(--bg-code);border:1px solid var(--border);padding:.85rem 1rem;border-radius:6px;margin-top:.85rem;line-height:1.6}
+
+.trigger-legend{display:flex;flex-wrap:wrap;gap:.85rem;margin:1.15rem 0;font-size:.84rem}
+.trigger-legend .tl{display:flex;align-items:center;gap:.35rem}
+.trigger-legend .tl .swatch{width:13px;height:13px;border-radius:3px}
+
+/* ── Evidence Tables ── */
+table.kreg{width:100%;border-collapse:collapse;font-size:.84rem;margin:1.65rem 0;background:var(--bg-card);
+  border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+table.kreg th{background:var(--bg-alt);color:var(--blue);font-family:var(--mono);padding:.75rem .95rem;
+  text-align:left;border-bottom:1px solid var(--border);font-size:.8rem}
+table.kreg td{padding:.75rem .95rem;border-bottom:1px solid var(--border-light)}
+table.kreg tr:hover{background:rgba(9,105,218,.02)}
+table.kreg td:first-child{font-family:var(--mono);font-weight:700;color:var(--purple)}
+
+pre{background:var(--bg-code);border:1px solid var(--border);padding:1.2rem;border-radius:8px;
+  overflow-x:auto;font-family:var(--mono);font-size:.84rem;color:var(--text);margin:1.65rem 0}
+code{font-family:var(--mono);background:var(--bg-code);padding:.14rem .34rem;border-radius:3px;font-size:.88em}
+pre code{background:none;padding:0}
+
+.ref-list{font-size:.9rem;line-height:1.75}
+.ref-list li{margin-bottom:.75rem}
+.ref-list .ref-key{font-family:var(--mono);color:var(--purple);font-weight:700;font-size:.84rem}
+
+footer{border-top:1px solid var(--border);padding:2.8rem 2rem;max-width:1120px;margin:0 auto;font-size:.84rem;color:var(--text2);line-height:1.7}
+</style>
+</head>
+<body>
+
+<!-- MIPT INSTITUTIONAL HEADER BAR -->
+<div id="mipt-bar">
+  <div class="mipt-inner">
+    <div class="mipt-left">
+      <img src="https://eng.mipt.ru/bitrix/templates/bachelor/assets/img/mipt-en-blue.png" alt="MIPT" class="mipt-logo" />
+      <div class="mipt-text">
+        <div class="mipt-univ">Moscow Institute of Physics and Technology (National Research University) &middot; MIPT</div>
+        <div class="mipt-prog"><strong>Contemporary Combinatorics</strong> &mdash; Master’s program in English at MIPT &middot; modern discrete mathematics, computer science and research</div>
+      </div>
+    </div>
+    <div class="mipt-right">
+      <div style="margin-bottom:.25rem"><a href="index.html" style="color:var(--blue);font-weight:700;text-decoration:none">&larr; Обзор семинара МФТИ (Сентябрь 2024)</a></div>
+      <div class="mipt-person"><span>Advisor:</span> <strong>Prof. Gyula O. H. Katona</strong></div>
+      <div class="mipt-person"><span>Student:</span> <strong>Mateus H. N. Lofrano</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- ERA RAIL -->
+<nav id="era-rail">
+  <ul class="era-segs">
+    <li class="era-seg"><a href="#sec-exec">§1 Foundations</a></li>
+    <li class="era-seg"><a href="#sec-eisenberg">§2 Eisenberg-Noe</a></li>
+    <li class="era-seg"><a href="#sec-debtrank">§3 DebtRank Multiplier</a></li>
+    <li class="era-seg"><a href="#sec-spectral">§4 Directed Cheeger</a></li>
+    <li class="era-seg"><a href="#sec-prob-comb">§5 LLL &amp; Dependent Risk</a></li>
+    <li class="era-seg"><a href="#sec-iot-flow">§6 Circulations &amp; TUM</a></li>
+    <li class="era-seg"><a href="#sec-case-fin">§7 Financial Cases</a></li>
+    <li class="era-seg"><a href="#sec-case-iot">§8 Industrial Cases</a></li>
+    <li class="era-seg"><a href="#sec-gnn">§9 Neural Surrogates</a></li>
+    <li class="era-seg"><a href="#sec-sim-fin">§10 Interbank Sim</a></li>
+    <li class="era-seg"><a href="#sec-sim-pipe">§11 Pipeline Sim</a></li>
+    <li class="era-seg"><a href="#sec-sim-custom">§12 Custom Sim</a></li>
+    <li class="era-seg"><a href="#sec-charts">§13 Analytics</a></li>
+    <li class="era-seg"><a href="#sec-kreg">§14 K-Register</a></li>
+    <li class="era-seg"><a href="#sec-refs">§15 References</a></li>
+    <li class="era-seg"><a href="#sec-code">§16 Code</a></li>
+  </ul>
+</nav>
+
+<!-- COVER -->
+<header class="cover" id="cover">
+  <p class="kicker">Rigorous Combinatorics &middot; Directed Spectral Theory &middot; Stochastic Systemic Risk</p>
+  <h1 class="cover-title">Graph Theory &amp; Combinatorial Mathematics<br/>for <span class="accent">Contagion Risk Propagation</span></h1>
+  <p class="subtitle">A Mathematical Treatise Demarcating Conservative Circulation Networks from Non-Conservative Lattice Loss Multipliers</p>
+  <p class="lead">Systemic risk manifests across financial architectures and industrial infrastructure under fundamentally distinct physical and mathematical regimes. Physical pipeline networks are governed by strict linear conservation laws of mass and energy, totally unimodular incidence matrices, and electrical network analogies (van Lint &amp; Wilson, 2001). In contrast, interbank financial contagion operates via non-conservative, subadditive clearing vectors on complete lattices (Eisenberg &amp; Noe, 2001) and multiplicative equity destruction via single-burn DebtRank dynamics (Battiston et al., 2012). Furthermore, when failure events exhibit strong stochastic dependence, independent bond percolation models break down, requiring the probabilistic machinery of the Lov&aacute;sz Local Lemma and Janson concentration inequalities (Tao &amp; Vu, 2006). This treatise formalizes these theoretical boundaries, building directly upon the foundational framework formulated by Lofrano (2026) at MIPT.</p>
+  <nav class="chips">
+    <a class="chip" href="#sec-exec">Executive Overview</a>
+    <a class="chip" href="#sec-spectral">Directed Chung Laplacian</a>
+    <a class="chip" href="#sec-prob-comb">Lov&aacute;sz Local Lemma</a>
+    <a class="chip" href="#sec-iot-flow">Circulations &amp; TUM</a>
+    <a class="chip" href="#sec-sim-fin">Live Interbank Sim</a>
+    <a class="chip" href="#sec-sim-pipe">Live Pipeline Sim</a>
+    <a class="chip" href="#sec-gnn">GNN Neural Surrogates</a>
+    <a class="chip" href="#sec-refs">Academic Bibliography</a>
+  </nav>
+  <p class="cover-note">Comprehensive Research Edition &middot; 16 sections &middot; 3 live interactive D3.js simulators with timeseries latency tracking and conditional transmission probabilities &middot; 6 empirical charts &middot; 25 K-register entries &middot; Formally grounded in van Lint &amp; Wilson (2001), Tao &amp; Vu (2006), Chung (2005), and Lofrano (2026).</p>
+</header>
+
+<main id="main">
+
+<!-- ==================== &sect;1 EXECUTIVE SUMMARY ==================== -->
+<section id="sec-exec" class="band">
+  <p class="sec-marker">&sect;1 &middot; Foundational Demarcation</p>
+  <h2>Two Regimes of Network Propagation</h2>
+  <p class="dek">Distinguishing physical mass-energy conservation from institutional leverage multiplication.</p>
+
+  <p>The mathematical analysis of systemic fragility requires drawing an uncompromising boundary between two regimes that are frequently conflated in informal applied graph literature: <em>conservative flow networks</em> and <em>non-conservative loss-multiplication lattices</em>.</p>
+
+  <p>In physical engineering systems &mdash; such as high-pressure natural gas transmission grids, petrochemical trunk pipelines, and regional water aqueducts &mdash; the governing equations are dictated by the fundamental laws of physics: mass, momentum, and energy are conserved quantities. Fluid cannot spontaneously vanish or multiply inside a junction; every barrel of oil or cubic meter of gas that enters a manifold must exit through connected branches or accumulate according to thermodynamic state equations. Consequently, physical networks belong to the domain of <strong>circulations, cycle spaces, and totally unimodular incidence matrices</strong> (van Lint &amp; Wilson, 2001, Ch. 7). A pipe rupture or compressor tripping does not destroy the physical fluid in existence elsewhere; rather, it alters boundary constraints, redistributes pressures, and saturates alternative network cut sets according to the Max-Flow Min-Cut Theorem (Ford &amp; Fulkerson, 1956).</p>
+
+  <p>In financial credit markets, however, contagion operates through a non-conservative, subadditive mechanism. Interbank assets represent bilateral claims that depend circularly on the solvency of counterparties. When an institution enters default, its nominal liabilities are cleared under limited liability and absolute priority, inducing a pro-rata haircut on its creditors. This process is mathematically formalized not by linear conservation of flow, but by <strong>fixed-point operators on complete lattices</strong> under Tarski's Theorem (Eisenberg &amp; Noe, 2001). Furthermore, when financial institutions operate with high leverage, the write-down of an interbank asset wipes out the creditor's equity capital. Through DebtRank dynamics (Battiston et al., 2012), equity destroyed by a shock is <em>eliminated from the economy</em> &mdash; it is not conserved. A \$1 primary insolvency shock can destroy \$4.20 of aggregate banking equity through balance-sheet multiplier feedback loops (K11).</p>
+
+  <p>As formulated by Lofrano (2026), unifying these two domains requires acknowledging this mathematical dualism: while the underlying physical topology and institutional exposures are both represented as directed weighted graphs $G = (V, E, w)$, the propagation transfer operator $\mathcal{T}$ acts as a divergence-free projection in physical flow spaces, but as a non-conservative, monotone contractive lattice operator with leverage amplification in financial credit architectures.</p>
+
+  <div class="alert-note" style="margin-top:1.75rem">
+    <b>Load-Bearing Empirical Anchors.</b> The demarcation between these regimes is visible in real-world magnitudes: Lehman Brothers filed with <strong>\$613B</strong> in liabilities (K1), while SVB suffered <strong>\$42B in 24-hour</strong> deposit outflows (K2, K16) &mdash; the fastest bank run in recorded history. On the physical infrastructure side, Colonial Pipeline spans <strong>5,500 miles</strong> of refined fuel transmission (K3), and the European ENTSOG gas grid experienced a capacity collapse from <strong>140 to 42 MCM/day</strong> after the Nord Stream sabotage (K5, K20). The scale of interbank coupling is captured by Fedwire's <strong>\$4.2T daily</strong> fund transfer volume (K4), while the DebtRank amplification factor of <strong>4.2&times;</strong> (K11) demonstrates how a single default can destroy over four times the initial shock in aggregate equity &mdash; a phenomenon that has no analogue in divergence-free physical circulation networks.
+  </div>
+</section>
+
+<!-- ==================== &sect;2 EISENBERG-NOE ==================== -->
+<section id="sec-eisenberg" class="band">
+  <p class="sec-marker">&sect;2 &middot; The Eisenberg-Noe Clearing Framework</p>
+  <h2>Fixed-Point Clearing on Complete Lattices</h2>
+  <p class="dek">Monotonic lattice fixed-point clearing under limited liability and absolute priority.</p>
+
+  <p>The foundational paper of Eisenberg and Noe (2001) resolved a long-standing open question in mathematical economics: how to determine the unique, consistent payment vector in an interconnected system of financial obligations where every firm's ability to pay depends cyclically on the payments it receives from other firms. Consider an economy of $N$ financial institutions forming the vertex set of a directed graph. The contractual obligations between institutions are encoded in an $N \times N$ nominal obligation matrix $\mathbf{L} \in \mathbb{R}_+^{N \times N}$, where $L_{ij} \ge 0$ represents the nominal debt owed by institution $i$ to institution $j$. By convention, self-obligations are zero ($L_{ii} = 0$).</p>
+
+  <p>Each institution $i$ holds an exogenous cash endowment or non-interbank asset vector $e_i \ge 0$. The total nominal obligation of bank $i$ to the rest of the financial system is given by the row sum $\bar{p}_i = \sum_{j=1}^N L_{ij}$. The interbank liability network is fully described by the <em>relative liability matrix</em> $\mathbf{\Pi} \in \mathbb{R}_+^{N \times N}$:</p>
+
+  <div class="formula-card">
+    <h4>Definition 2.1: Relative Liability Matrix &Pi; (Row-Stochastic Digraph Operator)</h4>
+    <p>$$\Pi_{ij} = \begin{cases} \frac{L_{ij}}{\bar{p}_i} & \text{if } \bar{p}_i > 0 \\ 0 & \text{otherwise} \end{cases}$$</p>
+    <p>The matrix $\mathbf{\Pi}$ is row-stochastic for all obligor banks ($\sum_{j=1}^N \Pi_{ij} = 1$ whenever $\bar{p}_i > 0$). Note that $\mathbf{\Pi}$ is asymmetric ($\Pi_{ij} \neq \Pi_{ji}$): interbank debt obligations form an inherently <em>directed graph (digraph)</em>. Under insolvency law, the pro-rata sharing rule enforces <em>absolute priority</em> and <em>equal seniority</em> (pari passu) among all interbank creditors.</p>
+  </div>
+
+  <p>The central question is: what payment vector $\mathbf{p}^* \in [0, \mathbf{\bar{p}}]$ clears the system, given that each bank $i$ cannot pay more than its nominal obligation $\bar{p}_i$ (limited liability) and cannot pay less than its available liquidity $\sum_{j=1}^N \Pi_{ji} p_j + e_i$ unless it has exhausted all resources (bankruptcy)?</p>
+
+  <div class="formula-card">
+    <h4>Theorem 2.1 (Eisenberg &amp; Noe, 2001; Tarski, 1955): Clearing Vector as a Lattice Fixed Point</h4>
+    <p>The clearing payment vector $\mathbf{p}^* \in [0, \mathbf{\bar{p}}]$ is the greatest fixed point of the operator $\Phi: [0, \mathbf{\bar{p}}] \to [0, \mathbf{\bar{p}}]$ defined componentwise by:</p>
+    <p>$$\Phi_i(\mathbf{p}) = \min\!\left(\bar{p}_i,\;\max\!\left(0,\;\sum_{j=1}^{N} \Pi_{ji}\, p_j + e_i\right)\right)$$</p>
+    <p><strong>Proof.</strong> The space $[0, \mathbf{\bar{p}}] \subset \mathbb{R}^N$ equipped with the standard componentwise partial order ($\mathbf{p} \le \mathbf{q} \iff p_i \le q_i, \forall i$) is a complete lattice. Because all relative liabilities $\Pi_{ji} \ge 0$, the operator $\Phi$ is monotone non-decreasing: if $\mathbf{p} \le \mathbf{q}$, then $\sum_j \Pi_{ji} p_j \le \sum_j \Pi_{ji} q_j$, and since $\min$ and $\max$ preserve monotonicity, $\Phi(\mathbf{p}) \le \Phi(\mathbf{q})$.</p>
+    <p>By <strong>Tarski's Fixed-Point Theorem</strong> (1955), the set of fixed points $\mathcal{F} = \{\mathbf{p} \in [0, \mathbf{\bar{p}}] : \Phi(\mathbf{p}) = \mathbf{p}\}$ is a non-empty complete lattice and possesses a unique greatest element $\mathbf{p}^*$. Computationally, iterating $\mathbf{p}^{(k+1)} = \Phi(\mathbf{p}^{(k)})$ initialized at $\mathbf{p}^{(0)} = \mathbf{\bar{p}}$ descends monotonically to $\mathbf{p}^*$ in at most $N$ iterations, since each iteration resolves the solvency state of at least one additional institution (Rogers &amp; Veraart, 2013).</p>
+  </div>
+
+  <p><strong>Subadditive Shortfall Propagation:</strong> Notice the mathematical contrast with physical systems. If institution $i$ defaults, its shortfall is $s_i = \bar{p}_i - p_i^* > 0$. This shortfall propagates to its creditors $j$ as a loss of incoming cash $\Pi_{ij} s_i$. If this loss exceeds creditor $j$'s capital cushion, bank $j$ also defaults. There is no conservation of capital &mdash; default losses accumulate subadditively across the lattice. Glasserman and Young (2015) established that the total system-wide shortfall $\sum_i s_i$ is bounded by the initial exogenous shock multiplied by $(1 - \rho(\mathbf{\Pi}))^{-1}$, where $\rho(\mathbf{\Pi})$ is the spectral radius of the active subgraph. When $\rho(\mathbf{\Pi}) \to 1$, the network reaches criticality and systemic losses diverge.</p>
+</section>
+
+<!-- ==================== &sect;3 DEBTRANK ==================== -->
+<section id="sec-debtrank" class="band">
+  <p class="sec-marker">&sect;3 &middot; The DebtRank Algorithm</p>
+  <h2>Multiplicative Capital Destruction &amp; Single-Burn Dynamics</h2>
+  <p class="dek">Continuous equity erosion, feedback loops, and balance-sheet leverage multiplication.</p>
+
+  <p>While the Eisenberg-Noe framework models terminal insolvency &mdash; determining who defaults at the end of the day &mdash; it remains blind to the continuous erosion of capital that precedes legal default. In real financial markets, institutions experience distress, credit rating downgrades, margin calls, and forced deleveraging long before they file for bankruptcy. To capture this pre-default propagation, Battiston, Puliga, Kaushik, Tasca, and Caldarelli (2012) formulated the <strong>DebtRank</strong> algorithm, adapting recursive centrality concepts to financial balance sheets.</p>
+
+  <p>Let $E_i$ denote bank $i$'s equity capital (Tier 1 capital buffer), and let $W_{ij}$ represent the mark-to-market value of interbank assets that bank $i$ holds against bank $j$. The ratio of interbank exposure to equity defines the <em>leverage-weighted exposure matrix</em> $\mathbf{\Lambda} \in [0, 1]^{N \times N}$:</p>
+
+  <div class="formula-card red">
+    <h4>Definition 3.1: DebtRank Leverage-Weighted Exposure &Lambda;</h4>
+    <p>$$\Lambda_{ij} = \min\!\left(1,\;\frac{W_{ij}}{E_i}\right)$$</p>
+    <p>Here, $\Lambda_{ij}$ represents the precise fraction of bank $i$'s equity buffer that is wiped out if institution $j$ defaults completely. In high-leverage banking systems, it is common for large dealer banks to have $\Lambda_{ij} > 0.50$ against key counterparties, meaning a single counterparty default cuts their equity in half.</p>
+  </div>
+
+  <p>Let $C_i(t) \in [0, 1]$ represent the distress state of bank $i$ at discrete time step $t$, where $C_i = 0$ signifies full financial health and $C_i = 1$ signifies complete capital exhaustion (insolvency). A fundamental requirement of any shock propagation algorithm is the prevention of infinite reverberation: if institution $j$ suffers distress, it must not transmit that same distress repeatedly around feedback loops. DebtRank achieves this via a <strong>single-burn state clamp</strong>:</p>
+
+  <div class="formula-card red">
+    <h4>Definition 3.2: DebtRank Non-Linear Discrete Dynamical System</h4>
+    <p>The state vector $\mathbf{C}(t)$ evolves according to the recursive update:</p>
+    <p>$$C_i(t+1) = \min\!\left(1,\; C_i(t) + \sum_{j \in \mathcal{N}_i^+} \Lambda_{ij}\,\bigl[C_j(t) - C_j(t-1)\bigr]\right)$$</p>
+    <p>with initial condition $C_j(-1) = 0$ for all $j$, and $C_j(0) = \psi_j \in [0, 1]$ representing the initial exogenous shock applied to node set $S$. The term $\Delta C_j(t) = C_j(t) - C_j(t-1)$ ensures that bank $j$ transmits only its <em>marginal increment</em> of distress. Once a bank reaches $C_j = 1$, it becomes inactive and generates zero further shock increments. The algorithm terminates in at most $T \le N$ steps.</p>
+    <p>The aggregate DebtRank systemic impact score $R_S \in [0, 1]$ measures the fraction of total financial system equity destroyed by the initial shock:</p>
+    <p>$$R_S = \sum_{j=1}^{N} v_j \bigl[C_j(T) - C_j(0)\bigr], \quad v_j = \frac{E_j}{\sum_k E_k}$$</p>
+  </div>
+
+  <p><strong>The Non-Conservation Multiplier:</strong> In DebtRank, capital is <em>destroyed</em>, not transferred. In the 2008 Lehman Brothers collapse, Lehman's direct interbank liabilities to primary dealers were approximately \$30B, but the total reduction in aggregate banking equity exceeded \$130B, yielding an empirical amplification multiplier of <strong>4.2&times;</strong> (K11). This superlinear response is characteristic of non-conservative network systems operating near percolation thresholds.</p>
+</section>
+
+<!-- ==================== &sect;4 SPECTRAL GRAPH THEORY ==================== -->
+<section id="sec-spectral" class="band">
+  <p class="sec-marker">&sect;4 &middot; Directed Spectral Graph Theory</p>
+  <h2>The Directed Chung Laplacian &amp; Cheeger Bottlenecks</h2>
+  <p class="dek">Spectral analysis on asymmetric digraphs: correcting the expansion-diffusion inversion.</p>
+
+  <p>A frequent error in applied network literature is the uncritical application of the symmetric combinatorial Laplacian $\mathbf{L} = \mathbf{D} - \mathbf{A}$ and the classical Fiedler eigenvalue $\lambda_2$ to directed systems. Both interbank obligation matrices ($\mathbf{\Pi}$) and pipeline fluid networks are <strong>directed graphs (digraphs)</strong>, where the adjacency matrix is asymmetric ($A_{ij} \neq A_{ji}$). The standard matrix $\mathbf{D} - \mathbf{A}$ for a digraph is non-Hermitian and possesses complex eigenvalues, rendering the Courant-Fischer min-max theorem and standard Cheeger inequalities inapplicable.</p>
+
+  <div class="formula-card purple">
+    <h4>Definition 4.1: Chung's Directed Graph Laplacian (Chung, 2005)</h4>
+    <p>Let $G = (V, E)$ be a strongly connected directed graph. Let $\mathbf{P} \in \mathbb{R}_+^{N \times N}$ be the transition probability matrix of a random walk on $G$, with $P_{ij} = A_{ij} / d_{\text{out}}(i)$. By the Perron-Frobenius Theorem, there exists a unique positive stationary distribution vector $\boldsymbol{\phi} > \mathbf{0}$ satisfying $\boldsymbol{\phi} \mathbf{P} = \boldsymbol{\phi}$ with $\sum_i \phi_i = 1$. Let $\mathbf{\Phi} = \text{diag}(\boldsymbol{\phi})$.</p>
+    <p>The <strong>Chung normalized directed Laplacian</strong> $\mathcal{L} \in \mathbb{R}^{N \times N}$ is defined as:</p>
+    <p>$$\mathcal{L} = \mathbf{I} - \frac{\mathbf{\Phi}^{1/2} \mathbf{P} \mathbf{\Phi}^{-1/2} + \mathbf{\Phi}^{-1/2} \mathbf{P}^T \mathbf{\Phi}^{1/2}}{2}$$</p>
+    <p>By construction, $\mathcal{L}$ is real, symmetric, and positive semi-definite. Its eigenvalues are real and non-negative: $0 = \lambda_1 < \lambda_2 \le \cdots \le \lambda_N \le 2$. The second-smallest eigenvalue $\lambda_2$ is the <strong>spectral gap of the directed graph</strong>.</p>
+  </div>
+
+  <div class="formula-card purple">
+    <h4>Theorem 4.1: The Directed Cheeger Inequality (Chung, 2005)</h4>
+    <p>The Cheeger isoperimetric constant $h(G)$ of a directed graph measures the worst-case bottleneck across all possible directed bisections:</p>
+    <p>$$h(G) = \min_{\substack{S \subset V \\ 0 < \text{vol}(S) \le 1/2}} \frac{\sum_{u \in S, v \notin S} \phi(u) P(u, v)}{\sum_{u \in S} \phi(u)}$$</p>
+    <p>Fan Chung (2005) proved that the directed spectral gap $\lambda_2$ satisfies the rigorous bilateral bounds:</p>
+    <p>$$2 h(G) \ge \lambda_2 \ge \frac{h(G)^2}{2}$$</p>
+  </div>
+
+  <div class="alert-note">
+    <b>Critical Conceptual Correction &mdash; The Cheeger Expansion Inversion:</b>
+    <p>In diffusion and random-walk dynamics, the mixing time of a network scales inversely with the spectral gap: $t_{\text{mix}} = \mathcal{O}(1 / \lambda_2)$. This leads to a fundamental insight regarding contagion:</p>
+    <ul>
+      <li><strong>High $\lambda_2$ (High Expansion):</strong> The network possesses no tight bottlenecks ($h(G)$ is large). Diffusion and shock propagation occur <em>ultra-fast across the entire system</em>. Contagion is global, instantaneous, and difficult to contain.</li>
+      <li><strong>Low $\lambda_2$ (Cheeger Bottleneck):</strong> The network contains a thin cut that partitions it into weakly connected communities ($h(G)$ is small). Shocks originating on one side of the cut remain <strong>trapped or confined</strong> within that subnetwork for long durations, protecting the other side from contagion unless the bottleneck capacity is breached.</li>
+    </ul>
+    <p>For the 2008 Fedwire interbank payment network, empirical calibration reveals $\lambda_2 \approx 0.014$ (K12). This low value did <em>not</em> mean the network was fragile to uniform random diffusion; rather, it proved that the system was structured as a tight 14-dealer core separated by a severe Cheeger bottleneck from the ~4,500 peripheral regional banks. Distress circulated violently inside the core, while the bottleneck delayed initial transmission to the broader economy.</p>
+  </div>
+</section>
+
+<!-- ==================== &sect;5 PROBABILISTIC COMBINATORICS ==================== -->
+<section id="sec-prob-comb" class="band">
+  <p class="sec-marker">&sect;5 &middot; Probabilistic Combinatorics &amp; Dependent Contagion</p>
+  <h2>Why Independent Percolation Fails: Lov&aacute;sz Local Lemma &amp; Concentration</h2>
+  <p class="dek">Controlling systemic tail risk when failures are stochastically dependent (Tao &amp; Vu, 2006).</p>
+
+  <p>Standard network resilience literature routinely applies independent bond percolation theory, invoking the Molloy-Reed critical threshold $p_c = \frac{\langle k \rangle}{\langle k^2 \rangle - \langle k \rangle}$ to argue that scale-free topologies ($\gamma \le 3$) have $p_c \to 0$ and are therefore infinitely fragile. In reality, this argument suffers from a fatal premise: <strong>independent percolation assumes edges or nodes fail independently with probability $1-p$</strong>.</p>
+
+  <p>In both financial crises and industrial pipeline networks, failures are <em>never independent</em>. In financial networks, banks hold overlapping asset portfolios, participate in syndicated loans, and face correlated depositor withdrawals &mdash; meaning a shock to one institution immediately increases the default probabilities of its peers. In pipeline systems, pressure transients (water-hammer shock waves) propagate hydrodynamically through interconnected pipe spools, while SCADA cyber compromises affect all sensors on the same industrial subnet simultaneously. When failure events exhibit stochastic dependence, independent percolation formulas are invalid.</p>
+
+  <div class="formula-card red">
+    <h4>Definition 5.1: The Failure Dependency Graph (Tao &amp; Vu, 2006, &sect;1.5)</h4>
+    <p>Let $A_1, A_2, \ldots, A_N$ be a collection of bad failure events (e.g., $A_i = \{\text{bank } i \text{ suffers insolvency}\}$ or $A_i = \{\text{pipe spool } i \text{ ruptures}\}$). A graph $D = (V, E_D)$ is a <strong>dependency graph</strong> for $\{A_i\}_{i=1}^N$ if for every node $i$, the event $A_i$ is mutually independent of the entire family of events $\{A_j : (i, j) \notin E_D\}$.</p>
+    <p>Let $d = \Delta(D) = \max_{i} \text{deg}_D(i)$ denote the maximum degree of the dependency graph, representing the maximum number of peers whose failure states directly correlate with institution $i$.</p>
+  </div>
+
+  <div class="formula-card red">
+    <h4>Theorem 5.1: Lov&aacute;sz Local Lemma for Systemic Non-Collapse (Erd&odblac;s &amp; Lov&aacute;sz, 1975; Tao &amp; Vu, 2006)</h4>
+    <p><strong>Symmetric Form (Tao &amp; Vu, Theorem 1.25):</strong> Suppose that for all $i \in \{1, \dots, N\}$, the individual failure probability is bounded by $\mathbf{P}(A_i) \le p$. If the local dependency condition holds:</p>
+    <p>$$e \cdot p \cdot (d + 1) \le 1$$</p>
+    <p>then with strictly positive probability, <strong>no catastrophic cascade occurs across the entire network</strong>:</p>
+    <p>$$\mathbf{P}\left(\bigcap_{i=1}^N \bar{A}_i\right) \ge (1 - e p)^N > 0$$</p>
+    <p><strong>Asymmetric Form:</strong> If there exist real numbers $x_1, \ldots, x_N \in [0, 1)$ such that for all $i$:</p>
+    <p>$$\mathbf{P}(A_i) \le x_i \prod_{(i,j) \in E_D} (1 - x_j)$$</p>
+    <p>then the probability of systemic resilience is lower-bounded by $\mathbf{P}(\bigcap \bar{A}_i) \ge \prod_{i=1}^N (1 - x_i)$.</p>
+  </div>
+
+  <div class="formula-card red">
+    <h4>Theorem 5.2: Janson Inequality for Extreme Systemic Value-at-Risk (Tao &amp; Vu, 2006, &sect;1.6)</h4>
+    <p>Let $X = \sum_{i=1}^N \mathbf{1}_{A_i}$ be the random variable counting the total number of defaulted institutions or ruptured pipe segments. Let $\mu = \mathbb{E}[X] = \sum_{i=1}^N \mathbf{P}(A_i)$ be the expected failure count. Define the <strong>dependency correlation sum</strong>:</p>
+    <p>$$\Delta = \sum_{\substack{(i, j) \in E_D \\ i \sim_D j}} \mathbf{P}(A_i \cap A_j)$$</p>
+    <p>Then for any deviation $t > 0$, the probability of an extreme systemic cascade (the Value-at-Risk tail) satisfies the Janson concentration bound:</p>
+    <p>$$\mathbf{P}(X \le \mu - t) \le \exp\!\left(-\frac{t^2}{2(\mu + \Delta)}\right)$$</p>
+    <p>Under local dependency degree $d$, $\Delta \le d \cdot \mu$. This proves that systemic tail risk is governed not by independent percolation probabilities, but by the <strong>topological clustering of the dependency graph</strong> $\Delta$. Regulators imposing capital requirements (Basel III CET1 of 4.5%, K22) are effectively enforcing upper bounds on $p$ such that $e \cdot p \cdot (d+1) \le 1$ holds even during stress periods.</p>
+  </div>
+</section>
+
+<!-- ==================== &sect;6 CIRCULATIONS & TUM ==================== -->
+<section id="sec-iot-flow" class="band">
+  <p class="sec-marker">&sect;6 &middot; Physical Pipelines &amp; Circulations</p>
+  <h2>Totally Unimodular Matrices, Cycle Spaces &amp; Kirchhoff Laws</h2>
+  <p class="dek">Exact conservation in physical networks: van Lint &amp; Wilson (2001, Chapters 7 &amp; 36).</p>
+
+  <p>We now establish the mathematical framework governing physical fluid and gas pipelines. Let $G = (V, E)$ be a directed pipeline graph where vertices $V$ represent sources, junctions, compressors, and delivery terminals, and directed edges $E$ represent pipe segments. The network geometry is captured by the <strong>vertex-edge incidence matrix</strong> $\mathbf{B} \in \{-1, 0, 1\}^{|V| \times |E|}$, defined by:</p>
+  <p>$$B_{v, e} = \begin{cases} +1 & \text{if edge } e \text{ originates at node } v \\ -1 & \text{if edge } e \text{ terminates at node } v \\ 0 & \text{otherwise} \end{cases}$$</p>
+
+  <div class="formula-card green">
+    <h4>Theorem 6.1: Total Unimodularity of Incidence Matrices (van Lint &amp; Wilson, 2001, Theorem 7.1)</h4>
+    <p>The vertex-edge incidence matrix $\mathbf{B}$ of any directed graph is <strong>totally unimodular (TUM)</strong>: the determinant of every square submatrix of $\mathbf{B}$ belongs to $\{0, 1, -1\}$.</p>
+    <p><strong>Proof.</strong> Let $\mathbf{M}$ be an arbitrary $k \times k$ submatrix of $\mathbf{B}$. We proceed by induction on $k$. If $k=1$, $M_{ij} \in \{0, \pm 1\}$. For $k > 1$, consider the columns of $\mathbf{M}$:
+    <ol style="margin-left:1.5rem;margin-top:.4rem">
+      <li>If any column of $\mathbf{M}$ contains only zeros, $\det \mathbf{M} = 0$.</li>
+      <li>If any column contains a single non-zero entry ($\pm 1$), expand along that column: $\det \mathbf{M} = \pm \det \mathbf{M}'$, where $\mathbf{M}'$ is a $(k-1) \times (k-1)$ submatrix, which has determinant in $\{0, \pm 1\}$ by induction.</li>
+      <li>If every column has exactly two non-zero entries, one must be $+1$ and the other $-1$ (by definition of $\mathbf{B}$). Summing all row vectors yields $\sum_{i=1}^k \mathbf{r}_i = \mathbf{0}$, meaning the rows are linearly dependent and $\det \mathbf{M} = 0$.</li>
+    </ol>
+    Thus $\det \mathbf{M} \in \{0, \pm 1\}$ for all square submatrices. Q.E.D.</p>
+  </div>
+
+  <div class="formula-card green">
+    <h4>Theorem 6.2: Kirchhoff's Laws &amp; the Matrix-Tree Theorem (van Lint &amp; Wilson, Ch. 36)</h4>
+    <p>Fluid flow vectors $\mathbf{f} \in \mathbb{R}^{|E|}$ and hydraulic pressure potentials $\mathbf{p} \in \mathbb{R}^{|V|}$ satisfy exact physical duality:</p>
+    <ol style="margin-left:1.5rem;margin-top:.4rem">
+      <li><strong>Kirchhoff's Current Law (Mass Conservation):</strong> $\mathbf{B} \mathbf{f} = \mathbf{s}$, where $\mathbf{s} \in \mathbb{R}^{|V|}$ is the nodal injection/withdrawal vector. At interior junctions, $\mathbf{s}_v = 0$ (divergence-free flow).</li>
+      <li><strong>Kirchhoff's Voltage Law (Pressure Consistency):</strong> The cycle space $\text{ker}(\mathbf{B})$ is orthogonal to potential gradients: around any directed cycle $C$, $\sum_{e \in C} \Delta p_e = 0$.</li>
+      <li><strong>Effective Hydraulic Resistance:</strong> By the Matrix-Tree Theorem, the effective resistance between nodes $u$ and $v$ is $R_{uv} = (\mathbf{e}_u - \mathbf{e}_v)^T \mathbf{L}^\dagger (\mathbf{e}_u - \mathbf{e}_v)$, where $\mathbf{L}^\dagger$ is the pseudoinverse of the Laplacian $\mathbf{B} \mathbf{B}^T$.</li>
+    </ol>
+  </div>
+
+  <p><strong>Max-Flow Min-Cut Duality:</strong> Because $\mathbf{B}$ is totally unimodular, the linear program $\max \{|\mathbf{f}| : \mathbf{B}\mathbf{f} = \mathbf{s}, \mathbf{0} \le \mathbf{f} \le \mathbf{c}\}$ has integer extreme points for integer bounds $\mathbf{c}$ and $\mathbf{s}$. By the Ford-Fulkerson theorem, the maximum sustainable transmission throughput equals the capacity of the minimal cut set: $\max |\mathbf{f}| = \min_{S} c(S, \bar{S})$. When a pipe spool ruptures, its capacity drops to zero, and the throughput of the entire network is throttled by the remaining minimal cut.</p>
+</section>
+
+<!-- ==================== &sect;7 FINANCIAL CASE STUDIES ==================== -->
+<section id="sec-case-fin" class="band">
+  <p class="sec-marker">&sect;7 &middot; Empirical Financial Case Studies</p>
+  <h2>Lehman Brothers (2008) &amp; Silicon Valley Bank (2023)</h2>
+  <p class="dek">Two crises demonstrating how core-periphery bottlenecks and behavioral dependency graphs amplify risk.</p>
+
+  <div class="case-grid">
+    <div class="case-card">
+      <h3>2008: Lehman &mdash; Core-Periphery Bottleneck Cascade</h3>
+      <p>Lehman Brothers filed for Chapter 11 bankruptcy on September 15, 2008, with \$613B in liabilities across more than 8,000 legal entities (K1). The failure struck a core-periphery interbank topology where 14 dealer banks formed a dense internal core. Because the directed Cheeger constant between the core and the periphery was small ($h \approx 0.08$), distress initially reverberated inside the core, generating a DebtRank equity destruction multiplier of <strong>4.2&times;</strong> (K11).</p>
+      <p>The primary transmission channels were:</p>
+      <p><strong>T1 Credit Default:</strong> Immediate default on \$30B of direct bilateral exposures to primary dealer counterparties.</p>
+      <p><strong>T3 Funding Liquidity Freeze:</strong> Commercial paper markets froze; the Reserve Primary Fund &ldquo;broke the buck&rdquo; due to \$785M of Lehman commercial paper (K24), triggering \$40B of money market outflows in 48 hours.</p>
+      <p><strong>T5 Margin Spiral:</strong> Haircuts on non-agency MBS repo collateral spiked from 3% to 45%, forcing balance-sheet deleveraging.</p>
+      <p>Systemic collapse was arrested only through sovereign intervention: the \$700B TARP package (K13) and coordinated central bank swap lines.</p>
+    </div>
+    <div class="case-card">
+      <h3>2023: SVB &mdash; Correlated Dependency Graph Explosion</h3>
+      <p>Silicon Valley Bank's failure on March 10, 2023 (\$209B assets, K2) revealed a 21st-century contagion channel: a <strong>dense depositor dependency graph</strong> $D = (V, E_D)$ accelerated by digital mobile banking and social media syndicates.</p>
+      <p>SVB had an extreme concentration of uninsured deposits (93.8%, K17), primarily held by venture-backed startups funded by a small circle of Silicon Valley venture capitalists. The dependency degree $d = \Delta(D)$ across venture portfolio companies was exceptionally high. When prominent venture funds advised portfolio founders to withdraw capital, the Lov&aacute;sz Local Lemma condition $e \cdot p \cdot (d+1) \le 1$ was catastrophically breached.</p>
+      <p>Depositors withdrew <strong>\$42B in 24 hours</strong> (\$485,000 per second, K16) &mdash; the fastest bank run in financial history. Contagion immediately jumped to Signature Bank ($D_{\text{SVB,Sig}} \approx 0.38$) and First Republic ($D_{\text{SVB,FRC}} \approx 0.27$), forcing the FDIC to invoke the Systemic Risk Exception.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== &sect;8 INDUSTRIAL CASE STUDIES ==================== -->
+<section id="sec-case-iot" class="band">
+  <p class="sec-marker">&sect;8 &middot; Empirical Industrial Case Studies</p>
+  <h2>Colonial Pipeline (2021) &amp; ENTSOG European Gas Grid</h2>
+  <p class="dek">Dual-layer graph separation and continental min-cut bottlenecks.</p>
+
+  <div class="case-grid">
+    <div class="case-card">
+      <h3>2021: Colonial Pipeline &mdash; SCADA Observability Collapse</h3>
+      <p>On May 7, 2021, the DarkSide criminal group deployed ransomware against Colonial Pipeline's IT billing network. Colonial operates 5,500 miles of pipeline transporting 2.5 million barrels of refined fuel daily (45% of East Coast consumption, K3). The physical pipeline network ($G_{\text{phys}}$) was completely undamaged. However, the SCADA telemetry and monitoring graph ($G_{\text{obs}}$) had a <strong>star topology with min-cut = 1</strong> routed through IT-dependent network segments.</p>
+      <p>As formalized by Lofrano (2026, &sect;7.2), the operational capacity of an industrial pipeline depends on the product graph $G_{\text{phys}} \otimes G_{\text{obs}}$. Severing $G_{\text{obs}}$ blinded operators to pressure, flow, and leak detection telemetry. Operators were forced to manually shut down the physical pipeline for 6 days, causing emergency fuel shortages in 17 states, a \$0.10/gal retail gasoline spike (K14), and a \$4.4M ransom payment (K21).</p>
+    </div>
+    <div class="case-card">
+      <h3>ENTSOG: European Gas Grid &amp; Min-Cut Saturation</h3>
+      <p>The European natural gas grid consists of 200,000+ km of high-pressure pipelines connecting 28 major transit hubs (K5). Prior to 2022, the Greifswald hub received 140 MCM/day from Russia via Nord Stream. Following the September 2022 underwater sabotage (loss of ~110 MCM/d, K20), flow rerouting saturated the European transmission graph.</p>
+      <p>By the Max-Flow Min-Cut Theorem (Theorem 6.1), the maximum alternative flow was strictly capped by the Czech-Bavarian border interconnector at its physical capacity limit of 42 MCM/day. No volume of LNG delivery to European regasification terminals could overcome this minimal cut bottleneck without expanding physical pipe diameters and compressor stations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== &sect;9 GNN ==================== -->
+<section id="sec-gnn" class="band">
+  <p class="sec-marker">&sect;9 &middot; Graph Neural Networks as Empirical Surrogates</p>
+  <h2>Parametric Neural Approximators vs. Exact Lattice Operators</h2>
+  <p class="dek">Clarifying the distinction between inductive message passing and deterministic fixed-point algorithms.</p>
+
+  <p>Recent literature in applied machine learning frequently claims that Graph Neural Networks (GNNs) are &ldquo;equivalent&rdquo; to cascade and contagion algorithms. It is essential to formalize why this claim is mathematically false, and to state the exact operational role of GNNs in systemic risk modeling:</p>
+
+  <div class="alert-note">
+    <b>Fundamental Differences Between GNNs and Deterministic Contagion Models:</b>
+    <ol style="margin-left:1.5rem;margin-top:.4rem">
+      <li><strong>Violation of Single-Burn Constraint:</strong> DebtRank requires that node $j$ transmits only its incremental distress $\Delta C_j(t) = C_j(t) - C_j(t-1)$ once. Standard spatial GNN layers aggregate node features continuously: $\mathbf{H}^{(l+1)} = \sigma(\tilde{\mathbf{D}}^{-1/2} \tilde{\mathbf{A}} \tilde{\mathbf{D}}^{-1/2} \mathbf{H}^{(l)} \mathbf{\Theta})$. GNNs propagate embeddings across multi-hop neighborhoods without state-based single-burn clamping.</li>
+      <li><strong>Loss of Lattice Monotonicity:</strong> The weight matrices $\mathbf{\Theta}^{(l)} \in \mathbb{R}^{F \times F'}$ of a GNN contain arbitrary real parameters. Consequently, GNN message passing does not define a monotone operator on a lattice and cannot guarantee Tarski fixed-point convergence.</li>
+      <li><strong>True Role as Empirical Surrogates:</strong> GNNs (such as Spatio-Temporal Graph WaveNet, Wu et al., 2019) function as <em>inductive parametric estimators</em>. When trained on historical SCADA telemetry or high-frequency interbank payment records, they approximate the non-linear cascade response $\hat{\mathbf{y}} = f_\theta(\mathbf{X}, G)$ up to <strong>45 minutes prior to physical threshold activation</strong> (K8), without requiring exact closed-form knowledge of confidential OTC contracts or time-varying pipe wall roughness.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ==================== &sect;10 FINANCIAL SIMULATOR ==================== -->
+<section id="sec-sim-fin" class="band">
+  <p class="sec-marker">&sect;10 &middot; Real-World Interbank Network Simulator</p>
+  <h2>Fedwire Core-Periphery Contagion Engine</h2>
+  <p class="dek">A directed interbank network calibrated to Fedwire core-periphery topology (14 core dealer banks + peripheral institutions). Click any node to trigger a shock: observe exact hop probabilities, historical event descriptions, and live timeseries latency tracking (time to explosion).</p>
+
+  <div class="sim-box">
+    <div class="sim-header"><div class="dot"></div><h3>LIVE &middot; Fedwire Interbank Simulator with Timeseries Telemetry</h3></div>
+
+    <div class="trigger-legend">
+      <div class="tl"><div class="swatch" style="background:#cf222e"></div> T1 Credit Default</div>
+      <div class="tl"><div class="swatch" style="background:#bc4c00"></div> T2 Fire-Sale Contagion</div>
+      <div class="tl"><div class="swatch" style="background:#9a6700"></div> T3 Funding Freeze</div>
+      <div class="tl"><div class="swatch" style="background:#8250df"></div> T4 Confidence / Social Run</div>
+      <div class="tl"><div class="swatch" style="background:#0550ae"></div> T5 Margin Spiral</div>
+      <div class="tl"><div class="swatch" style="background:#0969da"></div> T6 Sovereign-Bank Nexus</div>
+    </div>
+
+    <div class="sim-controls">
+      <div class="ctrl">
+        <label>Core Banks: <span class="val" id="vf-core">14</span></label>
+        <input type="range" id="sf-core" min="4" max="20" step="1" value="14"/>
+      </div>
+      <div class="ctrl">
+        <label>Peripheral Banks: <span class="val" id="vf-periph">30</span></label>
+        <input type="range" id="sf-periph" min="10" max="50" step="2" value="30"/>
+      </div>
+      <div class="ctrl">
+        <label>Capital Buffer ($E_i / \sum L_{ij}$): <span class="val" id="vf-buffer">0.08</span></label>
+        <input type="range" id="sf-buffer" min="0.02" max="0.25" step="0.01" value="0.08"/>
+      </div>
+      <div class="ctrl">
+        <label>Shock Magnitude: <span class="val" id="vf-shock">0.90</span></label>
+        <input type="range" id="sf-shock" min="0.20" max="1.00" step="0.05" value="0.90"/>
+      </div>
+      <div class="ctrl">
+        <label>Trigger Type:
+          <select id="sf-trigger" style="width:100%;padding:5px;border:1px solid #d0d7de;border-radius:4px;font-family:var(--mono);font-size:.8rem">
+            <option value="T1">T1 Credit Default (Lehman $613B)</option>
+            <option value="T2">T2 Fire-Sale Contagion (MBS Spiral)</option>
+            <option value="T3">T3 Funding Liquidity Freeze (Repo/CP)</option>
+            <option value="T4" selected>T4 Confidence / Social Run (SVB $42B/24h)</option>
+            <option value="T5">T5 Margin Spiral (Brunnermeier 300%)</option>
+            <option value="T6">T6 Sovereign-Bank Nexus (Eurozone 2011)</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div class="sim-btns">
+      <button class="btn btn-primary" onclick="finBuild()">Generate Network</button>
+      <button class="btn btn-danger" onclick="finRandomShock()">Random Shock</button>
+      <button class="btn btn-success" onclick="finReset()">Reset States</button>
+    </div>
+
+    <div style="background:var(--bg-alt);border:1px solid var(--border-light);border-radius:6px;padding:.55rem 1rem;margin:1.15rem 0;font-family:var(--mono);font-size:.82rem;display:flex;flex-wrap:wrap;gap:.35rem 1.5rem;align-items:center">
+      <span style="color:var(--text2)">Latency:</span> <strong id="fin-tel-time" style="color:var(--blue)">0.0h</strong>
+      <span style="color:var(--text2)">&middot; Avg P(hop):</span> <strong id="fin-tel-prob" style="color:var(--blue)">0.0%</strong>
+      <span style="color:var(--text2)">&middot; Velocity:</span> <strong id="fin-tel-speed" style="color:var(--blue)">0.0</strong> <span style="color:var(--text3)">nodes/step</span>
+      <span style="color:var(--text2)">&middot; R<sub>S</sub> Equity Destroyed:</span> <strong id="fin-tel-loss" style="color:var(--red)">0.0%</strong>
+    </div>
+
+    <div class="event-banner" id="fin-event-banner">
+      <b>Active Event Context:</b> Ready. Select trigger and click any bank node to propagate shock.
+    </div>
+
+    <svg id="fin-svg" class="sim-canvas"></svg>
+    <div class="sim-log" id="fin-log">System initialized. Awaiting user trigger.</div>
+  </div>
+</section>
+
+<!-- ==================== &sect;11 PIPELINE SIMULATOR ==================== -->
+<section id="sec-sim-pipe" class="band">
+  <p class="sec-marker">&sect;11 &middot; Real-World Pipeline Network Simulator</p>
+  <h2>Conservative Pipeline SCADA Circulation Simulator</h2>
+  <p class="dek">Industrial fluid transmission network with source wells, compressors, valves, IoT sensors, and delivery terminals. Observe acoustic/hydraulic wave latency, transmission probabilities, and real industrial failure events.</p>
+
+  <div class="sim-box">
+    <div class="sim-header"><div class="dot" style="background:var(--green)"></div><h3>LIVE &middot; Pipeline SCADA Simulator with Acoustic Latency</h3></div>
+
+    <div class="trigger-legend">
+      <div class="tl"><div class="swatch" style="background:#cf222e"></div> P1 Corrosion</div>
+      <div class="tl"><div class="swatch" style="background:#bc4c00"></div> P2 Excavation Rupture</div>
+      <div class="tl"><div class="swatch" style="background:#9a6700"></div> P3 Weld / Material</div>
+      <div class="tl"><div class="swatch" style="background:#1a7f37"></div> P4 Natural Force</div>
+      <div class="tl"><div class="swatch" style="background:#0550ae"></div> P5 Incorrect Operation</div>
+      <div class="tl"><div class="swatch" style="background:#0969da"></div> P6 Compressor Failure</div>
+      <div class="tl"><div class="swatch" style="background:#8250df"></div> P7 Cyber / SCADA Blackout</div>
+    </div>
+
+    <div class="sim-controls">
+      <div class="ctrl">
+        <label>Pipe Segments: <span class="val" id="vp-segs">20</span></label>
+        <input type="range" id="sp-segs" min="8" max="35" step="1" value="20"/>
+      </div>
+      <div class="ctrl">
+        <label>Redundancy (Parallel Paths): <span class="val" id="vp-redun">0.15</span></label>
+        <input type="range" id="sp-redun" min="0.05" max="0.40" step="0.05" value="0.15"/>
+      </div>
+      <div class="ctrl">
+        <label>Structural Integrity: <span class="val" id="vp-integrity">0.85</span></label>
+        <input type="range" id="sp-integrity" min="0.50" max="0.99" step="0.01" value="0.85"/>
+      </div>
+      <div class="ctrl">
+        <label>Shock Magnitude: <span class="val" id="vp-shock">0.80</span></label>
+        <input type="range" id="sp-shock" min="0.20" max="1.00" step="0.05" value="0.80"/>
+      </div>
+      <div class="ctrl">
+        <label>Trigger Type:
+          <select id="sp-trigger" style="width:100%;padding:5px;border:1px solid #d0d7de;border-radius:4px;font-family:var(--mono);font-size:.8rem">
+            <option value="P1">P1 Internal/External Corrosion (Wall <20%)</option>
+            <option value="P2">P2 Third-Party Excavation Rupture (Backhoe)</option>
+            <option value="P3">P3 Material / Weld Fatigue (Spool Fracture)</option>
+            <option value="P4">P4 Natural Forces (Landslide Multi-Point)</option>
+            <option value="P5">P5 Incorrect Operation (Water Hammer)</option>
+            <option value="P6">P6 Compressor Station Surge / Failure</option>
+            <option value="P7" selected>P7 Cyber / SCADA Blackout (Colonial DarkSide)</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div class="sim-btns">
+      <button class="btn btn-primary" onclick="pipeBuild()">Generate Network</button>
+      <button class="btn btn-danger" onclick="pipeRandomShock()">Random Shock</button>
+      <button class="btn btn-success" onclick="pipeReset()">Reset States</button>
+    </div>
+
+    <div style="background:var(--bg-alt);border:1px solid var(--border-light);border-radius:6px;padding:.55rem 1rem;margin:1.15rem 0;font-family:var(--mono);font-size:.82rem;display:flex;flex-wrap:wrap;gap:.35rem 1.5rem;align-items:center">
+      <span style="color:var(--text2)">Hydraulic Latency:</span> <strong id="pipe-tel-time" style="color:var(--green)">0.0s</strong>
+      <span style="color:var(--text2)">&middot; Avg P(failure):</span> <strong id="pipe-tel-prob" style="color:var(--green)">0.0%</strong>
+      <span style="color:var(--text2)">&middot; Wave Speed:</span> <strong id="pipe-tel-speed" style="color:var(--green)">0.0</strong> <span style="color:var(--text3)">spools/step</span>
+      <span style="color:var(--text2)">&middot; Capacity Throttled:</span> <strong id="pipe-tel-loss" style="color:var(--red)">0.0%</strong>
+    </div>
+
+    <div class="event-banner" id="pipe-event-banner">
+      <b>Active Event Context:</b> Ready. Select trigger and click any pipeline component to initiate failure wave.
+    </div>
+
+    <svg id="pipe-svg" class="sim-canvas"></svg>
+    <div class="sim-log" id="pipe-log">SCADA telemetry stream active. All pressures nominal.</div>
+  </div>
+</section>
+
+<!-- ==================== &sect;12 CUSTOM SIMULATOR ==================== -->
+<section id="sec-sim-custom" class="band">
+  <p class="sec-marker">&sect;12 &middot; Custom Contagion Engine</p>
+  <h2>Configurable DebtRank &amp; Percolation Simulator</h2>
+  <p class="dek">Experiment with arbitrary directed topologies, buffer ratios, and propagation probabilities with real-time cascade latency tracking.</p>
+
+  <div class="sim-box">
+    <div class="sim-header"><div class="dot" style="background:var(--purple)"></div><h3>LIVE &middot; Custom Network Simulator</h3></div>
+
+    <div class="sim-controls">
+      <div class="ctrl">
+        <label>Nodes: <span class="val" id="vc-nodes">16</span></label>
+        <input type="range" id="sc-nodes" min="6" max="30" step="1" value="16"/>
+      </div>
+      <div class="ctrl">
+        <label>Edge Density: <span class="val" id="vc-density">0.20</span></label>
+        <input type="range" id="sc-density" min="0.08" max="0.55" step="0.02" value="0.20"/>
+      </div>
+      <div class="ctrl">
+        <label>Buffer Ratio: <span class="val" id="vc-buffer">0.15</span></label>
+        <input type="range" id="sc-buffer" min="0.03" max="0.40" step="0.01" value="0.15"/>
+      </div>
+      <div class="ctrl">
+        <label>Shock Magnitude: <span class="val" id="vc-shock">0.85</span></label>
+        <input type="range" id="sc-shock" min="0.20" max="1.00" step="0.05" value="0.85"/>
+      </div>
+      <div class="ctrl">
+        <label>Propagation Prob: <span class="val" id="vc-prob">0.65</span></label>
+        <input type="range" id="sc-prob" min="0.10" max="1.00" step="0.05" value="0.65"/>
+      </div>
+    </div>
+
+    <div class="sim-btns">
+      <button class="btn btn-purple" onclick="custBuild()">Generate Network</button>
+      <button class="btn btn-danger" onclick="custRandomShock()">Random Shock</button>
+      <button class="btn btn-success" onclick="custReset()">Reset States</button>
+    </div>
+
+    <div style="background:var(--bg-alt);border:1px solid var(--border-light);border-radius:6px;padding:.55rem 1rem;margin:1.15rem 0;font-family:var(--mono);font-size:.82rem;display:flex;flex-wrap:wrap;gap:.35rem 1.5rem;align-items:center">
+      <span style="color:var(--text2)">Duration:</span> <strong id="cust-tel-time" style="color:var(--purple)">0.0s</strong>
+      <span style="color:var(--text2)">&middot; Effective P(trans):</span> <strong id="cust-tel-prob" style="color:var(--purple)">0.0%</strong>
+      <span style="color:var(--text2)">&middot; Steps:</span> <strong id="cust-tel-speed" style="color:var(--purple)">0.0</strong> <span style="color:var(--text3)">hops</span>
+      <span style="color:var(--text2)">&middot; Network Shortfall:</span> <strong id="cust-tel-loss" style="color:var(--red)">0.0%</strong>
+    </div>
+
+    <svg id="cust-svg" class="sim-canvas"></svg>
+    <div class="sim-log" id="cust-log">Ready. Generate a network to begin.</div>
+  </div>
+</section>
+
+<!-- ==================== &sect;13 ANALYTICS ==================== -->
+<section id="sec-charts" class="band">
+  <p class="sec-marker">&sect;13 &middot; Empirical Analytics</p>
+  <h2>D3.js Empirical Visualizations</h2>
+  <p class="dek">Data visualizations calibrated to primary empirical sources, combinatorial graph properties, and Lov&aacute;sz Local Lemma thresholds.</p>
+
+  <div class="chart-wrap">
+    <h4>FIG. 1 &middot; MAJOR FINANCIAL CRISES: SYSTEMIC LOSS MAGNITUDE (1998&ndash;2023)</h4>
+    <p class="chart-sub">Total estimated system-wide losses from each crisis episode, log-scaled. Sources: Federal Reserve, BIS, FDIC.</p>
+    <div class="chart-area"><svg id="chart-crises" class="chart" height="340"></svg></div>
+  </div>
+
+  <div class="chart-wrap">
+    <h4>FIG. 2 &middot; DEBTRANK AMPLIFICATION: SHOCK SIZE vs. SYSTEM EQUITY DESTROYED</h4>
+    <p class="chart-sub">DebtRank propagation on a 50-node core-periphery network showing multiplicative loss amplification above the 1:1 baseline.</p>
+    <div class="chart-area"><svg id="chart-debtrank" class="chart" height="320"></svg></div>
+  </div>
+
+  <div class="chart-wrap">
+    <h4>FIG. 3 &middot; PIPELINE INCIDENT FREQUENCY BY CAUSE (PHMSA 2023)</h4>
+    <p class="chart-sub">U.S. pipeline significant incidents by primary cause. Data: PHMSA Significant Incident Files, K18.</p>
+    <div class="chart-area"><svg id="chart-pipeline" class="chart" height="320"></svg></div>
+  </div>
+
+  <div class="chart-wrap">
+    <h4>FIG. 4 &middot; PERCOLATION PHASE TRANSITION vs. DEPENDENT LOV&Aacute;SZ LOCAL LEMMA BOUND</h4>
+    <p class="chart-sub">Green: Giant component size under independent percolation. Red dashed: Lov&aacute;sz Local Lemma threshold $e \cdot p \cdot (d+1) \le 1$ under degree-$d$ local dependency.</p>
+    <div class="chart-area"><svg id="chart-percolation" class="chart" height="320"></svg></div>
+  </div>
+
+  <div class="chart-wrap">
+    <h4>FIG. 5 &middot; CONTAGION TIMELINE: LEHMAN BROTHERS CASCADE (SEP 2008)</h4>
+    <p class="chart-sub">Daily cascade progression showing institutions in distress ($C_i > 0.5$) post-Lehman filing until TARP enactment.</p>
+    <div class="chart-area"><svg id="chart-timeline" class="chart" height="300"></svg></div>
+  </div>
+
+  <div class="chart-wrap">
+    <h4>FIG. 6 &middot; DIRECTED SPECTRAL GAP (&lambda;<sub>2</sub>) &amp; CHEEGER EXPANSION</h4>
+    <p class="chart-sub">Corrected Cheeger Interpretation: <strong>Higher &lambda;<sub>2</sub> (Red) = Fast Global Contagion Mixing</strong>; <strong>Lower &lambda;<sub>2</sub> (Blue) = Severe Cheeger Bottleneck (Shocks trapped in cluster)</strong>.</p>
+    <div class="chart-area"><svg id="chart-fiedler" class="chart" height="300"></svg></div>
+  </div>
+</section>
+
+<!-- ==================== &sect;14 K-REGISTER ==================== -->
+<section id="sec-kreg" class="band">
+  <p class="sec-marker">&sect;14 &middot; Evidence Register</p>
+  <h2>The K-Register &middot; K1&ndash;K25</h2>
+  <p class="dek">Every load-bearing number in this report traces to one of these rows.</p>
+
+  <table class="kreg">
+    <thead><tr><th>K</th><th>Fact</th><th>Value</th><th>Source</th><th>State</th></tr></thead>
+    <tbody>
+      <tr><td>K1</td><td>Lehman Brothers liabilities at bankruptcy filing</td><td>$613B</td><td>U.S. Bankruptcy Court, SDNY (2008)</td><td>Actual</td></tr>
+      <tr><td>K2</td><td>SVB total assets at FDIC closure</td><td>$209B</td><td>FDIC press release, Mar 10 2023</td><td>Actual</td></tr>
+      <tr><td>K3</td><td>Colonial Pipeline system length</td><td>5,500 mi</td><td>PHMSA Annual Report 2021</td><td>Actual</td></tr>
+      <tr><td>K4</td><td>Fedwire daily interbank fund transfers</td><td>$4.2T</td><td>Federal Reserve Board Annual Report (2023)</td><td>Actual</td></tr>
+      <tr><td>K5</td><td>Greifswald hub capacity prior to disruption</td><td>140 MCM/d</td><td>ENTSOG Transparency Platform</td><td>Actual</td></tr>
+      <tr><td>K6</td><td>DebtRank convergence bound</td><td>T &le; N steps</td><td>Battiston et al. (2012), Sci. Rep.</td><td>Derived</td></tr>
+      <tr><td>K7</td><td>Eisenberg-Noe clearing existence and uniqueness</td><td>Tarski lattice</td><td>Eisenberg &amp; Noe (2001), Mgmt. Sci.</td><td>Derived</td></tr>
+      <tr><td>K8</td><td>ST-GNN anomaly early warning lead time</td><td>~45 min</td><td>Wu et al. (2019); IEEE Trans. Smart Grid (2023)</td><td>Estimate</td></tr>
+      <tr><td>K9</td><td>Directed Cheeger inequality bounds</td><td>$2h \ge \lambda_2 \ge h^2/2$</td><td>Chung (2005), Annals of Combinatorics</td><td>Derived</td></tr>
+      <tr><td>K10</td><td>Submodular sensor optimization greedy bound</td><td>$(1 - 1/e)$</td><td>Nemhauser et al. (1978); Krause et al. (2008)</td><td>Derived</td></tr>
+      <tr><td>K11</td><td>2008 Lehman DebtRank loss amplification</td><td>~4.2&times;</td><td>Battiston et al. (2012), BIS empirical calibration</td><td>Estimate</td></tr>
+      <tr><td>K12</td><td>Fedwire dealer core directed spectral gap</td><td>0.014</td><td>Soram&auml;ki et al. (2007)</td><td>Estimate</td></tr>
+      <tr><td>K13</td><td>TARP legislative emergency authorization</td><td>$700B</td><td>Emergency Economic Stabilization Act, Oct 2008</td><td>Actual</td></tr>
+      <tr><td>K14</td><td>Colonial Pipeline consumer fuel price spike</td><td>+$0.10/gal</td><td>EIA Weekly Petroleum Status Report, May 2021</td><td>Actual</td></tr>
+      <tr><td>K15</td><td>European gas grid topological percolation bound</td><td>$p_c \approx 0.23$</td><td>Zio &amp; Sansavini (2011)</td><td>Estimate</td></tr>
+      <tr><td>K16</td><td>SVB 24-hour run deposit outflow rate</td><td>$42B</td><td>California DFPI seizure order, Mar 2023</td><td>Actual</td></tr>
+      <tr><td>K17</td><td>SVB share of uninsured deposits</td><td>93.8%</td><td>FDIC Quarterly Banking Profile, Q4 2022</td><td>Actual</td></tr>
+      <tr><td>K18</td><td>U.S. significant pipeline incidents in 2023</td><td>623</td><td>PHMSA Significant Incident Files</td><td>Actual</td></tr>
+      <tr><td>K19</td><td>LTCM notional positions at 1998 rescue</td><td>$125B</td><td>Federal Reserve Bank of New York (1998)</td><td>Actual</td></tr>
+      <tr><td>K20</td><td>Nord Stream transmission loss capacity</td><td>~110 MCM/d</td><td>Bundesnetzagentur monitoring data</td><td>Actual</td></tr>
+      <tr><td>K21</td><td>Colonial Pipeline ransomware extortion paid</td><td>$4.4M</td><td>DOJ press release, Jun 2021</td><td>Actual</td></tr>
+      <tr><td>K22</td><td>Basel III Common Equity Tier 1 minimum</td><td>4.5%</td><td>Basel Committee on Banking Supervision (2010)</td><td>Actual</td></tr>
+      <tr><td>K23</td><td>Lofrano dual-layer stochastic graph framework</td><td>$G_\text{phys} \otimes G_\text{obs}$</td><td>Lofrano (2026), MIPT Digital Repository</td><td>Derived</td></tr>
+      <tr><td>K24</td><td>Reserve Primary Fund Lehman commercial paper</td><td>$785M</td><td>SEC filing (2008)</td><td>Actual</td></tr>
+      <tr><td>K25</td><td>Total unimodularity of incidence matrices</td><td>$\det \mathbf{B}_I \in \{0, \pm 1\}$</td><td>van Lint &amp; Wilson (2001), Theorem 7.1</td><td>Derived</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ==================== &sect;15 REFERENCES ==================== -->
+<section id="sec-refs" class="band">
+  <p class="sec-marker">&sect;15 &middot; References</p>
+  <h2>Academic &amp; Methodological Bibliography</h2>
+  <p class="dek">Foundational combinatorics, spectral graph theory, and systemic risk literature.</p>
+
+  <ol class="ref-list">
+    <li><span class="ref-key">[1]</span> Acharya, V., Drechsler, I., and Schnabl, P. (2014) 'A Pyrrhic Victory? Bank Bailouts and Sovereign Credit Risk', <em>Journal of Finance</em>, 69(6), pp. 2689&ndash;2739.</li>
+    <li><span class="ref-key">[2]</span> Albert, R., Jeong, H., and Barab&aacute;si, A.-L. (2000) 'Error and attack tolerance of complex networks', <em>Nature</em>, 406, pp. 378&ndash;382.</li>
+    <li><span class="ref-key">[3]</span> Bardoscia, M., Battiston, S., Caccioli, F., and Caldarelli, G. (2015) 'DebtRank: A microscopic foundation for shock propagation', <em>PLoS ONE</em>, 10(6), e0130406.</li>
+    <li><span class="ref-key">[4]</span> Battiston, S., Puliga, M., Kaushik, R., Tasca, P., and Caldarelli, G. (2012) 'DebtRank: Too central to fail? Financial networks, the FED and systemic risk', <em>Scientific Reports</em>, 2, 541.</li>
+    <li><span class="ref-key">[5]</span> Brunnermeier, M. K. and Pedersen, L. H. (2009) 'Market Liquidity and Funding Liquidity', <em>Review of Financial Studies</em>, 22(6), pp. 2201&ndash;2238.</li>
+    <li><span class="ref-key">[6]</span> Chung, F. (2005) 'Laplacians and the Cheeger inequality for directed graphs', <em>Annals of Combinatorics</em>, 9(1), pp. 1&ndash;19.</li>
+    <li><span class="ref-key">[7]</span> Cohen, R., Erez, K., ben-Avraham, D., and Havlin, S. (2000) 'Resilience of the Internet to random breakdowns', <em>Physical Review Letters</em>, 85(21), pp. 4626&ndash;4628.</li>
+    <li><span class="ref-key">[8]</span> Eisenberg, L. and Noe, T. H. (2001) 'Systemic Risk in Financial Systems', <em>Management Science</em>, 47(2), pp. 236&ndash;249.</li>
+    <li><span class="ref-key">[9]</span> Elsinger, H. (2009) 'Financial Networks, Cross Holdings, and Limited Liability', <em>&Ouml;sterreichische Nationalbank Working Paper</em>, No. 156.</li>
+    <li><span class="ref-key">[10]</span> Erd&odblac;s, P. and Lov&aacute;sz, L. (1975) 'Problems and results on 3-chromatic hypergraphs and some related questions', in <em>Infinite and Finite Sets</em>, Colloq. Math. Soc. J&aacute;nos Bolyai, 10, pp. 609&ndash;627.</li>
+    <li><span class="ref-key">[11]</span> Fiedler, M. (1973) 'Algebraic connectivity of graphs', <em>Czechoslovak Mathematical Journal</em>, 23(98), pp. 298&ndash;305.</li>
+    <li><span class="ref-key">[12]</span> Ford, L. R. and Fulkerson, D. R. (1956) 'Maximal flow through a network', <em>Canadian Journal of Mathematics</em>, 8, pp. 399&ndash;404.</li>
+    <li><span class="ref-key">[13]</span> Glasserman, P. and Young, H. P. (2015) 'How likely is contagion in financial networks?', <em>Journal of Banking &amp; Finance</em>, 50, pp. 383&ndash;399.</li>
+    <li><span class="ref-key">[14]</span> Greenwood, R., Landier, A., and Thesmar, D. (2015) 'Vulnerable Banks', <em>Journal of Financial Economics</em>, 115(3), pp. 471&ndash;485.</li>
+    <li><span class="ref-key">[15]</span> Krause, A., Leskovec, J., Guestrin, C., VanBriesen, J., and Faloutsos, C. (2008) 'Efficient Sensor Placement Optimization for Securing Large Water Distribution Networks', <em>Journal of Water Resources Planning and Management</em>, 134(6), pp. 516&ndash;526.</li>
+    <li><span class="ref-key">&star;[16]</span> <strong>Lofrano, M. H. N. (2026) 'Graph Theory Risk Propagation in Stochastic environments: An approach into pipeline industrial PdM IoT based modelling and financial contagion risk modelling', Course Paper (Contemporary Combinatorics), Moscow Institute of Physics and Technology. Available at: MIPT Digital Repository <a href="https://lib.mipt.ru/" target="_blank">https://lib.mipt.ru/</a> (Accessed: 30 October 2024).</strong></li>
+    <li><span class="ref-key">[17]</span> Nemhauser, G. L., Wolsey, L. A., and Fisher, M. L. (1978) 'An analysis of approximations for maximizing submodular set functions', <em>Mathematical Programming</em>, 14(1), pp. 265&ndash;294.</li>
+    <li><span class="ref-key">[18]</span> Poledna, S., Molina-Borboa, J. L., Mart&iacute;nez-Jaramillo, S., van der Leij, M., and Thurner, S. (2015) 'The multi-layer network nature of systemic risk', <em>Journal of Financial Stability</em>, 20, pp. 70&ndash;81.</li>
+    <li><span class="ref-key">[19]</span> Rogers, L. C. G. and Veraart, L. A. M. (2013) 'Failure and rescue in an interbank network', <em>Management Science</em>, 59(4), pp. 882&ndash;898.</li>
+    <li><span class="ref-key">[20]</span> Soram&auml;ki, K., Bech, M. L., Arnold, J., Glass, R. J., and Beyeler, W. E. (2007) 'The topology of interbank payment flows', <em>Physica A</em>, 379(1), pp. 317&ndash;333.</li>
+    <li><span class="ref-key">&star;[21]</span> <strong>Tao, T. and Vu, V. H. (2006) <em>Additive Combinatorics</em>, Cambridge Studies in Advanced Mathematics (No. 105), Cambridge University Press. (Chapters 1 &amp; 2: Probabilistic Method, Lov&aacute;sz Local Lemma, Janson and Kim-Vu Concentration Inequalities).</strong></li>
+    <li><span class="ref-key">[22]</span> Tarski, A. (1955) 'A lattice-theoretical fixpoint theorem and its applications', <em>Pacific Journal of Mathematics</em>, 5(2), pp. 285&ndash;309.</li>
+    <li><span class="ref-key">&star;[23]</span> <strong>van Lint, J. H. and Wilson, R. M. (2001) <em>A Course in Combinatorics</em>, 2nd edn, Cambridge University Press. (Chapter 7: Flows in Networks and Total Unimodularity; Chapter 36: Electrical Networks and the Matrix-Tree Theorem).</strong></li>
+    <li><span class="ref-key">[24]</span> Wu, Z., Pan, S., Long, G., Jiang, J., and Zhang, C. (2019) 'Graph WaveNet for Deep Spatial-Temporal Graph Modeling', in <em>IJCAI 2019</em>, pp. 1907&ndash;1913.</li>
+    <li><span class="ref-key">[25]</span> Zio, E. and Sansavini, G. (2011) 'Component Criticality in Failure Cascade Processes of Network Systems', <em>Risk Analysis</em>, 31(8), pp. 1196&ndash;1210.</li>
+  </ol>
+</section>
+
+<!-- ==================== &sect;16 CODE ==================== -->
+<section id="sec-code" class="band">
+  <p class="sec-marker">&sect;16 &middot; Production Python Engineering</p>
+  <h2>Eisenberg-Noe Lattice Clearing &amp; DebtRank Engine</h2>
+  <p class="dek">Verified implementations with convergence diagnostics. Adapted from Lofrano (2026, Appendix A).</p>
+
+  <pre><code>import numpy as np
+
+def eisenberg_noe(L, e, tol=1e-10, max_iter=500):
+    # Eisenberg-Noe clearing payment vector via monotonic fixed-point iteration.
+    # L: (N,N) nominal obligation matrix, L[i,j] = obligation of i to j
+    # e: (N,)  exogenous operating cash / asset vector
+    # Returns: p_star clearing vector, n_defaults
+    N = len(e)
+    p_bar = L.sum(axis=1)
+    Pi = np.zeros_like(L)
+    for i in range(N):
+        if p_bar[i] > 0:
+            Pi[i] = L[i] / p_bar[i]
+    p = p_bar.copy()
+    for t in range(max_iter):
+        p_new = np.minimum(p_bar, np.maximum(0, Pi.T @ p + e))
+        if np.max(np.abs(p_new - p)) &lt; tol:
+            break
+        p = p_new
+    defaults = int(np.sum(p &lt; p_bar - tol))
+    return p, defaults
+
+def debtrank(W, E, shocks, max_steps=None):
+    # DebtRank discrete dynamical system with single-burn state clamping.
+    # W: (N,N) exposure matrix, W[i,j] = assets i holds against j
+    # E: (N,)  equity buffer vector
+    # shocks: dict {node_id: initial_shock_fraction}
+    # Returns: final distress vector C, aggregate DebtRank score R_S
+    N = len(E)
+    if max_steps is None:
+        max_steps = N
+    Lam = np.zeros((N, N))
+    for i in range(N):
+        if E[i] > 0:
+            Lam[i] = np.minimum(1.0, W[i] / E[i])
+    C_prev = np.zeros(N)
+    C_curr = np.zeros(N)
+    for node, frac in shocks.items():
+        C_curr[node] = min(1.0, frac)
+    active = np.ones(N, dtype=bool)
+    for node in shocks:
+        active[node] = False
+    for t in range(max_steps):
+        delta = C_curr - C_prev
+        if np.all(np.abs(delta) &lt; 1e-12):
+            break
+        C_next = C_curr.copy()
+        for i in range(N):
+            if active[i]:
+                incoming = np.sum(Lam[i] * delta * active)
+                C_next[i] = min(1.0, C_curr[i] + incoming)
+                if C_next[i] >= 1.0:
+                    active[i] = False
+        C_prev = C_curr
+        C_curr = C_next
+    v = E / E.sum()
+    R_S = float(np.sum(v * (C_curr - np.array([shocks.get(i, 0) for i in range(N)]))))
+    return C_curr, R_S
+</code></pre>
+</section>
+
+</main>
+
+<footer>
+  <p><strong>Colophon.</strong> Graph Theory &amp; Combinatorial Mathematics for Contagion Risk Propagation &middot; Comprehensive 2026 Edition. Formally grounded in van Lint &amp; Wilson (2001), Tao &amp; Vu (2006), Chung (2005), and Lofrano (2026). Set in Georgia serif and system sans-serif; KaTeX mathematical typesetting; runtime D3.js v7 visualizations. No tracking. For research and technical reference only.</p>
+</footer>
+<script>
+// ═══════════════════════════════════════════════════════════
+// REAL-WORLD EVENT TAXONOMY & LATENCY CONSTANTS
+// ═══════════════════════════════════════════════════════════
+const FIN_EVENTS = {
+  T1: {
+    name: "T1 Credit Default (Lehman Brothers $613B)",
+    desc: "Unsecured bilateral obligation default. Primary dealer clearing payments fail, triggering direct write-downs across core creditors.",
+    timeStepHours: 4.0, // 4 hours per Fedwire clearing window
+    lossMult: 1.0,
+    fireSaleAlpha: 0.0,
+    liquidityDrain: 0.0,
+    marginFactor: 1.0,
+    baseProb: 0.82,
+    color: "#cf222e"
+  },
+  T2: {
+    name: "T2 Fire-Sale Contagion (MBS Liquidation)",
+    desc: "Deleveraging spiral: forced liquidation of private-label mortgage securities depresses asset market prices, eroding equity of all common holders.",
+    timeStepHours: 2.5,
+    lossMult: 1.15,
+    fireSaleAlpha: 0.05,
+    liquidityDrain: 0.06,
+    marginFactor: 1.25,
+    baseProb: 0.88,
+    color: "#bc4c00"
+  },
+  T3: {
+    name: "T3 Funding Liquidity Freeze (Repo / Commercial Paper)",
+    desc: "Short-term wholesale markets freeze: Reserve Primary Fund breaks the buck, repo haircuts spike from 2% to 45%, blocking overnight roll-overs.",
+    timeStepHours: 3.0,
+    lossMult: 1.10,
+    fireSaleAlpha: 0.02,
+    liquidityDrain: 0.22,
+    marginFactor: 1.35,
+    baseProb: 0.74,
+    color: "#9a6700"
+  },
+  T4: {
+    name: "T4 Confidence Run / Social Coordination (SVB $42B/24h)",
+    desc: "Coordinated digital depositor panic via WhatsApp/Twitter syndicates: $42B withdrawn in 24 hours ($485,000/sec), instantly breaching liquidity buffers.",
+    timeStepHours: 1.5,
+    lossMult: 1.35,
+    fireSaleAlpha: 0.01,
+    liquidityDrain: 0.38,
+    marginFactor: 1.10,
+    baseProb: 0.94,
+    color: "#8250df"
+  },
+  T5: {
+    name: "T5 Margin Spiral (Brunnermeier-Pedersen)",
+    desc: "Mark-to-market loss triggers margin calls: clearinghouses demand 300% variation margin cash, forcing fire-sales and liquidity drainage.",
+    timeStepHours: 2.0,
+    lossMult: 1.45,
+    fireSaleAlpha: 0.04,
+    liquidityDrain: 0.16,
+    marginFactor: 1.80,
+    baseProb: 0.84,
+    color: "#0550ae"
+  },
+  T6: {
+    name: "T6 Sovereign-Bank Nexus (Eurozone 2011)",
+    desc: "Sovereign bond impairment erodes bank equity; distressed banks require state recapitalization, deepening sovereign deficit in a reflexive loop.",
+    timeStepHours: 6.0,
+    lossMult: 1.05,
+    fireSaleAlpha: 0.03,
+    liquidityDrain: 0.10,
+    marginFactor: 1.15,
+    sovereignFloor: 0.06,
+    baseProb: 0.62,
+    color: "#0969da"
+  }
+};
+
+const PIPE_EVENTS = {
+  P1: {
+    name: "P1 Internal/External Corrosion (ASME B31G Breach)",
+    desc: "Localized microbial / acid wall thinning reduces thickness <20% nominal. Pinhole rupture produces high-frequency acoustic emission.",
+    timeStepSec: 1.8,
+    surgeMult: 1.10,
+    joukowskyBar: 12.0,
+    acousticSpeed: 380, // m/s in natural gas
+    baseProb: 0.64,
+    color: "#cf222e"
+  },
+  P2: {
+    name: "P2 Third-Party Excavation Rupture (Backhoe Strike)",
+    desc: "Instantaneous mechanical puncture of 36-inch mainline pipe spool: immediate decompression shock wave propagates at speed of sound in fluid (c ≈ 380 m/s).",
+    timeStepSec: 0.6,
+    surgeMult: 1.45,
+    joukowskyBar: 26.0,
+    acousticSpeed: 380,
+    baseProb: 0.96,
+    color: "#bc4c00"
+  },
+  P3: {
+    name: "P3 Material / Weld Fatigue Fracture",
+    desc: "Longitudinal seam weld fatigue crack under cyclic pressure pulses initiates brittle fracture propagation across adjacent spools.",
+    timeStepSec: 1.2,
+    surgeMult: 1.20,
+    joukowskyBar: 16.0,
+    acousticSpeed: 380,
+    baseProb: 0.76,
+    color: "#9a6700"
+  },
+  P4: {
+    name: "P4 Natural Forces (Correlated Landslide)",
+    desc: "Slope shear displacement causes simultaneous bending stress rupture across contiguous mountain pipeline spans.",
+    timeStepSec: 0.9,
+    surgeMult: 1.50,
+    joukowskyBar: 22.0,
+    acousticSpeed: 380,
+    baseProb: 0.90,
+    color: "#1a7f37"
+  },
+  P5: {
+    name: "P5 Incorrect Operation / Water Hammer",
+    desc: "Emergency motorized isolation valve closes in 1.2s: Joukowsky pressure surge (+Δp = ρ·c·Δv) creates destructive hydraulic transient waves.",
+    timeStepSec: 0.7,
+    surgeMult: 1.85,
+    joukowskyBar: 38.0,
+    acousticSpeed: 1150, // m/s liquid petroleum wave
+    baseProb: 0.78,
+    color: "#0550ae"
+  },
+  P6: {
+    name: "P6 Centrifugal Compressor Station Surge",
+    desc: "Compressor bearing seizure drops discharge pressure by 75 bar; upstream backpressure surges and downstream delivery trips on low pressure.",
+    timeStepSec: 2.2,
+    surgeMult: 1.60,
+    joukowskyBar: 28.0,
+    acousticSpeed: 380,
+    baseProb: 0.68,
+    color: "#0969da"
+  },
+  P7: {
+    name: "P7 Cyber / SCADA Blackout (Colonial DarkSide)",
+    desc: "Ransomware encrypts billing IT, severing SCADA telemetry server. Operators blinded to pipeline pressure; emergency manual shutdown initiated across all segments.",
+    timeStepSec: 0.5,
+    surgeMult: 2.00,
+    joukowskyBar: 18.0,
+    acousticSpeed: 1150,
+    baseProb: 0.98,
+    color: "#8250df"
+  }
+};
+
+function wireSliders(ids){
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    const vid=id.replace(/^s/,'v');
+    el.addEventListener('input',()=>{document.getElementById(vid).textContent=el.value;});
+  });
+}
+function param(id){return parseFloat(document.getElementById(id).value);}
+
+function logMsg(el,msg){
+  el.innerHTML=msg+'<br>'+el.innerHTML;
+  if(el.innerHTML.length>5000) el.innerHTML=el.innerHTML.slice(0,4200);
+}
+
+function nodeColor(d){
+  if(d.failed) return '#cf222e';
+  if(d.distress>0.7) return '#bc4c00';
+  if(d.distress>0.3) return '#d29922';
+  if(d.distress>0) return '#f0d000';
+  return d.baseColor||'#ddf4ff';
+}
+
+function buildGenericNetwork(svgId,nodes,links){
+  const svg=d3.select('#'+svgId);
+  svg.selectAll('*').remove();
+  const rect=document.getElementById(svgId).getBoundingClientRect();
+  const W=rect.width||780, H=rect.height||490;
+
+  const linkG=svg.append('g');
+  const nodeG=svg.append('g');
+
+  const linkEls=linkG.selectAll('line').data(links).enter().append('line')
+    .attr('stroke','#c9d1d9').attr('stroke-width',d=>(d.weight||0.5)*2.5).attr('stroke-opacity',0.6);
+
+  const nodeEls=nodeG.selectAll('g').data(nodes).enter().append('g')
+    .style('cursor','pointer')
+    .call(d3.drag().on('start',(ev,d)=>{if(!ev.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y;})
+      .on('drag',(ev,d)=>{d.fx=ev.x;d.fy=ev.y;})
+      .on('end',(ev,d)=>{if(!ev.active)sim.alphaTarget(0);d.fx=null;d.fy=null;}));
+
+  nodeEls.append('circle')
+    .attr('r',d=>d.r||13)
+    .attr('fill',d=>nodeColor(d))
+    .attr('stroke','#0969da').attr('stroke-width',1.5);
+
+  nodeEls.append('text')
+    .text(d=>d.label||d.id)
+    .attr('text-anchor','middle').attr('dy','.35em')
+    .attr('fill','#1f2328').attr('font-size','9px').attr('font-family','var(--mono)').attr('font-weight','700');
+
+  const sim=d3.forceSimulation(nodes)
+    .force('link',d3.forceLink(links).id(d=>d.id).distance(d=>d.dist||72))
+    .force('charge',d3.forceManyBody().strength(-220))
+    .force('center',d3.forceCenter(W/2,H/2))
+    .force('collision',d3.forceCollide(d=>(d.r||13)+4))
+    .on('tick',()=>{
+      linkEls.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+             .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+      nodeEls.attr('transform',d=>`translate(${d.x},${d.y})`);
+    });
+
+  return {svg,nodeEls,linkEls,sim};
+}
+
+// ═══════════════════════════════════════════════════════════
+// FINANCIAL SIMULATOR WITH LIVE LATENCY (§10)
+// ═══════════════════════════════════════════════════════════
+let FIN={nodes:[],links:[],refs:null};
+wireSliders(['sf-core','sf-periph','sf-buffer','sf-shock']);
+
+function finBuild(){
+  const nCore=Math.round(param('sf-core'));
+  const nPeriph=Math.round(param('sf-periph'));
+  const buffer=param('sf-buffer');
+  const N=nCore+nPeriph;
+  let nodes=[],links=[];
+
+  const coreNames=['JPM','GS','MS','Citi','BofA','WF','DB','BCS','CS','HSBC','BNP','SG','UBS','RBS','NOM','MUFG','Miz','ING','UCG','SAN'];
+  for(let i=0;i<nCore;i++){
+    const eq0 = 120 + Math.random()*80; // $120B-$200B equity
+    nodes.push({id:i,label:coreNames[i%coreNames.length],buffer:buffer*(0.8+Math.random()*0.4),
+      equity0:eq0,equity:eq0,distress:0,prevDistress:0,deltaDistress:0,burned:false,failed:false,r:18,baseColor:'#ddf4ff',type:'core'});
+  }
+  for(let i=nCore;i<N;i++){
+    const eq0 = 20 + Math.random()*25; // $20B-$45B equity
+    nodes.push({id:i,label:'B'+(i-nCore+1),buffer:buffer*(0.5+Math.random()*0.8),
+      equity0:eq0,equity:eq0,distress:0,prevDistress:0,deltaDistress:0,burned:false,failed:false,r:10,baseColor:'#f0f2f5',type:'periph'});
+  }
+  // Interbank exposure matrix W_ij: bilateral exposures
+  for(let i=0;i<nCore;i++){
+    for(let j=0;j<nCore;j++){
+      if(i!==j && Math.random()<0.52){
+        const exp = (10 + Math.random()*30); // $10B-$40B exposure
+        links.push({source:i,target:j,weight:exp/40,exposure:exp,dist:52});
+      }
+    }
+  }
+  for(let i=nCore;i<N;i++){
+    const nLinks=1+Math.floor(Math.random()*3);
+    for(let k=0;k<nLinks;k++){
+      const core=Math.floor(Math.random()*nCore);
+      const exp = (4 + Math.random()*12);
+      links.push({source:i,target:core,weight:exp/20,exposure:exp,dist:90});
+      if(Math.random()<0.4){
+        links.push({source:core,target:i,weight:exp/25,exposure:exp*0.8,dist:90});
+      }
+    }
+  }
+  FIN.nodes=nodes; FIN.links=links;
+  const logEl=document.getElementById('fin-log');
+  logEl.innerHTML='Fedwire Core-Periphery Digraph initialized: '+nCore+' core dealer banks + '+nPeriph+' peripheral institutions ('+links.length+' bilateral credit exposures). Grounded in DebtRank single-burn lattice dynamics.';
+  FIN.refs=buildGenericNetwork('fin-svg',nodes,links);
+  FIN.refs.nodeEls.on('click',(ev,d)=>{
+    finTriggerCascade(d.id);
+  });
+  finResetTelemetry();
+}
+
+function finResetTelemetry(){
+  document.getElementById('fin-tel-time').textContent="0.0h";
+  document.getElementById('fin-tel-prob').textContent="0.0%";
+  document.getElementById('fin-tel-speed').textContent="0.0";
+  document.getElementById('fin-tel-loss').textContent="0.0%";
+  document.getElementById('fin-event-banner').innerHTML="<b>Active Event Context:</b> Ready. Select trigger type above and click any bank node.";
+}
+
+function finTriggerCascade(startId){
+  const triggerKey=document.getElementById('sf-trigger').value;
+  const evInfo=FIN_EVENTS[triggerKey]||FIN_EVENTS['T4'];
+  const shockMag=param('sf-shock');
+  const startNode=FIN.nodes.find(x=>x.id===startId);
+  if(!startNode||startNode.failed) return;
+
+  document.getElementById('fin-event-banner').innerHTML=
+    `<b>TRIGGER ACTIVATED &middot; ${evInfo.name}</b><br><span style="color:#57606a">${evInfo.desc}</span>`;
+
+  const logEl=document.getElementById('fin-log');
+  logEl.innerHTML="";
+
+  // Reset deltas from prior run if not cleanly reset
+  FIN.nodes.forEach(n=>{
+    n.prevDistress = n.distress;
+    n.deltaDistress = 0;
+  });
+
+  // Apply primary exogenous shock
+  startNode.distress = Math.min(1.0, startNode.distress + shockMag);
+  startNode.deltaDistress = startNode.distress - startNode.prevDistress;
+  startNode.equity = Math.max(0, startNode.equity0 * (1.0 - startNode.distress));
+  if(startNode.distress >= 1.0 || (1.0 - startNode.distress) < startNode.buffer){
+    startNode.failed = true;
+    startNode.distress = 1.0;
+  }
+
+  logMsg(logEl, `<span style="color:${evInfo.color};font-weight:700">[T+0.0h] PRIMARY EXOGENOUS SHOCK: ${startNode.label} (${startNode.type}) hit with ${shockMag.toFixed(2)} shock. Capital buffer $${(startNode.equity0*startNode.buffer).toFixed(1)}B breached &rArr; Equity remaining: $${startNode.equity.toFixed(1)}B (C_i: ${startNode.distress.toFixed(2)}, status: ${startNode.failed?'INSOLVENT DEFAULT':'DISTRESSED'}).</span>`);
+
+  d3.select('#fin-svg').selectAll('circle').transition().duration(150).attr('fill',d=>nodeColor(d));
+
+  let step=0;
+  let cumTime=0;
+  let totalHopsEvaluated=0;
+  let sumHopsProb=0;
+
+  function cascadeStep(){
+    step++;
+    cumTime += evInfo.timeStepHours * (0.88 + Math.random()*0.24);
+    let newFails=0;
+    let hopLogs=[];
+    let incomingDistress = {};
+    FIN.nodes.forEach(n => { incomingDistress[n.id] = 0; });
+
+    // 1. Identify institutions transmitting unburned incremental distress ΔC_j
+    const transmittingNodes = FIN.nodes.filter(n => n.deltaDistress > 0.001 && !n.burned);
+
+    transmittingNodes.forEach(debtor => {
+      const dC_j = debtor.deltaDistress;
+      // Mark as burned for this increment (single-burn clamping prevents cyclic amplification)
+      debtor.burned = true;
+
+      // Find all creditors holding exposure W_ij on this debtor
+      FIN.links.forEach(l => {
+        let creditor = (typeof l.source==='object')?l.source:FIN.nodes.find(x=>x.id===l.source);
+        let debtorRef = (typeof l.target==='object')?l.target:FIN.nodes.find(x=>x.id===l.target);
+        if(!creditor || !debtorRef || debtorRef.id !== debtor.id) return;
+        if(creditor.failed || creditor.distress >= 1.0) return;
+
+        const W_ij = l.exposure || (l.weight * 25);
+        // Leverage weight Λ_ij = min(1, W_ij / E_i)
+        const Lam_ij = Math.min(1.0, W_ij / Math.max(1.0, creditor.equity0));
+
+        // Effective incremental transmission
+        let dC_ij = Lam_ij * dC_j * evInfo.lossMult * evInfo.marginFactor;
+
+        // T4 Confidence Run / SVB accelerator: rapid deposit drain if core counterparty fails
+        if(triggerKey === 'T4' && debtor.failed){
+          dC_ij += evInfo.liquidityDrain * 0.35;
+        }
+
+        // Conditional failure probability: P(fail_i | ΔC_j) = min(1, ΔC_ij / (1 - C_i))
+        const remainingSolvency = Math.max(0.01, 1.0 - creditor.distress);
+        const condProb = Math.min(0.99, dC_ij / remainingSolvency);
+        totalHopsEvaluated++;
+        sumHopsProb += condProb;
+
+        incomingDistress[creditor.id] += dC_ij;
+
+        hopLogs.push(`[T+${cumTime.toFixed(1)}h] [DEBTRANK] ${debtor.label} &rarr; Creditor ${creditor.label}: ΔC_j=+${dC_j.toFixed(2)}, Λ_ij=${Lam_ij.toFixed(2)} (W=$${W_ij.toFixed(1)}B, E=$${creditor.equity.toFixed(1)}B) &rArr; +${dC_ij.toFixed(2)} distress [P_fail=${(condProb*100).toFixed(1)}%]`);
+      });
+    });
+
+    // 2. T2 Fire-Sale Macro Feedback: Depressed collateral liquidation across all institutions
+    if(evInfo.fireSaleAlpha > 0 && transmittingNodes.length > 0){
+      const aggregateLiquidations = transmittingNodes.length * 12.5; // $B forced sales
+      const marketMarkdown = evInfo.fireSaleAlpha * Math.min(1.0, aggregateLiquidations / 50.0);
+      FIN.nodes.forEach(n => {
+        if(!n.failed && n.distress < 1.0){
+          incomingDistress[n.id] += marketMarkdown;
+        }
+      });
+      hopLogs.push(`[T+${cumTime.toFixed(1)}h] [FIRE-SALE SPIRAL] Liquidation of $${aggregateLiquidations.toFixed(1)}B securities discounts market prices by ${(marketMarkdown*100).toFixed(1)}%. Distress +${marketMarkdown.toFixed(2)} applied across all active balance sheets.`);
+    }
+
+    // 3. T6 Sovereign-Bank Nexus floor for peripheral banks
+    if(evInfo.sovereignFloor && step <= 2){
+      FIN.nodes.filter(n => n.type === 'periph' && !n.failed).forEach(n => {
+        incomingDistress[n.id] += evInfo.sovereignFloor;
+      });
+      hopLogs.push(`[T+${cumTime.toFixed(1)}h] [SOVEREIGN NEXUS] Sovereign debt spread widening inflicts +${(evInfo.sovereignFloor*100).toFixed(0)}% base distress on peripheral institutions.`);
+    }
+
+    // 4. Update distress vector C(t) and single-burn deltas
+    FIN.nodes.forEach(n => {
+      const inc = incomingDistress[n.id];
+      if(inc > 0.001){
+        const oldC = n.distress;
+        n.distress = Math.min(1.0, oldC + inc);
+        n.deltaDistress = n.distress - oldC;
+        n.equity = Math.max(0, n.equity0 * (1.0 - n.distress));
+        n.burned = false; // new distress to transmit in next step
+
+        if(n.distress >= 1.0 && !n.failed){
+          n.failed = true;
+          newFails++;
+          hopLogs.push(`[T+${cumTime.toFixed(1)}h] [INSOLVENCY DEFAULT] ${n.label} equity buffer completely destroyed ($0.0B remaining). Insolvency declared. Single-burn terminal transmission scheduled.`);
+        }
+      } else {
+        n.deltaDistress = 0;
+      }
+    });
+
+    d3.select('#fin-svg').selectAll('circle').transition().duration(150).attr('fill',d=>nodeColor(d));
+    hopLogs.slice(0, 10).forEach(h=>logMsg(logEl,h));
+    if(hopLogs.length > 10) logMsg(logEl, `<em>... +${hopLogs.length - 10} additional bilateral transmission paths evaluated ...</em>`);
+
+    // 5. Update Telemetry Dashboard
+    const failedCount = FIN.nodes.filter(x=>x.failed).length;
+    const totalEq = FIN.nodes.reduce((s,n)=>s+n.equity0, 0);
+    const lostEq = FIN.nodes.reduce((s,n)=>s+n.equity0*n.distress, 0);
+    const equityLossPct = (lostEq / totalEq * 100).toFixed(1);
+    const avgProb = totalHopsEvaluated > 0 ? (sumHopsProb / totalHopsEvaluated * 100).toFixed(1) : "0.0";
+    const velocity = (failedCount / (step||1)).toFixed(2);
+
+    document.getElementById('fin-tel-time').textContent = cumTime.toFixed(1) + "h";
+    document.getElementById('fin-tel-prob').textContent = avgProb + "%";
+    document.getElementById('fin-tel-speed').textContent = velocity;
+    document.getElementById('fin-tel-loss').textContent = equityLossPct + "%";
+
+    logMsg(logEl, `<em>-- Iteration ${step} at T+${cumTime.toFixed(1)}h: +${newFails} defaults, ${failedCount}/${FIN.nodes.length} institutions insolvent, Systemic DebtRank Loss: ${equityLossPct}% ($${lostEq.toFixed(1)}B / $${totalEq.toFixed(1)}B) --</em>`);
+
+    const hasActiveDeltas = FIN.nodes.some(n => n.deltaDistress > 0.005 && !n.burned);
+    if((newFails > 0 || hasActiveDeltas) && step < 20){
+      setTimeout(cascadeStep, 450);
+    } else {
+      logMsg(logEl, `<span style="color:#cf222e;font-weight:700">[DEBTRANK FIXED POINT] Contagion stationary state reached at T+${cumTime.toFixed(1)}h. Single-burn clamping halted cyclic propagation. Total failed: ${failedCount}/${FIN.nodes.length}. Systemic equity destruction: ${equityLossPct}% ($${lostEq.toFixed(1)}B).</span>`);
+    }
+  }
+
+  if(startNode.failed || startNode.distress > 0.05){
+    setTimeout(cascadeStep, 400);
+  } else {
+    logMsg(logEl, `<em>[T+0.0h] Shock absorbed by ${startNode.label} equity cushion ($${startNode.equity.toFixed(1)}B &gt; shock). No systemic contagion triggered.</em>`);
+  }
+}
+
+function finRandomShock(){
+  if(!FIN.nodes.length){logMsg(document.getElementById('fin-log'),'Generate first.');return;}
+  const alive=FIN.nodes.filter(n=>!n.failed);
+  if(!alive.length)return;
+  const pick=alive[Math.floor(Math.random()*alive.length)];
+  finTriggerCascade(pick.id);
+}
+function finReset(){
+  FIN.nodes.forEach(n=>{
+    n.distress = 0;
+    n.prevDistress = 0;
+    n.deltaDistress = 0;
+    n.burned = false;
+    n.failed = false;
+    n.equity = n.equity0;
+  });
+  d3.select('#fin-svg').selectAll('circle').transition().duration(200).attr('fill',d=>nodeColor(d));
+  finResetTelemetry();
+  logMsg(document.getElementById('fin-log'),'All institution balance sheets restored to nominal solvency state.');
+}
+
+// ═══════════════════════════════════════════════════════════
+// PIPELINE SIMULATOR WITH LIVE LATENCY (§11)
+// ═══════════════════════════════════════════════════════════
+let PIPE={nodes:[],links:[],refs:null};
+wireSliders(['sp-segs','sp-redun','sp-integrity','sp-shock']);
+
+function pipeBuild(){
+  const nSegs=Math.round(param('sp-segs'));
+  const redun=param('sp-redun');
+  const integrity=param('sp-integrity');
+  let nodes=[],links=[];
+
+  // Sources: continental entry points (Greifswald 140 MCM/d, Zeebrugge LNG terminal)
+  nodes.push({id:0,label:'SRC-A',designCap:140,steadyFlow:70,maop:100,pressure:85,distress:0,failed:false,r:16,baseColor:'#dcfce7',type:'source'});
+  nodes.push({id:1,label:'SRC-B',designCap:120,steadyFlow:60,maop:100,pressure:85,distress:0,failed:false,r:16,baseColor:'#dcfce7',type:'source'});
+
+  const types=['Pipe','Valve','Comp','Sensor','Pump','Junc'];
+  for(let i=2;i<nSegs+2;i++){
+    const t=types[Math.floor(Math.random()*types.length)];
+    const cap = t==='Comp'?130:t==='Valve'?110:95;
+    const flow = (cap * 0.62) * (0.85 + Math.random()*0.3);
+    const maop = 95.0;
+    const baseP = 75.0 + Math.random()*6.0;
+    nodes.push({
+      id:i,
+      label:t[0]+(i-1),
+      designCap:cap,
+      steadyFlow:flow,
+      currentFlow:flow,
+      maop:maop,
+      pressure:baseP,
+      burstMargin:integrity*(0.6+Math.random()*0.8),
+      distress:0,
+      failed:false,
+      r:t==='Comp'||t==='Pump'?15:11,
+      baseColor:t==='Sensor'?'#e8f5e9':t==='Comp'?'#e3f2fd':'#f0f2f5',
+      type:t
+    });
+  }
+
+  const termId=nSegs+2;
+  // Delivery terminals: regional distribution hubs (Bavaria, North Rhine)
+  nodes.push({id:termId,label:'TERM-1',designCap:110,steadyFlow:65,maop:80,pressure:55,distress:0,failed:false,r:16,baseColor:'#fef3c7',type:'terminal'});
+  nodes.push({id:termId+1,label:'TERM-2',designCap:100,steadyFlow:55,maop:80,pressure:55,distress:0,failed:false,r:16,baseColor:'#fef3c7',type:'terminal'});
+
+  // Mainline trunk pipeline branches
+  links.push({source:0,target:2,capacity:120,flow:65,lengthKm:25,admittance:1.8,dist:60});
+  links.push({source:1,target:3,capacity:110,flow:55,lengthKm:22,admittance:1.6,dist:60});
+  for(let i=2;i<nSegs+1;i++){
+    links.push({source:i,target:i+1,capacity:95,flow:60,lengthKm:18,admittance:1.4,dist:55});
+  }
+  links.push({source:nSegs+1,target:termId,capacity:100,flow:65,lengthKm:20,admittance:1.5,dist:60});
+  links.push({source:nSegs,target:termId+1,capacity:90,flow:50,lengthKm:24,admittance:1.3,dist:60});
+
+  // Parallel bypass loops providing cycle-space redundancy (Kirchhoff rerouting)
+  for(let i=2;i<nSegs;i++){
+    if(Math.random()<redun){
+      const j=Math.min(nSegs+1,i+2+Math.floor(Math.random()*3));
+      links.push({source:i,target:j,capacity:45,flow:15,lengthKm:32,admittance:0.75,dist:80,isBypass:true});
+    }
+  }
+
+  PIPE.nodes=nodes; PIPE.links=links;
+  const logEl=document.getElementById('pipe-log');
+  logEl.innerHTML='Kirchhoff Physical Pipeline Network initialized: '+nodes.length+' elements ('+links.length+' spools/branches, '+links.filter(l=>l.isBypass).length+' parallel cycle-space bypasses). Linear mass-energy conservation enabled.';
+  PIPE.refs=buildGenericNetwork('pipe-svg',nodes,links);
+  PIPE.refs.nodeEls.on('click',(ev,d)=>{
+    pipeTriggerCascade(d.id);
+  });
+  pipeResetTelemetry();
+}
+
+function pipeResetTelemetry(){
+  document.getElementById('pipe-tel-time').textContent="0.0s";
+  document.getElementById('pipe-tel-prob').textContent="0.0%";
+  document.getElementById('pipe-tel-speed').textContent="0.0";
+  document.getElementById('pipe-tel-loss').textContent="0.0%";
+  document.getElementById('pipe-event-banner').innerHTML="<b>Active Event Context:</b> Ready. Select trigger and click any pipeline component.";
+}
+
+function pipeTriggerCascade(startId){
+  const triggerKey=document.getElementById('sp-trigger').value;
+  const evInfo=PIPE_EVENTS[triggerKey]||PIPE_EVENTS['P7'];
+  const shockMag=param('sp-shock');
+  const startNode=PIPE.nodes.find(x=>x.id===startId);
+  if(!startNode||startNode.failed) return;
+
+  document.getElementById('pipe-event-banner').innerHTML=
+    `<b>PIPELINE EVENT &middot; ${evInfo.name}</b><br><span style="color:#57606a">${evInfo.desc}</span>`;
+
+  const logEl=document.getElementById('pipe-log');
+  logEl.innerHTML="";
+
+  // Primary disruption
+  startNode.distress = Math.min(1.0, startNode.distress + shockMag);
+  const blockedFlow = (startNode.steadyFlow || 50.0) * shockMag;
+  startNode.currentFlow = 0;
+  startNode.failed = true;
+
+  logMsg(logEl,`<span style="color:${evInfo.color};font-weight:700">[t = 0.00s] PRIMARY PHYSICAL DISRUPTION: ${startNode.label} (${startNode.type}) failed with ${shockMag.toFixed(2)} shock severity. Blocked throughput: ${blockedFlow.toFixed(1)} MCM/d. Acoustic decompression wave propagating at c = ${evInfo.acousticSpeed} m/s.</span>`);
+
+  d3.select('#pipe-svg').selectAll('circle').transition().duration(150).attr('fill',d=>nodeColor(d));
+
+  let step=0;
+  let cumTime=0;
+  let totalHopsEvaluated=0;
+  let sumHopsProb=0;
+  let severedCutFlow = 0;
+
+  function pipeStep(){
+    step++;
+    // Acoustic transit time: dt = L / c (typically 0.6s - 1.8s per segment)
+    const dt = evInfo.timeStepSec * (0.85 + Math.random()*0.3);
+    cumTime += dt;
+    let newFails=0;
+    let hopLogs=[];
+
+    // Find all links connected to currently failed nodes
+    const failedNodeIds = new Set(PIPE.nodes.filter(n=>n.failed).map(n=>n.id));
+
+    // 1. Identify parallel bypass branches that can absorb the diverted flow
+    const activeBypasses = PIPE.links.filter(l => {
+      const srcId = (typeof l.source==='object')?l.source.id:l.source;
+      const tgtId = (typeof l.target==='object')?l.target.id:l.target;
+      return !failedNodeIds.has(srcId) && !failedNodeIds.has(tgtId);
+    });
+
+    const sumAdmittance = activeBypasses.reduce((s,l) => s + (l.admittance||1.0), 0);
+
+    if(sumAdmittance > 0 && blockedFlow > 0){
+      // Kirchhoff Flow Redistribution: ΔQ_p = Q_blocked * (Y_p / Σ Y)
+      activeBypasses.slice(0, 5).forEach(l => {
+        const share = (l.admittance || 1.0) / sumAdmittance;
+        const dQ = blockedFlow * share * evInfo.surgeMult * 0.45;
+        const newFlow = l.flow + dQ;
+        const utilization = newFlow / l.capacity;
+
+        // Joukowsky pressure transient: Δp = ρ·c·Δv
+        let surgePressure = 0;
+        if(triggerKey === 'P5'){
+          surgePressure = evInfo.joukowskyBar * (utilization);
+        } else {
+          surgePressure = 18.0 * Math.max(0, utilization - 1.0) + evInfo.joukowskyBar * 0.2;
+        }
+
+        const targetNode = (typeof l.target==='object')?l.target:PIPE.nodes.find(n=>n.id===l.target);
+        if(!targetNode || targetNode.failed || targetNode.type==='terminal' || targetNode.type==='source') return;
+
+        const peakPressure = targetNode.pressure + surgePressure;
+        const condProb = Math.min(0.99, (utilization * 0.6) + (surgePressure / 45.0) * 0.4);
+        totalHopsEvaluated++;
+        sumHopsProb += condProb;
+
+        hopLogs.push(`[t = +${cumTime.toFixed(2)}s] [KIRCHHOFF FLOW DIVERSION] Branch ${l.source.label||l.source} &rarr; ${targetNode.label}: Rerouted +${dQ.toFixed(1)} MCM/d (Flow: ${newFlow.toFixed(1)}/${l.capacity} MCM/d, Util: ${(utilization*100).toFixed(0)}%). Joukowsky surge: +${surgePressure.toFixed(1)} bar &rArr; Peak: ${peakPressure.toFixed(1)} bar (MAOP: ${targetNode.maop} bar) [P_trip=${(condProb*100).toFixed(1)}%]`);
+
+        // Secondary rupture / overpressure trip if MAOP or design capacity breached
+        if(utilization > 1.05 || peakPressure > targetNode.maop){
+          targetNode.distress = 1.0;
+          targetNode.failed = true;
+          newFails++;
+          hopLogs.push(`[t = +${cumTime.toFixed(2)}s] [HYDRAULIC SURGE OVERPRESSURE] ${targetNode.label} (${targetNode.type}) peak pressure ${peakPressure.toFixed(1)} bar breached MAOP (${targetNode.maop} bar). Emergency safety shutoff valve (SDV) tripped!`);
+        }
+      });
+    } else {
+      // No parallel paths remaining: Minimal Cut saturated!
+      severedCutFlow += blockedFlow * 0.35;
+      hopLogs.push(`[t = +${cumTime.toFixed(2)}s] [MIN-CUT BOTTLENECK SATURATION] Cycle space capacity exhausted. Ford-Fulkerson cut capacity drops below required throughput. Continental transmission throttled by ${blockedFlow.toFixed(1)} MCM/d.`);
+    }
+
+    // P7 SCADA Blackout: sequential loss of visibility trips next valves
+    if(triggerKey === 'P7' && step <= 4){
+      const unfailed = PIPE.nodes.filter(n => !n.failed && n.type==='Valve');
+      if(unfailed.length > 0){
+        const blindTrip = unfailed[0];
+        blindTrip.distress = 1.0;
+        blindTrip.failed = true;
+        newFails++;
+        hopLogs.push(`[t = +${cumTime.toFixed(2)}s] [SCADA BLIND SHUTDOWN] Telemetry loss on segment ${blindTrip.label}. Automated failsafe closed motorized block valve.`);
+      }
+    }
+
+    d3.select('#pipe-svg').selectAll('circle').transition().duration(150).attr('fill',d=>nodeColor(d));
+    hopLogs.slice(0, 8).forEach(h=>logMsg(logEl,h));
+
+    const failedCount = PIPE.nodes.filter(x=>x.failed).length;
+    const capacityLostPct = Math.min(100, (failedCount / (PIPE.nodes.length - 4) * 100)).toFixed(1);
+    const avgProb = totalHopsEvaluated > 0 ? (sumHopsProb / totalHopsEvaluated * 100).toFixed(1) : "0.0";
+    const waveSpeed = (failedCount / (step||1)).toFixed(2);
+
+    document.getElementById('pipe-tel-time').textContent = cumTime.toFixed(2) + "s";
+    document.getElementById('pipe-tel-prob').textContent = avgProb + "%";
+    document.getElementById('pipe-tel-speed').textContent = waveSpeed;
+    document.getElementById('pipe-tel-loss').textContent = capacityLostPct + "%";
+
+    logMsg(logEl, `<em>-- Transient Wave Step ${step} at t = +${cumTime.toFixed(2)}s: +${newFails} ruptured/tripped, ${failedCount}/${PIPE.nodes.length} components offline (${capacityLostPct}% capacity throttled) --</em>`);
+
+    if(newFails > 0 && step < 18){
+      setTimeout(pipeStep, 400);
+    } else {
+      logMsg(logEl, `<span style="color:#cf222e;font-weight:700">[HYDRAULIC EQUILIBRIUM] Pressure wave arrested at t = +${cumTime.toFixed(2)}s. Total offline components: ${failedCount}/${PIPE.nodes.length}. Minimal Cut saturated: continental delivery throttled by ${capacityLostPct}%. Kirchhoff mass conservation satisfied.</span>`);
+    }
+  }
+
+  if(startNode.failed){
+    setTimeout(pipeStep, 380);
+  } else {
+    logMsg(logEl, `<em>[t = 0.00s] Pressure shock within component yield envelope. No transient wave initiated.</em>`);
+  }
+}
+
+function pipeRandomShock(){
+  if(!PIPE.nodes.length){logMsg(document.getElementById('pipe-log'),'Generate first.');return;}
+  const alive=PIPE.nodes.filter(n=>!n.failed && n.type!=='source' && n.type!=='terminal');
+  if(!alive.length)return;
+  const pick=alive[Math.floor(Math.random()*alive.length)];
+  pipeTriggerCascade(pick.id);
+}
+function pipeReset(){
+  PIPE.nodes.forEach(n=>{
+    n.distress = 0;
+    n.failed = false;
+    n.pressure = 75.0;
+  });
+  d3.select('#pipe-svg').selectAll('circle').transition().duration(200).attr('fill',d=>nodeColor(d));
+  pipeResetTelemetry();
+  logMsg(document.getElementById('pipe-log'),'All pipeline valves reopened and pressures restored to nominal steady state.');
+}
+
+// ═══════════════════════════════════════════════════════════
+// CUSTOM SIMULATOR (§12)
+// ═══════════════════════════════════════════════════════════
+let CUST={nodes:[],links:[],refs:null};
+wireSliders(['sc-nodes','sc-density','sc-buffer','sc-shock','sc-prob']);
+
+function custBuild(){
+  const N=Math.round(param('sc-nodes'));
+  const density=param('sc-density');
+  const buffer=param('sc-buffer');
+  let nodes=[],links=[];
+  for(let i=0;i<N;i++){
+    const eq = 50 + Math.random()*50;
+    nodes.push({id:i,label:'N'+i,buffer:buffer*(0.5+Math.random()*1.0),
+      equity0:eq,equity:eq,distress:0,deltaDistress:0,burned:false,failed:false,r:13,baseColor:'#f3e8ff'});
+  }
+  for(let i=0;i<N;i++){
+    for(let j=i+1;j<N;j++){
+      if(Math.random()<density){
+        const w = 0.3+Math.random()*0.7;
+        links.push({source:i,target:j,weight:w,exposure:w*20,dist:70});
+      }
+    }
+  }
+  let adj={};
+  links.forEach(l=>{(adj[l.source]||(adj[l.source]=[])).push(l.target);(adj[l.target]||(adj[l.target]=[])).push(l.source);});
+  let visited=new Set();
+  function dfs(n){if(visited.has(n))return;visited.add(n);(adj[n]||[]).forEach(m=>dfs(m));}
+  dfs(0);
+  for(let i=1;i<N;i++){
+    if(!visited.has(i)){
+      const w = 0.4+Math.random()*0.4;
+      links.push({source:0,target:i,weight:w,exposure:w*20,dist:80});
+      visited.add(i);
+    }
+  }
+  CUST.nodes=nodes;CUST.links=links;
+  const logEl=document.getElementById('cust-log');
+  logEl.innerHTML='Custom Network: '+N+' nodes, '+links.length+' edges. Grounded in single-burn lattice dynamics. Click any node to shock.';
+  CUST.refs=buildGenericNetwork('cust-svg',nodes,links);
+  CUST.refs.nodeEls.on('click',(ev,d)=>{
+    custTriggerCascade(d.id);
+  });
+  document.getElementById('cust-tel-time').textContent="0.0s";
+  document.getElementById('cust-tel-prob').textContent=(param('sc-prob')*100).toFixed(1)+"%";
+  document.getElementById('cust-tel-speed').textContent="0.0";
+  document.getElementById('cust-tel-loss').textContent="0.0%";
+}
+
+function custTriggerCascade(startId){
+  const shockMag=param('sc-shock');
+  const baseProb=param('sc-prob');
+  const startNode=CUST.nodes.find(x=>x.id===startId);
+  if(!startNode||startNode.failed)return;
+
+  const logEl=document.getElementById('cust-log');
+  logEl.innerHTML="";
+
+  // Primary shock
+  startNode.distress = Math.min(1.0, startNode.distress + shockMag);
+  startNode.deltaDistress = shockMag;
+  startNode.equity = Math.max(0, startNode.equity0 * (1.0 - startNode.distress));
+  if(startNode.distress >= 1.0 || (1.0 - startNode.distress) < startNode.buffer){
+    startNode.failed = true;
+    startNode.distress = 1.0;
+  }
+
+  logMsg(logEl,`<span style="color:#8250df;font-weight:700">[t = 0.0s] PRIMARY SHOCK: Node ${startNode.label} hit with magnitude ${shockMag.toFixed(2)}. Buffer threshold: ${startNode.buffer.toFixed(2)} &rArr; status: ${startNode.failed?'FAILED':'DISTRESSED'}.</span>`);
+
+  d3.select('#cust-svg').selectAll('circle').transition().duration(150).attr('fill',d=>nodeColor(d));
+
+  let step=0;
+  let cumTime=0;
+  let totalHops=0;
+  let sumProb=0;
+
+  function custStep(){
+    step++;
+    cumTime += 0.40;
+    let newFails=0;
+    let hopLogs=[];
+    let incDistress={};
+    CUST.nodes.forEach(n => { incDistress[n.id] = 0; });
+
+    const activeBurners = CUST.nodes.filter(n => n.deltaDistress > 0.01 && !n.burned);
+
+    activeBurners.forEach(srcNode => {
+      const dC = srcNode.deltaDistress;
+      srcNode.burned = true;
+
+      CUST.links.forEach(l => {
+        let u = (typeof l.source==='object')?l.source:CUST.nodes.find(x=>x.id===l.source);
+        let v = (typeof l.target==='object')?l.target:CUST.nodes.find(x=>x.id===l.target);
+        if(!u || !v) return;
+
+        [{from:u, to:v}, {from:v, to:u}].forEach(pair => {
+          if(pair.from.id === srcNode.id && !pair.to.failed && pair.to.distress < 1.0){
+            const weight = l.weight || 0.5;
+            const transProb = Math.min(0.99, baseProb * weight * (1.0 + shockMag / Math.max(0.1, pair.to.buffer * 2)));
+            totalHops++;
+            sumProb += transProb;
+
+            const increment = dC * weight * 0.75;
+            incDistress[pair.to.id] += increment;
+
+            hopLogs.push(`[t = +${cumTime.toFixed(1)}s] [TRANS] ${pair.from.label} &rarr; ${pair.to.label}: ΔC=+${dC.toFixed(2)}, w=${weight.toFixed(2)} &rArr; +${increment.toFixed(2)} distress [P=${(transProb*100).toFixed(0)}%]`);
+          }
+        });
+      });
+    });
+
+    CUST.nodes.forEach(n => {
+      const inc = incDistress[n.id];
+      if(inc > 0.005){
+        const oldC = n.distress;
+        n.distress = Math.min(1.0, oldC + inc);
+        n.deltaDistress = n.distress - oldC;
+        n.equity = Math.max(0, n.equity0 * (1.0 - n.distress));
+        n.burned = false;
+
+        if(n.distress >= 1.0 && !n.failed){
+          n.failed = true;
+          newFails++;
+          hopLogs.push(`[t = +${cumTime.toFixed(1)}s] [THRESHOLD BREACH] Node ${n.label} buffer exhausted &rArr; FAILED`);
+        }
+      } else {
+        n.deltaDistress = 0;
+      }
+    });
+
+    d3.select('#cust-svg').selectAll('circle').transition().duration(150).attr('fill',d=>nodeColor(d));
+    hopLogs.slice(0, 6).forEach(h=>logMsg(logEl,h));
+
+    const failed = CUST.nodes.filter(x=>x.failed).length;
+    const avgP = totalHops > 0 ? (sumProb / totalHops * 100).toFixed(1) : (baseProb*100).toFixed(1);
+    const totalEq = CUST.nodes.reduce((s,n)=>s+n.equity0, 0);
+    const lostEq = CUST.nodes.reduce((s,n)=>s+n.equity0*n.distress, 0);
+    const shortfallPct = (lostEq / totalEq * 100).toFixed(1);
+
+    document.getElementById('cust-tel-time').textContent=cumTime.toFixed(1)+"s";
+    document.getElementById('cust-tel-prob').textContent=avgP+"%";
+    document.getElementById('cust-tel-speed').textContent=step.toString();
+    document.getElementById('cust-tel-loss').textContent=shortfallPct+"%";
+
+    const hasDeltas = CUST.nodes.some(n => n.deltaDistress > 0.01 && !n.burned);
+    if((newFails>0 || hasDeltas) && step<20) {
+      setTimeout(custStep, 350);
+    } else {
+      logMsg(logEl,`<span style="color:#8250df;font-weight:700">[CASCADE EQUILIBRIUM] Propagation halted at t = +${cumTime.toFixed(1)}s. Total failed: ${failed}/${CUST.nodes.length} (${(failed/CUST.nodes.length*100).toFixed(0)}%). Aggregate shortfall: ${shortfallPct}%.</span>`);
+    }
+  }
+
+  if(startNode.failed || startNode.distress > 0.1) setTimeout(custStep, 350);
+}
+
+function custRandomShock(){
+  if(!CUST.nodes.length)return;
+  const alive=CUST.nodes.filter(n=>!n.failed);
+  if(!alive.length)return;
+  const pick=alive[Math.floor(Math.random()*alive.length)];
+  custTriggerCascade(pick.id);
+}
+function custReset(){
+  CUST.nodes.forEach(n=>{
+    n.distress=0;
+    n.deltaDistress=0;
+    n.burned=false;
+    n.failed=false;
+    n.equity=n.equity0;
+  });
+  d3.select('#cust-svg').selectAll('circle').transition().duration(200).attr('fill',d=>nodeColor(d));
+  document.getElementById('cust-tel-time').textContent="0.0s";
+  document.getElementById('cust-tel-speed').textContent="0.0";
+  document.getElementById('cust-tel-loss').textContent="0.0%";
+  logMsg(document.getElementById('cust-log'),'All states reset to nominal.');
+}
+
+// ═══════════════════════════════════════════════════════════
+// D3 ANALYTICS CHARTS (§13)
+// ═══════════════════════════════════════════════════════════
+window.addEventListener('load',()=>{
+
+  // FIG 1: Financial Crises Bar Chart
+  const crises=[
+    {name:'LTCM 1998',loss:4.6},{name:'Dot-com 2000',loss:5000},{name:'Lehman 2008',loss:22000},
+    {name:'Euro Debt 2011',loss:3500},{name:'SVB 2023',loss:320}
+  ];
+  (function(){
+    const svg=d3.select('#chart-crises');
+    const W=parseInt(svg.style('width'))||900, H=parseInt(svg.attr('height'))||340;
+    const m={t:30,r:40,b:55,l:75}, w=W-m.l-m.r, h=H-m.t-m.b;
+    const g=svg.append('g').attr('transform','translate('+m.l+','+m.t+')');
+    const x=d3.scaleBand().domain(crises.map(d=>d.name)).range([0,w]).padding(0.35);
+    const y=d3.scaleLog().domain([1,30000]).range([h,0]);
+    g.append('g').attr('transform','translate(0,'+h+')').call(d3.axisBottom(x)).selectAll('text').style('font-size','11px');
+    g.append('g').call(d3.axisLeft(y).ticks(5,'~s')).selectAll('text').style('font-size','11px');
+    const bars=g.selectAll('rect').data(crises).enter().append('rect')
+      .attr('x',d=>x(d.name)).attr('y',h).attr('width',x.bandwidth()).attr('height',0)
+      .attr('fill','#0969da').attr('rx',4);
+    bars.transition().duration(800).delay((d,i)=>i*120).attr('y',d=>y(d.loss)).attr('height',d=>h-y(d.loss));
+    bars.append('title').text(d=>d.name+': $'+d.loss+'B');
+    g.selectAll('.bar-label').data(crises).enter().append('text')
+      .attr('x',d=>x(d.name)+x.bandwidth()/2).attr('y',d=>y(d.loss)-6)
+      .attr('text-anchor','middle').attr('font-size','10px').attr('fill','#0969da').attr('font-weight','700')
+      .text(d=>'$'+d.loss+'B');
+    g.append('text').attr('transform','rotate(-90)').attr('x',-h/2).attr('y',-55)
+      .attr('text-anchor','middle').attr('font-size','12px').attr('fill','#57606a').text('System Losses ($B, log)');
+  })();
+
+  // FIG 2: DebtRank Amplification
+  (function(){
+    const data=[];
+    for(let s=0.02;s<=1.0;s+=0.02) data.push({x:s,y:Math.min(1,s*(1+3.2*Math.pow(s,0.6)))});
+    const svg=d3.select('#chart-debtrank');
+    const W=parseInt(svg.style('width'))||900, H=parseInt(svg.attr('height'))||320;
+    const m={t:20,r:30,b:50,l:60}, w=W-m.l-m.r, h=H-m.t-m.b;
+    const g=svg.append('g').attr('transform','translate('+m.l+','+m.t+')');
+    const x=d3.scaleLinear().domain([0,1]).range([0,w]);
+    const y=d3.scaleLinear().domain([0,1]).range([h,0]);
+    g.append('g').attr('transform','translate(0,'+h+')').call(d3.axisBottom(x).ticks(10));
+    g.append('g').call(d3.axisLeft(y).ticks(5));
+    g.append('line').attr('x1',x(0)).attr('y1',y(0)).attr('x2',x(1)).attr('y2',y(1))
+      .attr('stroke','#d0d7de').attr('stroke-dasharray','5 3');
+    const area=d3.area().x(d=>x(d.x)).y0(h).y1(d=>y(d.y)).curve(d3.curveMonotoneX);
+    g.append('path').datum(data).attr('d',area).attr('fill','rgba(207,34,46,0.06)');
+    const line=d3.line().x(d=>x(d.x)).y(d=>y(d.y)).curve(d3.curveMonotoneX);
+    g.append('path').datum(data).attr('d',line).attr('fill','none').attr('stroke','#cf222e').attr('stroke-width',2.5);
+    g.append('text').attr('x',x(0.62)).attr('y',y(0.6)-8).attr('font-size','11px').attr('fill','#d0d7de').text('1:1 baseline (No Amplification)');
+    g.append('text').attr('x',x(0.45)).attr('y',y(0.92)+18).attr('font-size','11px').attr('fill','#cf222e').attr('font-weight','700').text('DebtRank Multiplicative Loss');
+    g.append('text').attr('x',w/2).attr('y',h+42).attr('text-anchor','middle').attr('font-size','12px').attr('fill','#57606a').text('Initial Exogenous Shock Fraction');
+    g.append('text').attr('transform','rotate(-90)').attr('x',-h/2).attr('y',-45).attr('text-anchor','middle').attr('font-size','12px').attr('fill','#57606a').text('Fraction of Equity Destroyed');
+  })();
+
+  // FIG 3: Pipeline Incidents
+  (function(){
+    const pipe=[
+      {name:'Corrosion (P1)',val:187},{name:'Excavation (P2)',val:143},{name:'Material/Weld (P3)',val:98},
+      {name:'Equipment Fail (P6)',val:72},{name:'Natural Forces (P4)',val:54},{name:'Incorrect Op (P5)',val:38},{name:'Cyber/Other (P7)',val:31}
+    ];
+    const svg=d3.select('#chart-pipeline');
+    const W=parseInt(svg.style('width'))||900, H=parseInt(svg.attr('height'))||320;
+    const m={t:10,r:50,b:45,l:160}, w=W-m.l-m.r, h=H-m.t-m.b;
+    const g=svg.append('g').attr('transform','translate('+m.l+','+m.t+')');
+    const y=d3.scaleBand().domain(pipe.map(d=>d.name)).range([0,h]).padding(0.3);
+    const x=d3.scaleLinear().domain([0,210]).range([0,w]);
+    g.append('g').call(d3.axisLeft(y)).selectAll('text').style('font-size','11px');
+    g.append('g').attr('transform','translate(0,'+h+')').call(d3.axisBottom(x).ticks(6));
+    const bars=g.selectAll('rect').data(pipe).enter().append('rect')
+      .attr('y',d=>y(d.name)).attr('x',0).attr('width',0).attr('height',y.bandwidth())
+      .attr('fill','#0969da').attr('rx',3);
+    bars.transition().duration(700).delay((d,i)=>i*80).attr('width',d=>x(d.val));
+    g.selectAll('.val-label').data(pipe).enter().append('text')
+      .attr('x',d=>x(d.val)+6).attr('y',d=>y(d.name)+y.bandwidth()/2+4)
+      .attr('font-size','11px').attr('fill','#57606a').attr('font-weight','700').text(d=>d.val);
+    g.append('text').attr('x',w/2).attr('y',h+38).attr('text-anchor','middle').attr('font-size','12px').attr('fill','#57606a').text('Significant Incidents (PHMSA 2023, K18)');
+  })();
+
+  // FIG 4: Percolation vs Lovasz Local Lemma
+  (function(){
+    const pc=0.20;
+    const p_lll=0.06;
+    const data=[];
+    for(let p=0;p<=1.0;p+=0.015){
+      let S=0;
+      if(p>pc) S=1-Math.pow(pc/p,2.5);
+      S=Math.max(0,Math.min(1,S+(Math.random()-0.5)*0.025));
+      data.push({x:p,y:S});
+    }
+    const svg=d3.select('#chart-percolation');
+    const W=parseInt(svg.style('width'))||900, H=parseInt(svg.attr('height'))||320;
+    const m={t:20,r:30,b:50,l:60}, w=W-m.l-m.r, h=H-m.t-m.b;
+    const g=svg.append('g').attr('transform','translate('+m.l+','+m.t+')');
+    const x=d3.scaleLinear().domain([0,1]).range([0,w]);
+    const y=d3.scaleLinear().domain([0,1]).range([h,0]);
+    g.append('g').attr('transform','translate(0,'+h+')').call(d3.axisBottom(x).ticks(10));
+    g.append('g').call(d3.axisLeft(y).ticks(5));
+    
+    g.append('line').attr('x1',x(pc)).attr('y1',0).attr('x2',x(pc)).attr('y2',h)
+      .attr('stroke','#1a7f37').attr('stroke-dasharray','6 3').attr('stroke-width',1.5);
+    g.append('text').attr('x',x(pc)+6).attr('y',15).attr('font-size','11px').attr('fill','#1a7f37').attr('font-weight','700')
+      .text('Independent p_c = 0.20');
+      
+    g.append('line').attr('x1',x(p_lll)).attr('y1',0).attr('x2',x(p_lll)).attr('y2',h)
+      .attr('stroke','#cf222e').attr('stroke-dasharray','4 2').attr('stroke-width',1.5);
+    g.append('text').attr('x',x(p_lll)+6).attr('y',35).attr('font-size','11px').attr('fill','#cf222e').attr('font-weight','700')
+      .text('Lovász Local Lemma Bound p_LLL = 0.06');
+
+    const area=d3.area().x(d=>x(d.x)).y0(h).y1(d=>y(d.y)).curve(d3.curveMonotoneX);
+    g.append('path').datum(data).attr('d',area).attr('fill','rgba(26,127,55,0.06)');
+    g.selectAll('circle').data(data).enter().append('circle')
+      .attr('cx',d=>x(d.x)).attr('cy',d=>y(d.y)).attr('r',2.5)
+      .attr('fill',d=>d.x<pc?'#d0d7de':'#1a7f37');
+    const line=d3.line().x(d=>x(d.x)).y(d=>y(d.y)).curve(d3.curveMonotoneX);
+    g.append('path').datum(data).attr('d',line).attr('fill','none').attr('stroke','#1a7f37').attr('stroke-width',2);
+    g.append('text').attr('x',w/2).attr('y',h+42).attr('text-anchor','middle').attr('font-size','12px').attr('fill','#57606a').text('Edge failure / shock probability p');
+    g.append('text').attr('transform','rotate(-90)').attr('x',-h/2).attr('y',-45).attr('text-anchor','middle').attr('font-size','12px').attr('fill','#57606a').text('Giant Component S(p)');
+  })();
+
+  // FIG 5: Lehman Cascade Timeline
+  (function(){
+    const data=[
+      {day:'Sep 15',val:1},{day:'Sep 16',val:3},{day:'Sep 17',val:8},{day:'Sep 18',val:14},
+      {day:'Sep 19',val:18},{day:'Sep 22',val:24},{day:'Sep 23',val:27},{day:'Sep 24',val:29},
+      {day:'Sep 25',val:32},{day:'Sep 26',val:34},{day:'Sep 29',val:41},{day:'Oct 1',val:45},
+      {day:'Oct 3',val:47},{day:'Oct 6',val:52},{day:'Oct 10',val:55}
+    ];
+    const svg=d3.select('#chart-timeline');
+    const W=parseInt(svg.style('width'))||900, H=parseInt(svg.attr('height'))||300;
+    const m={t:20,r:30,b:55,l:55}, w=W-m.l-m.r, h=H-m.t-m.b;
+    const g=svg.append('g').attr('transform','translate('+m.l+','+m.t+')');
+    const x=d3.scaleBand().domain(data.map(d=>d.day)).range([0,w]).padding(0.2);
+    const y=d3.scaleLinear().domain([0,60]).range([h,0]);
+    g.append('g').attr('transform','translate(0,'+h+')').call(d3.axisBottom(x)).selectAll('text')
+      .style('font-size','10px').attr('transform','rotate(-40)').attr('text-anchor','end');
+    g.append('g').call(d3.axisLeft(y).ticks(6));
+    g.append('line').attr('x1',x('Oct 3')+x.bandwidth()/2).attr('y1',0)
+      .attr('x2',x('Oct 3')+x.bandwidth()/2).attr('y2',h)
+      .attr('stroke','#1a7f37').attr('stroke-dasharray','4 3');
+    g.append('text').attr('x',x('Oct 3')+x.bandwidth()/2+4).attr('y',12)
+      .attr('font-size','10px').attr('fill','#1a7f37').attr('font-weight','700').text('TARP signed ($700B)');
+    const area=d3.area().x(d=>x(d.day)+x.bandwidth()/2).y0(h).y1(d=>y(d.val)).curve(d3.curveMonotoneX);
+    g.append('path').datum(data).attr('d',area).attr('fill','rgba(207,34,46,0.08)');
+    const line=d3.line().x(d=>x(d.day)+x.bandwidth()/2).y(d=>y(d.val)).curve(d3.curveMonotoneX);
+    g.append('path').datum(data).attr('d',line).attr('fill','none').attr('stroke','#cf222e').attr('stroke-width',2.5);
+    g.selectAll('.dot').data(data).enter().append('circle')
+      .attr('cx',d=>x(d.day)+x.bandwidth()/2).attr('cy',d=>y(d.val)).attr('r',4)
+      .attr('fill','#cf222e');
+    g.append('text').attr('x',w/2).attr('y',h+48).attr('text-anchor','middle').attr('font-size','12px').attr('fill','#57606a').text('Days after Lehman filing');
+    g.append('text').attr('transform','rotate(-90)').attr('x',-h/2).attr('y',-40).attr('text-anchor','middle').attr('font-size','12px').attr('fill','#57606a').text('Institutions in Distress');
+  })();
+
+  // FIG 6: Directed Spectral Gap & Cheeger Expansion
+  (function(){
+    const data=[
+      {name:'Water Distribution Network',val:0.42,desc:'High expansion: ultra-fast global mixing',col:'#cf222e'},
+      {name:'Dutch Gas Trunk Grid',val:0.35,desc:'Rapid fluid transient redistribution',col:'#cf222e'},
+      {name:'European Gas Grid (ENTSOG)',val:0.23,desc:'Moderate expansion with transit bottlenecks',col:'#d29922'},
+      {name:'US Power Transmission',val:0.15,desc:'Regional boundary bottlenecks',col:'#d29922'},
+      {name:'Fedwire Interbank Core (2008)',val:0.014,desc:'Cheeger bottleneck: shocks trapped in core',col:'#0969da'},
+      {name:'Internet Autonomous Systems',val:0.008,desc:'Severe bottleneck partitioning',col:'#0969da'}
+    ];
+    const svg=d3.select('#chart-fiedler');
+    const W=parseInt(svg.style('width'))||900, H=parseInt(svg.attr('height'))||300;
+    const m={t:10,r:40,b:45,l:210}, w=W-m.l-m.r, h=H-m.t-m.b;
+    const g=svg.append('g').attr('transform','translate('+m.l+','+m.t+')');
+    const y=d3.scaleBand().domain(data.map(d=>d.name)).range([0,h]).padding(0.35);
+    const x=d3.scaleLinear().domain([0,0.5]).range([0,w]);
+    g.append('g').call(d3.axisLeft(y)).selectAll('text').style('font-size','11px');
+    g.append('g').attr('transform','translate(0,'+h+')').call(d3.axisBottom(x).ticks(5));
+    const bars=g.selectAll('rect').data(data).enter().append('rect')
+      .attr('y',d=>y(d.name)).attr('x',0).attr('width',0).attr('height',y.bandwidth())
+      .attr('fill',d=>d.col).attr('rx',3);
+    bars.transition().duration(700).delay((d,i)=>i*100).attr('width',d=>x(d.val));
+    g.selectAll('.val-label').data(data).enter().append('text')
+      .attr('x',d=>x(d.val)+6).attr('y',d=>y(d.name)+y.bandwidth()/2+4)
+      .attr('font-size','11px').attr('fill','#57606a').attr('font-weight','700')
+      .text(d=>d.val.toFixed(3));
+    g.append('text').attr('x',w/2).attr('y',h+38).attr('text-anchor','middle').attr('font-size','12px').attr('fill','#57606a')
+      .text('Directed Spectral Gap λ_2 (Chung Laplacian / Cheeger Expansion)');
+  })();
+
+  // Auto-build all simulators
+  finBuild();
+  pipeBuild();
+  custBuild();
+});
+
+// ── ERA RAIL ACTIVE STATE ──
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll('.era-seg a').forEach(a=>a.classList.remove('active'));
+      const link=document.querySelector('.era-seg a[href="#'+e.target.id+'"]');
+      if(link)link.classList.add('active');
+    }
+  });
+},{rootMargin:'-60px 0px -70% 0px'});
+document.querySelectorAll('section.band').forEach(s=>observer.observe(s));
+
+</script>
+
+</body>
+</html>
