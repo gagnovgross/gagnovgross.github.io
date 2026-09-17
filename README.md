@@ -20,7 +20,7 @@ This repository hosts the official materials, seminar schedule, and research mon
 
 **Title:** *Graph Theory Risk Propagation in Stochastic environments: An approach into pipeline industrial PdM IoT based modelling and financial contagion risk modelling*  
 **Название:** *Распространение рисков на основе теории графов в стохастических средах: подход к моделированию промышленных трубопроводов (IoT/PdM) и финансового заражения*  
-**Author / Докладчик:** **Mateus H. N. Lofrano (Матеус Х. Н. Лофрано)**  
+**Author / Докладчик:** **Mateus H. N. Lofrano (Матеус Х. Н. Лофрано)** &middot; GitHub: [@aglar-flaneur](https://github.com/aglar-flaneur)  
 **Advisor / Научный руководитель:** **Prof. Gyula O. H. Katona (проф. Дьюла О. Х. Катона)** (Alfréd Rényi Institute of Mathematics / MIPT)  
 **Affiliation:** Moscow Institute of Physics and Technology (MIPT)  
 **Digital Archive:** MIPT Digital Repository [https://lib.mipt.ru/](https://lib.mipt.ru/)  
@@ -42,8 +42,9 @@ This repository hosts the official materials, seminar schedule, and research mon
 
 ---
 
-## 🏛️ Organizing Committee
+## 🏛️ Organizing Committee & Research Authors
 
+- **Research Author:** Mateus H. N. Lofrano &middot; GitHub: [@aglar-flaneur](https://github.com/aglar-flaneur)
 - **Coordinator:** Yuri Ilyich Gagnov (МФТИ)
 - **Program:** Master of Science in Contemporary Combinatorics, Phystech School of Applied Mathematics and Computer Science (FPAMI), MIPT.
 - **Repository Maintainer:** `@gagnovgross`
