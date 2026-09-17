@@ -350,12 +350,11 @@ footer{border-top:1px solid var(--border);padding:3rem 2rem;background:#ffffff;f
     <thead>
       <tr>
         <th style="width:8%">#</th>
-        <th style="width:16%">Research Question</th>
-        <th style="width:18%">Confirmed Datasets</th>
-        <th style="width:15%">Literature Baseline</th>
-        <th style="width:15%">Performance Metric</th>
-        <th style="width:18%">Pre-Registered Kill Condition</th>
-        <th style="width:10%">Target Journal</th>
+        <th style="width:17%">Research Question</th>
+        <th style="width:20%">Confirmed Datasets</th>
+        <th style="width:16%">Literature Baseline</th>
+        <th style="width:18%">Performance Metric</th>
+        <th style="width:21%">Pre-Registered Kill Condition</th>
       </tr>
     </thead>
     <tbody>
@@ -366,7 +365,6 @@ footer{border-top:1px solid var(--border);padding:3rem 2rem;background:#ffffff;f
         <td>Lam et al. (2016) PHMSA statistical baseline (4 dominant causes &gt;75%); Zio &amp; Sansavini (2011) cascading criticality.</td>
         <td>$\Delta\text{AUC}$, $\Delta\log L$ in Negative-Binomial &amp; Cox models; Out-of-time (2010&ndash;2018 train, 2019&ndash;2023 test) with cluster bootstrap.</td>
         <td><div class="kill-condition" style="margin:0;padding:.4rem .6rem"><strong>Kill Condition:</strong> If $\Delta\text{AUC} \le 0$ or $\Delta\log L$ out-of-sample not significant at $\alpha = 0.05$, publish negative result and formally refute cross-application.</div></td>
-        <td><em>Reliability Engineering &amp; System Safety</em> (9&ndash;15 mo)</td>
       </tr>
       <tr>
         <td><strong>C2</strong><br/><span class="status-tag med">High Value</span></td>
@@ -375,16 +373,14 @@ footer{border-top:1px solid var(--border);padding:3rem 2rem;background:#ffffff;f
         <td>SRISK (Brownlees &amp; Engle, 2017); $\Delta\text{CoVaR}$ (Adrian &amp; Brunnermeier, 2016); MES (Acharya et al., 2017).</td>
         <td>ROC-AUC for early-warning lead times (1&ndash;6 months); Event ordering rank correlation; Graphical Lasso dependency graph $D$.</td>
         <td><div class="kill-condition" style="margin:0;padding:.4rem .6rem"><strong>Kill Condition:</strong> If LLL signal fails to order or anticipate crises better than naive rolling volatility, demote framing to pedagogical exposition.</div></td>
-        <td><em>Journal of Financial Stability</em> (6&ndash;9 mo)</td>
       </tr>
       <tr>
-        <td><strong>C3</strong><br/><span class="status-tag high">Fast / High Pub</span></td>
+        <td><strong>C3</strong><br/><span class="status-tag high">Fast / Core Method</span></td>
         <td>Does Chung directed spectral gap $\lambda_2$ and Cheeger constant $h(\vec{G})$ predict shock containment better than symmetric Fiedler $\lambda_2$?</td>
         <td><strong>e-MID daily transaction network</strong> (1999&ndash;2009); Daily network asymmetry $A = \|W - W^T\|_F / \|W + W^T\|_F$.</td>
         <td>Standard symmetric Laplacian $\mathbf{L}_\text{sym} = \frac{1}{2}(\mathbf{W} + \mathbf{W}^T)$; Fiedler algebraic connectivity (1973).</td>
         <td>Out-of-sample containment error under Eisenberg-Noe clearing cascades (Gai-Kapadia); Empirical identification of core Cheeger bottlenecks.</td>
         <td><div class="kill-condition" style="margin:0;padding:.4rem .6rem"><strong>Kill Condition:</strong> If error of symmetric Fiedler measure is statistically negligible across banking topologies, demote section to pure theoretical interest.</div></td>
-        <td><em>Quantitative Finance</em> (3&ndash;4 mo)</td>
       </tr>
       <tr>
         <td><strong>C4</strong><br/><span class="status-tag core">Public Benchmark</span></td>
@@ -393,7 +389,6 @@ footer{border-top:1px solid var(--border);padding:3rem 2rem;background:#ffffff;f
         <td>Krause et al. (2008) greedy submodular physical max-coverage; Tsiami et al. (2021) Temporal Graph ConvNet ($S = 0.933$).</td>
         <td>Official competition $S$-score ($\gamma=0.5$); Time-to-detection; False-alarm rate under fixed sensor budget $B$.</td>
         <td><div class="kill-condition" style="margin:0;padding:.4rem .6rem"><strong>Kill Condition:</strong> If parity or degradation occurs vs. pure physical max-coverage, restrict interdependent observability thesis strictly to qualitative case studies.</div></td>
-        <td><em>J. Water Resour. Plann. Manage.</em> / <em>IEEE TII</em> (4&ndash;6 mo)</td>
       </tr>
       <tr>
         <td><strong>C5</strong><br/><span class="status-tag">Rigor Layer</span></td>
@@ -402,13 +397,12 @@ footer{border-top:1px solid var(--border);padding:3rem 2rem;background:#ffffff;f
         <td>Buldyrev et al. (2010, <em>Nature</em>) interdependent networks; Poledna et al. (2015, <em>JFS</em>) multi-layer systemic risk.</td>
         <td>100% test passing rate on analytical benchmarks; Fixed random seeds; Automated CI/CD build pipeline.</td>
         <td><div class="kill-condition" style="margin:0;padding:.4rem .6rem"><strong>Standard:</strong> Non-reproducible or unseeded runs invalidate empirical claims across C1&ndash;C4.</div></td>
-        <td>Zenodo / OSF Archive</td>
       </tr>
     </tbody>
   </table>
 
   <div class="alert-note" style="margin-top:1.5rem">
-    <b>Strategic Resilience of the Research Roadmap:</b> Notice that the four contributions are decoupled across distinct empirical domains. Even if C1 encounters severe topological data friction in proprietary oil/gas networks, C3 (directed spectral theory on e-MID) and C4 (observability layer on the public BATADAL benchmark) possess open, confirmed data and lower execution risk (3&ndash;6 months). This ensures that no single empirical outcome represents a single point of failure for the academic research agenda.
+    <b>Strategic Resilience of the Research Program:</b> Notice that the four contributions are decoupled across distinct empirical domains. Even if C1 encounters topological data friction in proprietary oil/gas networks, C3 (directed spectral theory on e-MID) and C4 (observability layer on the public BATADAL benchmark) possess open, confirmed data and lower execution risk. This ensures that no single empirical outcome represents a single point of failure for the research agenda.
   </div>
 </section>
 
@@ -1075,19 +1069,13 @@ footer{border-top:1px solid var(--border);padding:3rem 2rem;background:#ffffff;f
 
   <!-- C5 REPRODUCIBILITY ARCHITECTURE -->
   <div class="protocol-card core">
-    <h4>C5 &middot; Transversal Rigor Infrastructure &amp; Multi-Paper Publication Roadmap</h4>
-    <p>To ensure that the empirical research program conforms to open-science standards, the computational pipeline is structured around five operational protocols:</p>
+    <h4>C5 &middot; Transversal Rigor Infrastructure &amp; Research Architecture</h4>
+    <p>To ensure that the empirical research program conforms to open-science standards, the computational pipeline is structured around four operational protocols:</p>
     <ol style="margin-left:1.5rem;margin-bottom:1rem;font-size:.92rem">
       <li><strong>OSF Pre-Registration:</strong> Statistical hypotheses, regression specifications, and kill conditions are deposited on the Open Science Framework (OSF) prior to executing tests on C1&ndash;C4 datasets.</li>
       <li><strong>Data Version Control (DVC):</strong> Public datasets (PHMSA files, C-Town EPANET models, BATADAL telemetry, and e-MID aggregate matrices) are version-controlled via DVC with immutable content hashes.</li>
       <li><strong>Containerized Replication:</strong> Deterministic execution is guaranteed via Docker (<code>python:3.11-slim</code>) and Conda (<code>environment.yml</code>) specifying exact package versions (<code>numpy==1.26.4</code>, <code>scipy==1.12.0</code>, <code>cvxpy==1.4.2</code>, <code>networkx==3.2.1</code>).</li>
-      <li><strong>Multi-Track Publication Strategy:</strong>
-        <ul style="margin-top:.4rem;margin-left:1.2rem">
-          <li><strong>Paper 1 (Application / Engineering):</strong> <em>"Benchmarking Interdependent Cyber-Physical Sensor Optimization on Water Infrastructure"</em> (C4 + C1 C-Town benchmark) &rarr; Target: <em>Reliability Engineering &amp; System Safety</em> or <em>JWRPM</em>.</li>
-          <li><strong>Paper 2 (Methods / Financial Stability):</strong> <em>"Directed Spectral Bottlenecks and Dependent Extreme Risk: Backtesting Chung Laplacians and Lov&aacute;sz Local Lemmas on Interbank Digraphs"</em> (C2 + C3) &rarr; Target: <em>Journal of Financial Stability</em> or <em>Quantitative Finance</em>.</li>
-          <li><strong>Paper 3 (Synthesis / Monograph):</strong> <em>"Two Regimes of Network Contagion: Conservative Circulations versus Multiplicative Lattice Clearings"</em> &rarr; Monograph / NetSci.</li>
-        </ul>
-      </li>
+      <li><strong>Decoupled Research Tracks:</strong> The empirical investigation proceeds along decoupled modules: physical infrastructure sensor optimization and damage econometrics (C1, C4), financial network directed spectral bounds and dependent crisis early warning (C2, C3), and the mathematical synthesis demarcating circulations from lattice multipliers.</li>
     </ol>
   </div>
 
